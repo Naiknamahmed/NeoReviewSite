@@ -1,0 +1,16 @@
+.wd-styl {
+  width: 170px;
+}
+
+.imgcard-styl {
+  width: 150px;
+  height: 150px;
+}
+.imgwidth {
+  width: 130px;
+}
+@media screen and (max-width: 767px) {
+  .mtmob {
+    margin-top: 100px;
+  }
+}
