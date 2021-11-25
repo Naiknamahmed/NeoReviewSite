@@ -1,4 +1,4 @@
-import { shopper, smallbusiness } from '../../../config/config';
+import { shopper } from '../../../config/config';
 
 const initialState = {
   currentRole: shopper,

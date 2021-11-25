@@ -1,5 +1,5 @@
 import http from '../http-common';
-import authHeader from '../../auth/authHeader';
+// import authHeader from '../../auth/authHeader';
 class userService {
   //   getAll() {
   //     return http.get("/tutorials");

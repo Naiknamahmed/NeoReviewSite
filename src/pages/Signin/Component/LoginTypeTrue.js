@@ -1,10 +1,7 @@
 import React from 'react';
 import * as Yup from 'yup';
-import {
-  localStorageData,
-  saveLocalData,
-} from 'services/auth/localStorageData';
-import { useMutation, useQuery } from 'react-query';
+import { saveLocalData } from 'services/auth/localStorageData';
+import { useMutation } from 'react-query';
 import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
@@ -41,9 +38,33 @@ function LoginTypeTrue() {
   });
 
   return (
-    <div>
+    <>
       <form onSubmit={formik.handleSubmit}>
         <div className='relative w-full mb-3'>
+          <div class='relative flex w-full flex-wrap items-stretch mb-3'>
+            <span class='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
+              <i class='fas fa-user'></i>
+            </span>
+            <input
+              type='text'
+              placeholder='Nombre de usuario'
+              class='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded  shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
+              name='studentCode'
+              id='studentCode'
+              value={formik.values.studentCode}
+              onChange={(e) =>
+                formik.setFieldValue('studentCode', e.target.value)
+              }
+            />
+            {formik.touched.studentCode && formik.errors.studentCode ? (
+              <div className='text-red-600 text-xs'>
+                {formik.errors.studentCode}
+              </div>
+            ) : null}
+          </div>
+        </div>
+
+        {/* <div className='relative w-full mb-3'>
           <div class='relative flex w-full flex-wrap items-stretch mb-3'>
             <span class='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
               <i class='fas fa-user'></i>
@@ -58,17 +79,12 @@ function LoginTypeTrue() {
               onChange={(e) =>
                 formik.setFieldValue('studentCode', e.target.value)
               }
-              className='input-styl mx-2 h-12 px-2 py-2 w-20'
               placeholder='studentCode'
             />
 
-            {formik.touched.studentCode && formik.errors.studentCode ? (
-              <div className='text-red-600 text-xs'>
-                {formik.errors.studentCode}
-              </div>
-            ) : null}
+          
           </div>
-        </div>
+        </div> */}
 
         <div className='relative w-full mb-3'>
           {/* <label
@@ -79,18 +95,16 @@ function LoginTypeTrue() {
                     </label> */}
           <div class='relative flex w-full flex-wrap items-stretch mb-3'>
             <span class='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <i class='fas fa-phone'></i>
+              <i class='fas fa-unlock'></i>
             </span>
             <input
               type='text'
-              placeholder='Telefono'
+              placeholder='Contrasena'
               className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='password'
               id='password'
               value={formik.values.password}
               onChange={(e) => formik.setFieldValue('password', e.target.value)}
-              className='input-styl mx-2 h-12 px-2 py-2 w-20'
-              placeholder='password'
             />
 
             {formik.touched.password && formik.errors.password ? (
@@ -109,12 +123,12 @@ function LoginTypeTrue() {
             <img
               alt='...'
               className='w-full h-full mr-1'
-              src={require('assets/img/Entrar.png').default}
+              src={require('assets/img/btn2.png').default}
             />
           </button>
         </div>
       </form>
-    </div>
+    </>
   );
 }
 

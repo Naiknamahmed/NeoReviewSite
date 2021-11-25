@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
-import { localStorageData } from 'services/auth/localStorageData';
-import { useMutation, useQuery } from 'react-query';
-import userServices from 'services/httpService/userAuth/userServices';
-import { toast } from 'react-toastify';
-import history from '../.././history';
 
-import ErrorService from 'services/formatError/ErrorService';
 import LoginTypeTrue from './Component/LoginTypeTrue';
 
 import LoginTypeFalse from './Component/LoginTypeFalse';
-
-import { useFormik } from 'formik';
 
 export default function Signin() {
   const [isToogleOn, setisToogleOn] = useState(false);
@@ -20,13 +11,13 @@ export default function Signin() {
   return (
     <>
       <main>
-        <section className='relative w-full h-full py-20 min-h-screen'>
+        <section className='relative w-full h-full py-10 min-h-screen'>
           <div
             className='absolute top-0 w-full h-full bg-white-800 bg-no-repeat bg-full bg-fixed'
-            // style={{
-            //   backgroundImage:
-            //     'url(' + require('assets/img/bottom.png').default + ')',
-            // }}
+            style={{
+              backgroundImage:
+                'url(' + require('assets/img/bottom.png').default + ')',
+            }}
           ></div>
           <div className='container mx-auto px-4 h-full'>
             <div className='flex content-center items-center justify-center h-full'>
@@ -34,11 +25,11 @@ export default function Signin() {
                 <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white border-0'>
                   <div className='rounded-t mb-0 px-2 py-2'>
                     <div className='flex grid content-center items-center justify-center '>
-                      {/* <img
+                      <img
                         alt='...'
                         className='w-full h-full mr-1'
                         src={require('assets/img/bg2.png').default}
-                      /> */}
+                      />
                     </div>
                     <hr className='mt-6 border-b-1 border-blueGray-300' />
                   </div>
@@ -57,7 +48,7 @@ export default function Signin() {
                         </div>
                       </label>
                     </div>
-                    {isToogleOn == true ? (
+                    {isToogleOn === true ? (
                       <LoginTypeTrue />
                     ) : (
                       <LoginTypeFalse />

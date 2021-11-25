@@ -1,5 +1,5 @@
 import axios from 'axios';
-import authHeader from '../auth/authHeader';
+// import authHeader from '../auth/authHeader';
 import { endPoint } from '../../config/config';
 
 let Api;
