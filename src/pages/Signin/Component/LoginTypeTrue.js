@@ -14,8 +14,14 @@ function LoginTypeTrue() {
         toast.error(ErrorService.uniformError(error));
       },
       onSuccess: (data) => {
-        saveLocalData(data.data);
-        toast.success('Login successfully');
+        if (data.data.status == 'Sucessfull') {
+          toast.success('Login successfully');
+          saveLocalData(data.data);
+        } else {
+          toast.error(
+            <div dangerouslySetInnerHTML={{ __html: data.data.message }} />
+          );
+        }
       },
     }
   );
@@ -27,9 +33,9 @@ function LoginTypeTrue() {
       password: '',
     },
     validationSchema: Yup.object().shape({
-      studentCode: Yup.string().required('Required'),
+      studentCode: Yup.string().required('necesario'),
 
-      password: Yup.string().required('Required').min(2, 'atleast 2 digit'),
+      password: Yup.string().required('necesario'),
     }),
     onSubmit: async (values) => {
       console.log(values);
@@ -98,7 +104,7 @@ function LoginTypeTrue() {
               <i class='fas fa-unlock'></i>
             </span>
             <input
-              type='text'
+              type='password'
               placeholder='Contrasena'
               className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='password'

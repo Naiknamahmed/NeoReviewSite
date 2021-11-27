@@ -22,7 +22,7 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <React.StrictMode>
         <Root />
-        <ToastContainer transition='slide' limit={3} />
+        <ToastContainer />
       </React.StrictMode>
     </QueryClientProvider>
   </Provider>,

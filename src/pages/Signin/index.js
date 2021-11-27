@@ -56,21 +56,9 @@ export default function Signin() {
                   </div>
                 </div>
                 <div className='flex flex-wrap mt-6 relative'>
-                  <div className='w-1/2'>
-                    <a
-                      href='#pablo'
-                      onClick={(e) => e.preventDefault()}
-                      className='text-black'
-                    >
-                      <small>Forgot password?</small>
-                    </a>
-                  </div>
+                  <div className='w-1/2'></div>
 
-                  <div className='w-1/2 text-right'>
-                    <Link to='' className='text-black'>
-                      <small>Create new account</small>
-                    </Link>
-                  </div>
+                  <div className='w-1/2 text-right'></div>
                 </div>
               </div>
             </div>

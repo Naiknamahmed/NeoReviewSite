@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { saveLocalData } from 'services/auth/localStorageData';
 import { useMutation, useQuery } from 'react-query';
@@ -8,6 +8,10 @@ import { useFormik } from 'formik';
 import ErrorService from 'services/formatError/ErrorService';
 
 function LoginTypeFalse() {
+  var messagePrint =
+    'Hola, debes introducir tu teléfono y email reales para poder disfrutar de los 7 días de acceso gratuito porque tu IP quedará registrada y solo puedes tener una cuenta. Escríbelo con este formato: 622112233 (9 dígitos) email@email.com';
+
+  const [error, setError] = useState('');
   const LoginApiTrue = useMutation(
     (LoginApi) => userServices.commonPostService('/loginStudent', LoginApi),
     {
@@ -15,8 +19,18 @@ function LoginTypeFalse() {
         toast.error(ErrorService.uniformError(error));
       },
       onSuccess: (data) => {
-        saveLocalData(data.data);
-        toast.success('Login successfully');
+        console.log(data.data);
+
+        if (data.data.status === 'Sucessfull') {
+          toast.success('Login successfully');
+          saveLocalData(data.data);
+        } else {
+          setError(data.data.message);
+
+          toast.error(
+            <div dangerouslySetInnerHTML={{ __html: data.data.message }} />
+          );
+        }
       },
     }
   );
@@ -29,9 +43,9 @@ function LoginTypeFalse() {
       ipAddress: '',
     },
     validationSchema: Yup.object().shape({
-      email: Yup.string().email('Must be a valid email').required('Required'),
+      email: Yup.string().email(messagePrint).required(messagePrint),
 
-      telephone: Yup.string().required('Required').min(2, 'atleast 2 digit'),
+      telephone: Yup.string().required(messagePrint).min(9, messagePrint),
     }),
     onSubmit: async (values) => {
       console.log(values);
@@ -70,9 +84,9 @@ function LoginTypeFalse() {
               onChange={(e) => formik.setFieldValue('email', e.target.value)}
             />
 
-            {formik.touched.email && formik.errors.email ? (
+            {/* {formik.touched.email && formik.errors.email ? (
               <div className='text-red-600 text-xs'>{formik.errors.email}</div>
-            ) : null}
+            ) : null} */}
           </div>
         </div>
 
@@ -103,6 +117,8 @@ function LoginTypeFalse() {
               <div className='text-red-600 text-xs'>
                 {formik.errors.telephone}
               </div>
+            ) : formik.touched.email && formik.errors.email ? (
+              <div className='text-red-600 text-xs'>{formik.errors.email}</div>
             ) : null}
           </div>
         </div>
