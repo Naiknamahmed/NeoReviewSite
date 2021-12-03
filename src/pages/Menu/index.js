@@ -13,13 +13,15 @@ function Menu() {
   return (
     <div className="bg-image12">
       <div className="menuBackColor"></div>
-      <Slider
-        size="small"
-        defaultValue={70}
-        aria-label="Small"
-        onChange={sliderPosition}
-        className={value ? "sliderMargin" : ""}
-      />
+      <div style={{width: '50%'}}>
+        <Slider
+          size="small"
+          defaultValue={70}
+          aria-label="Small"
+          onChange={sliderPosition}
+          className={value ? "sliderMargin" : ""}
+        />
+      </div>
     </div>
   );
 }
