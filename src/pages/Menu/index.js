@@ -12,6 +12,8 @@ function Menu() {
     'Dummy Text 7',
   ])
   const sliderPosition = (e, val) => {
+    var span = document.getElementById("sliderId");
+    span.children[3].textContent = val+'%';
     if (val >= 80) {
       setValue(true);
     } else {
@@ -22,7 +24,7 @@ function Menu() {
     <div className="bg-image12">
       <div className="menuBackColor"></div>
       <div className="overflow-x-auto h-full w-full relative z-10">
-        <div className="text-white ml-28 my-10">
+        <div className="text-white lg:ml-28 ml-4 my-10">
           <p className="font-extrabold text-2xl">000001@alumno.com</p>
           <p><span className="font-black text-xl">Usuario:</span> <span>00001</span></p>
           <p><span className="font-black text-xl">Baremo:</span> <span>3</span></p>
@@ -30,16 +32,17 @@ function Menu() {
         </div>
         {slidersText.map((x) => (
           <div className="flex">
-            <div className="w-5/12 ml-20 relative mt-10">
-              <p className="absolute z-10 top-8 left-10 text-white">{x}</p>
+            <div className="w-3/4 lg:w-5/12 lg:ml-20 ml-2 relative mt-10">
+              <p className="absolute z-10 top-6 lg:top-9 md:top-10 left-10 text-white">{x}</p>
               <Slider
                 defaultValue={50}
                 aria-label="Small"
                 onChange={sliderPosition}
                 className={value ? "sliderMargin" : ""}
+                id="sliderId"
               />
             </div>
-            <div className="w-5/12 flex content-center items-center justify-center mt-10 text-white">{x}</div>
+            <div className="w-3/12 lg:w-5/12 flex content-center items-center justify-center mt-10 text-white">0.44 pts</div>
           </div>
         ))}
       </div>
