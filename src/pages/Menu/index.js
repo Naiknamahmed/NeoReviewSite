@@ -24,14 +24,23 @@ function Menu() {
     <div className="bg-image12">
       <div className="menuBackColor"></div>
       <div className="overflow-x-auto h-full w-full relative z-10">
-        <div className="text-white lg:ml-28 ml-4 my-10">
-          <p className="font-extrabold text-2xl">000001@alumno.com</p>
-          <p><span className="font-black text-xl">Usuario:</span> <span>00001</span></p>
-          <p><span className="font-black text-xl">Baremo:</span> <span>3</span></p>
-          <p><span className="font-black text-xl">N alumnos ranking:</span> <span>315</span></p>
+        <div className="flex">
+          <div className="text-white lg:ml-28 ml-4 my-10">
+            <p className="font-extrabold text-2xl">000001@alumno.com</p>
+            <p><span className="font-black text-xl">Usuario:</span> <span>00001</span></p>
+            <p><span className="font-black text-xl">Baremo:</span> <span>3</span></p>
+            <p><span className="font-black text-xl">N alumnos ranking:</span> <span>315</span></p>
+          </div>
+          <div className="ml-auto lg:mr-20 mr-5 mt-10">
+          <img
+            alt='...'
+            className='w-10 cursor-pointer'
+            src={require('assets/img/images/refresh.png').default}
+          />
+          </div>
         </div>
-        {slidersText.map((x) => (
-          <div className="flex">
+        {slidersText.map((x, i) => (
+          <div key={i} className="flex">
             <div className="w-3/4 lg:w-5/12 lg:ml-20 ml-2 relative mt-10">
               <p className="absolute z-10 top-6 lg:top-9 md:top-10 left-10 text-white">{x}</p>
               <Slider
