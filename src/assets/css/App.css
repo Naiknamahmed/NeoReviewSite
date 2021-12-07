@@ -152,9 +152,9 @@ input:checked + .slider .off {
     background: rgb(2, 0, 36);
     background: linear-gradient(
       90deg,
-      rgba(2, 0, 36, 1) 0%,
-      rgba(15, 145, 177, 1) 61%,
-      rgba(0, 212, 255, 1) 100%
+      #006176,
+      #00a7cb
+     
     );
   }
   .MuiSlider-thumb {
@@ -235,9 +235,8 @@ input:checked + .slider .off {
     background: rgb(2, 0, 36);
     background: linear-gradient(
       90deg,
-      rgba(2, 0, 36, 1) 0%,
-      rgba(15, 145, 177, 1) 61%,
-      rgba(0, 212, 255, 1) 100%
+      #006176,
+      #00a7cb
     );
   }
   .MuiSlider-thumb {

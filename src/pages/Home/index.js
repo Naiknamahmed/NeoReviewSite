@@ -64,13 +64,13 @@ function Home() {
                         <div className="flex">
                           <img
                           alt='...'
-                          className='w-8 h-8 mt-4 ml-2 lg:w-20 lg:h-20 lg:mt-16 lg:ml-5 mr-1 cursor-pointer'
+                          className='w-8 h-8 mt-4 ml-2 lg:w-20 lg:h-20 lg:mt-20 lg:ml-5 mr-1 cursor-pointer'
                           src={require('assets/img/images/menu.svg').default}
                           onClick={() => {history('/menu')}}
                           />
                           <img
                           alt='...'
-                          className='w-full mr-1'
+                          className='w-full mr-1 lg:w-10/12'
                           src={require('assets/img/images/veoestudio.png').default}
                           />
                         </div>
@@ -108,7 +108,7 @@ function Home() {
                           <div className='flex lg:ml-20 items-center mt-10 cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50'>
                             <img
                             alt='...'
-                            className="w-1/6 lg:w-1/12"
+                            className="w-1/6 lg:w-2/12"
                             src={require(`assets/img/images/${fileNames[i]}.png`).default}
                             />
                             <p className="text-2xl lg:text-4xl RoundElegance-Regular">{x}</p>
