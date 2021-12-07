@@ -75,7 +75,7 @@ function Home() {
                           />
                         </div>
                         <div className="flex justify-between">
-                          <div className='mr-1 w-1/4 h-2/5 lg:ml-24'>
+                          <div className='mr-1 w-1/4 lg:w-1/6 h-2/5 lg:ml-24'>
                             <img
                               alt='...'
                               src={require('assets/img/images/Photo_or_avatar.png').default}
@@ -86,7 +86,7 @@ function Home() {
                             alt='...'
                             src={require('assets/img/images/Empleo_cabo.png').default}
                             />
-                            <p className="text-center">Cabo</p>
+                            <p className="text-center mt-5">Cabo</p>
                           </div>
                           <div className='mr-1 w-20-p h-2/5'>
                             <img
@@ -95,12 +95,12 @@ function Home() {
                             />
                             <p className="text-center lg:mt-9">0</p>
                           </div>
-                          <div className='mr-1 w-1/12 h-2/5 mr-10 lg:mr-24'>
+                          <div className='mr-1 w-9-p h-2/5 mr-10 lg:mr-24'>
                             <img
                             alt='...'
                             src={require('assets/img/images/Medallas.png').default}
                             />
-                            <p className="text-center lg:mt-7">0</p>
+                            <p className="text-center lg:mt-9">0</p>
                           </div>
                         </div>
                         <div>

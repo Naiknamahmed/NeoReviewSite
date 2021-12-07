@@ -113,6 +113,14 @@ input:checked + .slider .off {
 }
 
 @media screen and (max-width: 767px) {
+  .w-9-p {
+    width: 10%;
+  }
+
+  .w-20-p {
+    width: 20%;
+  }
+
   .mtmob {
     margin-top: 100px;
   }
@@ -166,14 +174,6 @@ input:checked + .slider .off {
   background-repeat: round;
 }
 
-.w-9-p {
-  width: 9%;
-}
-
-.w-20-p {
-  width: 20%;
-}
-
 .menuBackColor {
   height: calc(100vh - 0.5em);
   background-color: #214151;
@@ -201,6 +201,13 @@ input:checked + .slider .off {
 }
 
 @media screen and (min-width: 767px) {
+  .w-9-p {
+    width: 6%;
+  }
+
+  .w-20-p {
+    width: 15%;
+  }
   .MuiSlider-root {
     background-image: url("../img/images/border1.png");
     background-repeat: round;
