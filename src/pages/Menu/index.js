@@ -54,8 +54,10 @@ function Menu() {
                   span.children[3].textContent = val+'%';
                   if (val >= 80) {
                     setValue(true);
+                    span.classList.add("sliderMargin")
                   } else {
                     setValue(false);
+                    span.classList.remove("sliderMargin")
                   }
                 }}
                 // className={value ? `sliderMargin${i}` : ""}
