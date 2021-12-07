@@ -105,13 +105,13 @@ function Home() {
                         </div>
                         <div>
                         {menu.map((x, i) => (
-                          <div className='flex items-center mt-10 cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50'>
+                          <div className='flex lg:ml-20 items-center mt-10 cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50'>
                             <img
                             alt='...'
-                            className="w-2/6"
+                            className="w-1/6 lg:w-1/12"
                             src={require(`assets/img/images/${fileNames[i]}.png`).default}
                             />
-                            <p className="text-4xl lg:text-8xl RoundElegance-Regular">{x}</p>
+                            <p className="text-2xl lg:text-4xl RoundElegance-Regular">{x}</p>
                           </div>
                         ))}
                         </div>
