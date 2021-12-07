@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Home() {
 
+  const history = useNavigate();
   const [menu, setMenu] = useState([
     'Actividades',
     'Entrenamiento',
@@ -59,11 +61,19 @@ function Home() {
                   <div className='rounded-t mb-0'>
                     <div className='flex grid bg-image12'>
                       <div className="overflow-auto">
-                        <img
-                        alt='...'
-                        className='w-full mr-1'
-                        src={require('assets/img/images/veoestudio.png').default}
-                        />
+                        <div className="flex">
+                          <img
+                          alt='...'
+                          className='w-8 h-8 mt-4 ml-2 lg:w-20 lg:h-20 lg:mt-16 lg:ml-5 mr-1 cursor-pointer'
+                          src={require('assets/img/images/menu.svg').default}
+                          onClick={() => {history('/menu')}}
+                          />
+                          <img
+                          alt='...'
+                          className='w-full mr-1'
+                          src={require('assets/img/images/veoestudio.png').default}
+                          />
+                        </div>
                         <div className="flex justify-between">
                           <div className='mr-1 w-1/4 h-2/5 lg:ml-24'>
                             <img
@@ -101,7 +111,7 @@ function Home() {
                             className="w-2/6"
                             src={require(`assets/img/images/${fileNames[i]}.png`).default}
                             />
-                            <p className="text-4xl lg:text-8xl">{x}</p>
+                            <p className="text-4xl lg:text-8xl RoundElegance-Regular">{x}</p>
                           </div>
                         ))}
                         </div>
