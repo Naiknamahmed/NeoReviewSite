@@ -3,7 +3,6 @@ import Slider from "@material-ui/core/Slider";
 import { useNavigate } from "react-router-dom";
 
 function Menu() {
-  const [value, setValue] = useState(false);
   const history = useNavigate();
 
   const [slidersText, setSlidersText] = useState([
@@ -21,7 +20,7 @@ function Menu() {
       <div className="menuBackColor"></div>
       <div className="overflow-x-auto h-full w-full relative z-10">
         <div className="flex">
-          <div className="text-white lg:ml-28 ml-4 my-10">
+          <div className="text-white lg:ml-10 ml-4 my-10">
             <p className="font-extrabold text-2xl ProximaNovaSoftW03">000001@alumno.com</p>
             <p><span className="font-black text-xl FontFreeNetProximaNovaSoftW03">Usuario:</span> <span className="ProximaNovaSoftW03">00001</span></p>
             <p><span className="font-black text-xl FontFreeNetProximaNovaSoftW03">Baremo:</span> <span className="ProximaNovaSoftW03">3</span></p>
@@ -43,7 +42,7 @@ function Menu() {
         </div>
         {slidersText.map((x, i) => (
           <div key={i} className="flex">
-            <div className="w-3/4 lg:w-1/2 lg:ml-20 ml-2 relative mt-10">
+            <div className="w-3/4 lg:w-1/2 lg:ml-6 ml-2 relative mt-10">
               <p className="absolute z-10 top-6 lg:top-9 md:top-10 left-10 text-white FontFreeNetProximaNovaSoftW03">{x}</p>
               
               <Slider
@@ -53,14 +52,11 @@ function Menu() {
                   var span = document.getElementById("sliderId"+i);
                   span.children[3].textContent = val+'%';
                   if (val >= 80) {
-                    setValue(true);
                     span.classList.add("sliderMargin")
                   } else {
-                    setValue(false);
                     span.classList.remove("sliderMargin")
                   }
                 }}
-                // className={value ? `sliderMargin${i}` : ""}
                 id={'sliderId'+i}
               />
             </div>
