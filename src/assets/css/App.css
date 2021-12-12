@@ -14,13 +14,13 @@
   background-image: linear-gradient(#cacaca, #e9e9e9);
 }
 .font-styl {
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-weight: 700;
 }
 
 ::placeholder {
   /* color: blue; */
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 13px;
 }
@@ -126,7 +126,7 @@ input:checked + .slider .off {
   }
 
   .MuiSlider-root {
-    background-image: url("../img/images/border1.png");
+    background-image: url('../img/images/border1.png');
     background-repeat: round;
     height: 50px !important;
     padding: 10px 0px !important;
@@ -150,15 +150,10 @@ input:checked + .slider .off {
     margin-left: 8px !important;
     opacity: 0.8;
     background: rgb(2, 0, 36);
-    background: linear-gradient(
-      90deg,
-      #006176,
-      #00a7cb
-     
-    );
+    background: linear-gradient(90deg, #006176, #00a7cb);
   }
   .MuiSlider-thumb {
-    background-image: url("../img/images/slider.png") !important;
+    background-image: url('../img/images/slider.png') !important;
     height: 63px !important;
     width: 63px !important;
     background-repeat: round;
@@ -168,7 +163,7 @@ input:checked + .slider .off {
 }
 
 .bg-image12 {
-  background-image: url("../img/images/Fondo_1.png");
+  background-image: url('../img/images/Fondo_1.png');
   width: 100%;
   height: calc(100vh - 0.5em);
   background-repeat: round;
@@ -209,7 +204,7 @@ input:checked + .slider .off {
     width: 15%;
   }
   .MuiSlider-root {
-    background-image: url("../img/images/border1.png");
+    background-image: url('../img/images/border1.png');
     background-repeat: round;
     height: 70px !important;
   }
@@ -233,14 +228,10 @@ input:checked + .slider .off {
     margin-left: 8px !important;
     opacity: 0.8;
     background: rgb(2, 0, 36);
-    background: linear-gradient(
-      90deg,
-      #006176,
-      #00a7cb
-    );
+    background: linear-gradient(90deg, #006176, #00a7cb);
   }
   .MuiSlider-thumb {
-    background-image: url("../img/images/slider.png") !important;
+    background-image: url('../img/images/slider.png') !important;
     height: 80px !important;
     width: 80px !important;
     background-repeat: round;
