@@ -11,7 +11,7 @@ function LoginTypeFalse() {
   var messagePrint =
     'Hola, debes introducir tu teléfono y email reales para poder disfrutar de los 7 días de acceso gratuito porque tu IP quedará registrada y solo puedes tener una cuenta. Escríbelo con este formato: 622112233 (9 dígitos) email@email.com';
 
-  const [error, setError] = useState('');
+  const [setError] = useState('');
   const LoginApiTrue = useMutation(
     (LoginApi) => userServices.commonPostService('/loginStudent', LoginApi),
     {
@@ -23,7 +23,7 @@ function LoginTypeFalse() {
 
         if (data.data.status === 'Sucessfull') {
           toast.success('Login successfully');
-          saveLocalData(data.data);
+          saveLocalData(data.data.data);
         } else {
           setError(data.data.message);
 

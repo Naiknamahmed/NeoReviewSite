@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
 import LoginTypeTrue from './Component/LoginTypeTrue';
 
 import LoginTypeFalse from './Component/LoginTypeFalse';

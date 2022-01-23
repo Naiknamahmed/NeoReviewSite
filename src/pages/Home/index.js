@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
-
   const history = useNavigate();
-  const [menu, setMenu] = useState([
+  const [menu] = useState([
     'Actividades',
     'Entrenamiento',
     'Objetivos',
@@ -24,10 +23,10 @@ function Home() {
     'Descargas',
     'Pruebas físicas',
     'ipídelo ya!',
-    'Salir'
-  ])
+    'Salir',
+  ]);
 
-  const [fileNames, setFileNames] = useState([
+  const [fileNames] = useState([
     'Actividades',
     'Entrenamiento',
     'Objetivos',
@@ -47,8 +46,8 @@ function Home() {
     'descargas',
     'pruebas_físicas',
     'pídelo_ya',
-    'salir'
-  ])
+    'salir',
+  ]);
 
   return (
     <div>
@@ -60,60 +59,81 @@ function Home() {
                 <div className='relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-white border-0'>
                   <div className='rounded-t mb-0'>
                     <div className='flex grid bg-image12'>
-                      <div className="overflow-auto">
-                        <div className="flex">
+                      <div className='overflow-auto'>
+                        <div className='flex'>
                           <img
-                          alt='...'
-                          className='w-8 h-8 mt-4 ml-2 lg:w-20 lg:h-20 lg:mt-20 lg:ml-5 mr-1 cursor-pointer'
-                          src={require('assets/img/images/menu.svg').default}
-                          onClick={() => {history('/menu')}}
+                            alt='...'
+                            className='w-8 h-8 mt-4 ml-2 lg:w-20 lg:h-20 lg:mt-20 lg:ml-5 mr-1 cursor-pointer'
+                            src={require('assets/img/images/menu.svg').default}
+                            onClick={() => {
+                              history('/menu');
+                            }}
                           />
                           <img
-                          alt='...'
-                          className='w-full mr-1 lg:w-10/12'
-                          src={require('assets/img/images/veoestudio.png').default}
+                            alt='...'
+                            className='w-full mr-1 lg:w-10/12'
+                            src={
+                              require('assets/img/images/veoestudio.png')
+                                .default
+                            }
                           />
                         </div>
-                        <div className="flex justify-between">
+                        <div className='flex justify-between'>
                           <div className='mr-1 w-1/4 lg:w-1/6 h-2/5 lg:ml-24'>
                             <img
                               alt='...'
-                              src={require('assets/img/images/Photo_or_avatar.png').default}
-                              />
+                              src={
+                                require('assets/img/images/Photo_or_avatar.png')
+                                  .default
+                              }
+                            />
                           </div>
                           <div className='mr-1 w-9-p h-2/5'>
                             <img
-                            alt='...'
-                            src={require('assets/img/images/Empleo_cabo.png').default}
+                              alt='...'
+                              src={
+                                require('assets/img/images/Empleo_cabo.png')
+                                  .default
+                              }
                             />
-                            <p className="text-center mt-5">Cabo</p>
+                            <p className='text-center mt-5'>Cabo</p>
                           </div>
                           <div className='mr-1 w-20-p h-2/5'>
                             <img
-                            alt='...'
-                            src={require('assets/img/images/Nivel.png').default}
+                              alt='...'
+                              src={
+                                require('assets/img/images/Nivel.png').default
+                              }
                             />
-                            <p className="text-center lg:mt-9">0</p>
+                            <p className='text-center lg:mt-9'>0</p>
                           </div>
                           <div className='mr-1 w-9-p h-2/5 mr-10 lg:mr-24'>
                             <img
-                            alt='...'
-                            src={require('assets/img/images/Medallas.png').default}
+                              alt='...'
+                              src={
+                                require('assets/img/images/Medallas.png')
+                                  .default
+                              }
                             />
-                            <p className="text-center lg:mt-9">0</p>
+                            <p className='text-center lg:mt-9'>0</p>
                           </div>
                         </div>
                         <div>
-                        {menu.map((x, i) => (
-                          <div className='flex lg:ml-20 items-center mt-10 cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50'>
-                            <img
-                            alt='...'
-                            className="w-1/6 lg:w-2/12"
-                            src={require(`assets/img/images/${fileNames[i]}.png`).default}
-                            />
-                            <p className="text-2xl lg:text-4xl RoundElegance-Regular">{x}</p>
-                          </div>
-                        ))}
+                          {menu.map((x, i) => (
+                            <div className='flex lg:ml-20 items-center mt-10 cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50'>
+                              <img
+                                alt='...'
+                                className='w-1/6 lg:w-2/12'
+                                src={
+                                  require(`assets/img/images/${fileNames[i]}.png`)
+                                    .default
+                                }
+                              />
+                              <p className='text-2xl lg:text-4xl RoundElegance-Regular'>
+                                {x}
+                              </p>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>

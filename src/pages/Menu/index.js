@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Menu() {
   const history = useNavigate();
 
-  const [slidersText, setSlidersText] = useState([
+  const [slidersText] = useState([
     'Dummy Text 1',
     'Dummy Text 2',
     'Dummy Text 3',
