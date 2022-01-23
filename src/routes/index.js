@@ -5,6 +5,7 @@ import Signin from 'pages/Signin';
 import Home from 'pages/Home';
 import Menu from 'pages/Menu';
 import history from '../history';
+import Course from 'pages/Course';
 function Root() {
   return (
     <Router history={history}>
@@ -12,6 +13,7 @@ function Root() {
         <Route exact path='/' element={<Signin />} />
         <Route exact path='/home' element={<Home />} />
         <Route exact path='/menu' element={<Menu />} />
+        <Route exact path='/course' element={<Course />} />
       </Routes>
     </Router>
   );

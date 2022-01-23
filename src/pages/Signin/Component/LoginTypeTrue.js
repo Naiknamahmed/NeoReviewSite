@@ -14,9 +14,9 @@ function LoginTypeTrue() {
         toast.error(ErrorService.uniformError(error));
       },
       onSuccess: (data) => {
-        if (data.data.status == 'Sucessfull') {
+        if (data.data.status === 'Sucessfull') {
           toast.success('Login successfully');
-          saveLocalData(data.data);
+          saveLocalData(data.data.data);
         } else {
           toast.error(
             <div dangerouslySetInnerHTML={{ __html: data.data.message }} />
