@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 const SideMenu = (props) => {
+
     const [menu] = useState([
         'Actividades',
         'Entrenamiento',
@@ -35,17 +36,17 @@ const SideMenu = (props) => {
 
     return (
       <>
-        <div>
+        <div style={{float:'left'}}>
         {menu.map((x, i) => (
-            <div style={{ width: props.width, paddingTop: '20px' }} className='sidebaritems flex items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50'>
+            <div style={{ width: props.width, paddingTop: '15px' }} className='sidebaritems flex items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50'>
                 <img
                     alt='...'
                     className='w-1/6 '
                     src={require(`assets/img/images/${fileNames[i]}.png`).default}
                 />
-                <p className='text-2xl lg:text-4xl RoundElegance-Regular'>
+                <div className='RoundElegance-Regular'>
                     {x}
-                </p>
+                </div>
             </div>
         ))}
         </div>

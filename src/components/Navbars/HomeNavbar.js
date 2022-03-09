@@ -1,9 +1,8 @@
 import React from 'react'
-import {AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography} from '@material-ui/core';
+import {AppBar, Toolbar, MenuItem, Menu, Typography} from '@material-ui/core';
 import useStyles from './styles.js'
 import icon from '../../assets/img/images/icons-menu-white.svg'
 import logo from '../../assets/img/images/veoestudio.png'
-import {Link, useLocation} from 'react-router-dom'
 import { withStyles } from "@material-ui/core/styles";
 
 const WhiteTextTypography = withStyles({
@@ -18,7 +17,6 @@ const WhiteTextTypography = withStyles({
 
 const HomeNavbar = (props) => {
     const classes= useStyles();
-
     return (
         <>
         <AppBar position="sticky" className={classes.appBar} color="inherit">

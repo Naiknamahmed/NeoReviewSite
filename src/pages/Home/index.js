@@ -22,8 +22,10 @@ function Home() {
   return (
     <>
       <HomeNavbar toggleSideMenu={toggleSideMenu}/>
-      <SideMenu width={wid}/>
-      <div>djbvdsubduidbduibcduib</div>
+      <div>
+        <SideMenu width={wid}/>
+        <div style={{}}>djbvdsubduidbduibcduib</div>
+      </div>
     </>
   );
 }
