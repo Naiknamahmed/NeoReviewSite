@@ -4,6 +4,7 @@ import 'assets/css/index.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'assets/css/App.css';
+import 'components/SideMenu/styles.css';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
