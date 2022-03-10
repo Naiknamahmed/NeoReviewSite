@@ -1,12 +1,15 @@
 .sidebaritems { 
-    height: 100%;  
-    /*position: fixed; */
+    /*height: 100%;  
+    position: fixed; */
     z-index: 1; 
     left: 0; 
     margin-left:5px;
     background-color:silver; 
-    transition: .5s ease; 
     overflow-x: hidden; 
+}
+
+.sidebaritems :hover {
+    font-family: 'ProximaNovaSoft-bold';
 }
 
 .homeContainer {

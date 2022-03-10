@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import HomeNavbar from 'components/Navbars/HomeNavbar.js';
 import SideMenu from 'components/SideMenu/SideMenu.js';
+import Scroll from 'components/Scroll/Scroll';
+import Homepage from 'components/Homepage/Homepage';
 
 function Home() {
   const history = useNavigate();
@@ -10,11 +12,11 @@ function Home() {
 
   const toggleSideMenu = ( ) => {
     if(toggleMenu===true){
-      setWid('0%')
+      setWid('0%');
       setToggleMenu(false);
     }
     else if(toggleMenu===false){
-      setWid('25%')
+      setWid('20%')
       setToggleMenu(true);
     }
  }
@@ -22,10 +24,9 @@ function Home() {
   return (
     <>
       <HomeNavbar toggleSideMenu={toggleSideMenu}/>
-      <div>
         <SideMenu width={wid}/>
-        <div style={{}}>djbvdsubduidbduibcduib</div>
-      </div>
+        <Homepage/>
+      
     </>
   );
 }
