@@ -20,6 +20,7 @@ export default makeStyles((theme) => ({
   },
   image: {
     marginRight: '10px',
+    height:'25px',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -71,5 +72,6 @@ export default makeStyles((theme) => ({
     textAlign: 'center',
     maxWidth: '50%',
     maxHeight: '70%',
+    height:'100px',
 },
 }));

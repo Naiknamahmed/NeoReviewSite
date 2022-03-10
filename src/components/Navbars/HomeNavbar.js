@@ -1,5 +1,5 @@
 import React from 'react'
-import {AppBar, Toolbar, MenuItem, Menu, Typography} from '@material-ui/core';
+import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import useStyles from './styles.js'
 import icon from '../../assets/img/images/icons-menu-white.svg'
 import logo from '../../assets/img/images/veoestudio.png'
@@ -22,15 +22,14 @@ const HomeNavbar = (props) => {
         <AppBar position="sticky" className={classes.appBar} color="inherit">
         <Toolbar>
             <WhiteTextTypography variant="h6" className={classes.title} onClick={props.toggleSideMenu} style={{cursor:"pointer"}}>
-                <img src={icon} alt="menu" height="25px" className={classes.image}/>
+                <img src={icon} alt="menu" className={classes.image}/>
                 Menu
             </WhiteTextTypography>
-                <img src={logo} className={classes.logo} alt="logo" style={{height:'100px'}}/>
+                <img src={logo} className={classes.logo} alt="logo"/>
             <div className={classes.grow} />
         </Toolbar>
         </AppBar>
         </>
     )
 }
-
 export default HomeNavbar;

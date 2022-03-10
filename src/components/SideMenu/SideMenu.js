@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import useStyles from './styles';
 
 const SideMenu = (props) => {
 
@@ -36,11 +37,13 @@ const SideMenu = (props) => {
         'salir',
       ]);
 
+    const classes= useStyles();
+
     return (
       <>
-        <div style={{transition: '.5s ease',backgroundColor:'silver', float:'left', width: props.width}}>
+        <div style={{width: props.width}} className={classes.container}>
         {menu.map((x, i) => (
-            <div style={{ paddingTop:'15px' }} className='sidebaritems flex items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50'>
+            <div className={`${classes.sidebaritems} flex items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50`}>
                 <img
                     alt='...'
                     className='w-1/6 '
@@ -55,5 +58,4 @@ const SideMenu = (props) => {
       </> 
   )
 }
-
 export default SideMenu;

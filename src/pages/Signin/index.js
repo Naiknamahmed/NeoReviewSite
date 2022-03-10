@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import LoginTypeTrue from './Component/LoginTypeTrue';
-
 import LoginTypeFalse from './Component/LoginTypeFalse';
 
 export default function Signin() {
@@ -27,6 +26,7 @@ export default function Signin() {
                         alt='...'
                         className='w-full h-full mr-1'
                         src={require('assets/img/bg2.png').default}
+                      
                       />
                     </div>
                     <hr className='mt-6 border-b-1 border-blueGray-300' />

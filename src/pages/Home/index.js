@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import HomeNavbar from 'components/Navbars/HomeNavbar.js';
 import SideMenu from 'components/SideMenu/SideMenu.js';
-import Scroll from 'components/Scroll/Scroll';
 import Homepage from 'components/Homepage/Homepage';
 
 function Home() {
@@ -20,15 +19,12 @@ function Home() {
       setToggleMenu(true);
     }
  }
-
   return (
     <>
       <HomeNavbar toggleSideMenu={toggleSideMenu}/>
         <SideMenu width={wid}/>
-        <Homepage/>
-      
+        <Homepage/>   
     </>
   );
 }
-
 export default Home;
