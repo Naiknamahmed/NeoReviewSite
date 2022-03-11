@@ -4,14 +4,16 @@ import useStyles from './styles.js'
 import icon from '../../assets/img/images/icons-menu-white.svg'
 import logo from '../../assets/img/images/veoestudio.png'
 import { withStyles } from "@material-ui/core/styles";
+import './styles.css';
 
 const WhiteTextTypography = withStyles({
     root: {
       color: "#FFFFFF",
+      cursor:"pointer",
       '&:hover': {
         textDecoration: 'none',
         color: 'white',
-    },
+        },
     },
   })(Typography);
 
@@ -21,11 +23,13 @@ const HomeNavbar = (props) => {
         <>
         <AppBar position="sticky" className={classes.appBar} color="inherit">
         <Toolbar>
-            <WhiteTextTypography variant="h6" className={classes.title} onClick={props.toggleSideMenu} style={{cursor:"pointer"}}>
+            <WhiteTextTypography variant="h6" className={classes.title} onClick={props.toggleSideMenu}>
                 <img src={icon} alt="menu" className={classes.image}/>
                 Menu
             </WhiteTextTypography>
-                <img src={logo} className={classes.logo} alt="logo"/>
+            <div className={classes.logoHorizontallyCenter}>
+                <img src={logo} className={`${classes.logo} logo`} alt="logo"/>
+            </div>
             <div className={classes.grow} />
         </Toolbar>
         </AppBar>

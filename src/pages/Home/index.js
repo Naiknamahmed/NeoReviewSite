@@ -15,7 +15,7 @@ function Home() {
       setToggleMenu(false);
     }
     else if(toggleMenu===false){
-      setWid('20%')
+      setWid('26%')
       setToggleMenu(true);
     }
  }

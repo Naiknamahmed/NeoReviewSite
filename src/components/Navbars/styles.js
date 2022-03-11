@@ -3,6 +3,7 @@ import { makeStyles, alpha } from '@material-ui/core/styles';
 const drawerWidth = 0;
 
 export default makeStyles((theme) => ({
+
   appBar: {
     background: 'linear-gradient(to right, #003466 , #3ea9fb)',
     boxShadow: 'none',
@@ -17,6 +18,9 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     textDecoration: 'none',
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "0.75rem"
+    },
   },
   image: {
     marginRight: '10px',
@@ -72,6 +76,11 @@ export default makeStyles((theme) => ({
     textAlign: 'center',
     maxWidth: '50%',
     maxHeight: '70%',
-    height:'100px',
-},
+  },
+  logoHorizontallyCenter: {
+    position: 'absolute', 
+    left: '50%', 
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
 }));

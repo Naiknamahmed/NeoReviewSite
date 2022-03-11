@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import reportWebVitals from './reportWebVitals';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import Root from 'routes';
+import 'tachyons';
 
 import { master } from './store/reducers/combineReducer';
 

@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
         zIndex: '1',
         left: '0',
         marginLeft:'5px',
-        backgroundColor:'silver', 
+        backgroundColor:'#c2c7cd', 
         overflowX: 'hidden',
         paddingTop:'15px',
         '&:hover' : {

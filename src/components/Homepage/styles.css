@@ -1,0 +1,29 @@
+.imgWidth {
+    width:4%;
+}
+
+.imgWidth2 {
+    width:8%;
+}
+
+@media screen and (max-width: 767px) {
+    .imgWidth {
+        width:10%;
+    }
+    .imgWidth2{
+        width:20%;
+    }
+}
+
+@media screen and (max-width: 1530px){
+    .fontSize{
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .fontSize{
+        font-size: 7px;
+    }
+}
+

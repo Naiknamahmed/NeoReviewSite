@@ -11,5 +11,8 @@ export default makeStyles((theme) => ({
     },
     font : {
         fontWeight:"bold",
+    },
+    imgWidth : {
+        width:'4%',
     }
 }));
