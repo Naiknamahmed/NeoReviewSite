@@ -76,6 +76,12 @@ export default makeStyles((theme) => ({
     textAlign: 'center',
     maxWidth: '50%',
     maxHeight: '70%',
+    '@media (max-width: 775px)': {
+      maxWidth: '60%',
+    },
+    '@media (max-width: 550px)': {
+      maxWidth: '75%',
+    }
   },
   logoHorizontallyCenter: {
     position: 'absolute', 

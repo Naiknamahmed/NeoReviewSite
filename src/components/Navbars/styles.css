@@ -1,3 +1,4 @@
+
 @media screen and (max-width: 775px) {
     .logo{
         max-width: 60%;
@@ -6,6 +7,6 @@
 
 @media screen and (max-width: 550px) {
     .logo{
-        max-width: 70%;
+        max-width: 75%;
     }
 }
