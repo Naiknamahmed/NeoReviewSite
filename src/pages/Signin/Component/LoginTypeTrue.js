@@ -47,14 +47,14 @@ function LoginTypeTrue() {
     <>
       <form onSubmit={formik.handleSubmit}>
         <div className='relative w-full mb-3'>
-          <div class='relative flex w-full flex-wrap items-stretch mb-3'>
-            <span class='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <i class='fas fa-user'></i>
+          <div className='relative flex w-full flex-wrap items-stretch mb-3'>
+            <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
+              <i className='fas fa-user'></i>
             </span>
             <input
               type='text'
               placeholder='Nombre de usuario'
-              class='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded  shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
+              className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded  shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='studentCode'
               id='studentCode'
               value={formik.values.studentCode}
@@ -99,9 +99,9 @@ function LoginTypeTrue() {
                     >
                       Password
                     </label> */}
-          <div class='relative flex w-full flex-wrap items-stretch mb-3'>
-            <span class='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <i class='fas fa-unlock'></i>
+          <div className='relative flex w-full flex-wrap items-stretch mb-3'>
+            <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
+              <i className='fas fa-unlock'></i>
             </span>
             <input
               type='password'

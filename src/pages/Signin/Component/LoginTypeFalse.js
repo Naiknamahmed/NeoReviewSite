@@ -5,8 +5,8 @@ import { useMutation, useQuery } from 'react-query';
 import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import {Link} from 'react-router-dom';
 import ErrorService from 'services/formatError/ErrorService';
+import Home from '../../Home/index';
 
 function LoginTypeFalse() {
   var messagePrint =
@@ -25,6 +25,7 @@ function LoginTypeFalse() {
         if (data.data.status === 'Sucessfull') {
           toast.success('Login successfully');
           saveLocalData(data.data.data);
+          <Home/>
         } else {
           setError(data.data.message);
 
@@ -71,14 +72,14 @@ function LoginTypeFalse() {
     <div>
       <form onSubmit={formik.handleSubmit}>
         <div className='relative w-full mb-3'>
-          <div class='relative flex w-full flex-wrap items-stretch mb-3'>
-            <span class='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <i class='fas fa-envelope'></i>
+          <div className='relative flex w-full flex-wrap items-stretch mb-3'>
+            <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
+              <i className='fas fa-envelope'></i>
             </span>
             <input
               type='text'
               placeholder='email'
-              class='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
+              className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='email'
               id='email'
               value={formik.values.studentCode}
@@ -98,9 +99,9 @@ function LoginTypeFalse() {
                     >
                       Password
                     </label> */}
-          <div class='relative flex w-full flex-wrap items-stretch mb-3'>
-            <span class='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <i class='fas fa-phone'></i>
+          <div className='relative flex w-full flex-wrap items-stretch mb-3'>
+            <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
+              <i className='fas fa-phone'></i>
             </span>
             <input
               type='text'
@@ -125,7 +126,6 @@ function LoginTypeFalse() {
         </div>
 
         <div className='text-center'>
-          <Link to={'home'}>
           <button
             className='text-white  text-sm font-bold uppercase px-6 py-3  outline-none focus:outline-none  '
             type='submit'
@@ -136,7 +136,6 @@ function LoginTypeFalse() {
               src={require('assets/img/Entrar.png').default}
             />
           </button>
-          </Link>
         </div>
       </form>
     </div>

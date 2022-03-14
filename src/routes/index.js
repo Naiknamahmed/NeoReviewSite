@@ -5,7 +5,10 @@ import Signin from 'pages/Signin';
 import Home from 'pages/Home';
 import Menu from 'pages/Menu';
 import history from '../history';
+import IndexDropdown from 'components/Dropdowns/IndexDropdown';
+import CardSettings from 'components/Cards/CardSettings';
 import Course from 'pages/Course';
+
 function Root() {
   return (
     <Router history={history}>

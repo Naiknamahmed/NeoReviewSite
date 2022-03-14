@@ -34,15 +34,15 @@ export default function Signin() {
                   <div className='flex-auto px-4 lg:px-10 py-10 pt-0'>
                     <div className='flex text-black mb-3 font-bold'>
                       <div className='font-styl'>Version: &nbsp;</div>
-                      <label class='switch'>
+                      <label className='switch'>
                         <input
                           type='checkbox'
                           id='togBtn'
                           onChange={(e) => setisToogleOn(e.target.checked)}
                         />
-                        <div class='slider round'>
-                          <span class='on'>Alumons</span>
-                          <span class='off'>Prueba</span>
+                        <div className='slider round'>
+                          <span className='on'>Alumons</span>
+                          <span className='off'>Prueba</span>
                         </div>
                       </label>
                     </div>
