@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import ErrorService from 'services/formatError/ErrorService';
 import Home from '../../Home/index';
+import {Link} from 'react-router-dom';
+
 
 function LoginTypeFalse() {
   var messagePrint =
@@ -25,7 +27,6 @@ function LoginTypeFalse() {
         if (data.data.status === 'Sucessfull') {
           toast.success('Login successfully');
           saveLocalData(data.data.data);
-          <Home/>
         } else {
           setError(data.data.message);
 
@@ -126,6 +127,7 @@ function LoginTypeFalse() {
         </div>
 
         <div className='text-center'>
+          <Link to='/home'>
           <button
             className='text-white  text-sm font-bold uppercase px-6 py-3  outline-none focus:outline-none  '
             type='submit'
@@ -136,6 +138,7 @@ function LoginTypeFalse() {
               src={require('assets/img/Entrar.png').default}
             />
           </button>
+          </Link>
         </div>
       </form>
     </div>
