@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import * as Yup from 'yup';
 import { saveLocalData } from 'services/auth/localStorageData';
 import { useMutation } from 'react-query';
@@ -6,7 +6,13 @@ import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import ErrorService from 'services/formatError/ErrorService';
+import { Navigate } from 'react-router';
+
+
 function LoginTypeTrue() {
+
+  const [toNext, setToNext] = useState(false)
+
   const LoginApiTrue = useMutation(
     (LoginApi) => userServices.commonPostService('/loginStudent', LoginApi),
     {
@@ -17,6 +23,7 @@ function LoginTypeTrue() {
         if (data.data.status === 'Sucessfull') {
           toast.success('Login successfully');
           saveLocalData(data.data.data);
+          setToNext(true);
         } else {
           toast.error(
             <div dangerouslySetInnerHTML={{ __html: data.data.message }} />
@@ -34,11 +41,9 @@ function LoginTypeTrue() {
     },
     validationSchema: Yup.object().shape({
       studentCode: Yup.string().required('necesario'),
-
       password: Yup.string().required('necesario'),
     }),
     onSubmit: async (values) => {
-      console.log(values);
       LoginApiTrue.mutate(values);
     },
   });
@@ -131,6 +136,7 @@ function LoginTypeTrue() {
               className='w-full h-full mr-1'
               src={require('assets/img/btn2.png').default}
             />
+            {toNext ? <Navigate to="/home" /> : null}
           </button>
         </div>
       </form>

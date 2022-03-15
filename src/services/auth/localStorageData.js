@@ -83,8 +83,6 @@ export function updateLocalstorageToken(value) {
 
 export function Logout(value) {
   localStorage.removeItem(token);
-
   // history.push(value);
-
   return true;
 }

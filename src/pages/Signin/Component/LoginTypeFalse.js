@@ -127,7 +127,7 @@ function LoginTypeFalse() {
         </div>
 
         <div className='text-center'>
-          <Link to='/home'>
+          
           <button
             className='text-white  text-sm font-bold uppercase px-6 py-3  outline-none focus:outline-none  '
             type='submit'
@@ -138,7 +138,6 @@ function LoginTypeFalse() {
               src={require('assets/img/Entrar.png').default}
             />
           </button>
-          </Link>
         </div>
       </form>
     </div>
