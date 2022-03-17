@@ -6,9 +6,6 @@ import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import ErrorService from 'services/formatError/ErrorService';
-import Home from '../../Home/index';
-import {Link} from 'react-router-dom';
-
 
 function LoginTypeFalse() {
   var messagePrint =

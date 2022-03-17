@@ -1,9 +1,9 @@
 import { token } from 'config/config';
+
 export function localStorageData(value) {
   let fialValue = null;
-
   let localData = JSON.parse(localStorage.getItem(token));
-  // console.log(localData);
+
   if (localData && localData.hasOwnProperty('id')) {
     Object.keys(localData).forEach(function (key) {
       if (key === value) {
@@ -17,7 +17,6 @@ export function localStorageData(value) {
 
 export function getLocalUserdata(value) {
   // let fialValue = null;
-
   let localData = JSON.parse(localStorage.getItem(token));
 
   // if (localData && localData.hasOwnProperty('token')) {
@@ -27,7 +26,6 @@ export function getLocalUserdata(value) {
   //     }
   //   });
   // }
-
   return localData;
 }
 
@@ -66,7 +64,6 @@ export function updateLocalstoragepic(value) {
 
   localData.pic = value;
 
-  console.log(localData);
 
   localStorage.setItem(token, JSON.stringify(localData));
 }

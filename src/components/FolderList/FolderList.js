@@ -16,7 +16,7 @@ const FolderList = () => {
         },
     ]                                                 //dummy directory structure
     return (
-        <div>
+        <div style={{marginLeft:'2%'}}>
             <List 
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
             component="nav"

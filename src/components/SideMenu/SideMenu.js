@@ -8,8 +8,8 @@ const SideMenu = (props) => {
         'Mi escritorio',
         'Actividades',
         'Entrenamiento',
-        'clases',
-        'Examenes',
+        'Classes',
+        'Exámenes',
         'Temario',
         'Video',
         'Batalla',
@@ -44,7 +44,7 @@ const SideMenu = (props) => {
 
     return (
       <>
-        <div style={{width: props.width}} className={classes.container}>
+        <div style={{width: props.width}} className={`shadow-5 ${classes.container}`}>
         {menu.map((x, i) => (
             <div onClick={() => {props.updatePage(x)}} className={`${classes.sidebaritems} sidebaritems items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50`}>
                 <img

@@ -3,6 +3,7 @@ import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import useStyles from './styles.js'
 import icon from '../../assets/img/images/icons-menu-white.svg'
 import logo from '../../assets/img/images/veoestudio.png'
+import { shadows } from '@mui/system';
 import { withStyles } from "@material-ui/core/styles";
 import './styles.css';
 

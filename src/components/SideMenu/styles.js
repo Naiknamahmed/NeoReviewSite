@@ -7,9 +7,10 @@ export default makeStyles((theme) => ({
         marginLeft:'5px',
         backgroundColor:'#c2c7cd', 
         overflowX: 'hidden',
-        paddingTop:'15px',
+        paddingTop:'5px',
+        fontFamily:'Montserrat-regular',
         '&:hover' : {
-            fontFamily: 'ProximaNovaSoft-bold',
+            fontFamily: 'Montserrat-bold',
         } 
     },
     container : {

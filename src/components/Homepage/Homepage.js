@@ -4,13 +4,12 @@ import './styles.css';
 import { getLocalUserdata } from '../../services/auth/localStorageData';
 import profilepic from '../../assets/img/images/layer_25.png';
 
-
 const Homepage = () => {
     const classes= useStyles();
     const data= getLocalUserdata();
-
+    
     if(data.photo!=null) {
-        profilepic=data.photo
+        profilepic="data:image/png;base64," + data.photo;
     }
     
     return (
