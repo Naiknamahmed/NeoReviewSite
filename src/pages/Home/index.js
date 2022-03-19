@@ -11,7 +11,7 @@ function Home() {
   const history = useNavigate();
   const [wid, setWid] = useState('0%');
   const [toggleMenu, setToggleMenu] = useState(false);
-  const [currentPage, setCurrentPage] = useState('default');
+  const [currentPage, setCurrentPage] = useState('Mi escritorio');
   const [folderToggle, setFolderToggle]=useState('0%');
 
   const toggleSideMenu = () => {
@@ -32,7 +32,7 @@ function Home() {
   }
 
   const renderOption = () => {
-    if(currentPage==='default')
+    if(currentPage==='Mi escritorio')
       return <Homepage/> 
     else if(currentPage === 'Temario')
       return <Temario folderToggle={folderToggle}/> 
