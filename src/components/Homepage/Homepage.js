@@ -19,7 +19,7 @@ const Homepage = () => {
                     <img alt='Profile_picture' src={data.photo!=null ? data.photo : profilepic}/>
                 </div>
                 <div className='imgWidth mr-1'>
-                    <img alt='Rank_image' src={data.rank_image!=null ? data.rank_image : defaultrank}/>
+                    <img alt='Rank_image' src={data.rank_image!=null ? `https://neoestudio.net/${data.rank_image}` : defaultrank}/>
                     <h2 className={`${classes.font} text-center fontSize`}>{data.rank_name!=null ? data.rank_name : '-'}</h2>
                     <p className='text-center fontSize'>{data.userName!=null ? data.userName : '-'}</p>
                 </div>
