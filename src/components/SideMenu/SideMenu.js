@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import useStyles from './styles';
 import './styles.css';
+import { useNavigate } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 const SideMenu = (props) => {
-
+  const history=useNavigate();
     const [menu] = useState([
         'Mi escritorio',
         'Actividades',
@@ -46,7 +48,7 @@ const SideMenu = (props) => {
       <>
         <div style={{width: props.width}} className={`shadow-5 ${classes.container}`}>
         {menu.map((x, i) => (
-            <div onClick={() => {props.updatePage(x)}} className={`${classes.sidebaritems} sidebaritems items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50`}>
+            <div onClick={() => {props.updatePage(x)}} component={Link} to={`/${x}`} className={`${classes.sidebaritems} sidebaritems items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50`}>
                 <img
                     alt='...'
                     className='w-1/5 menuItem'

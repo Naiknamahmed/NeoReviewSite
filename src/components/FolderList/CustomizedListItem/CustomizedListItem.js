@@ -15,6 +15,21 @@ const CustomizedListItem = (props) => {
       setOpen(!open);
     };
 
+    const openPdf = (fileName) => {
+        let id=0;
+        props.parentFolder.files.forEach((file)=>{
+            if(file.name===fileName){
+                id=file.id;
+            }
+        })
+
+        const info={
+            folderId:props.parentFolder.id,
+            fileId:id
+            }
+        
+        props.setPdf(info);
+    };
   return (
     <div>
        <ListItemButton onClick={handleClick}>
@@ -29,7 +44,7 @@ const CustomizedListItem = (props) => {
             {
                 props.files.map((file)=>{
                 return (
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton onClick={()=>openPdf(file)} sx={{ pl: 4, pt: 0, pb:0 }}>
                         <ListItemText primary={file} />
                     </ListItemButton>
                 )

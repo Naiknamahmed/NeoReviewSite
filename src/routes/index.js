@@ -9,15 +9,8 @@ import history from '../history';
 import IndexDropdown from 'components/Dropdowns/IndexDropdown';
 import CardSettings from 'components/Cards/CardSettings';
 import Course from 'pages/Course';
-import { Navigate } from 'react-router';
-import PrivateRoute from './PrivateRoute';
-import { getLocalUserdata } from '../services/auth/localStorageData';
-
-
 
 function Root() {
-  const [isSignedIn,setIsSignedIn] = useState(false);
-  const data= getLocalUserdata();
 
   return (
     <Router history={history}>
