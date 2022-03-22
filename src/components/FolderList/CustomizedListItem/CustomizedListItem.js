@@ -7,6 +7,8 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import folder from '../../../assets/img/images/directory.png';
+import video from '../../../assets/img/images/video_icon.png';
+
 import List from '@mui/material/List';
 
 const CustomizedListItem = (props) => {
@@ -14,6 +16,7 @@ const CustomizedListItem = (props) => {
     const handleClick = () => {
       setOpen(!open);
     };
+    const showIcon = props.isVideo ? <ListItemAvatar><Avatar alt="folder" src={video} /></ListItemAvatar> : null;
 
     const openPdf = (fileName) => {
         let id=0;
@@ -22,11 +25,10 @@ const CustomizedListItem = (props) => {
                 id=file.id;
             }
         })
-
         const info={
             folderId:props.parentFolder.id,
             fileId:id
-            }
+        }
         
         props.setPdf(info);
     };
@@ -44,7 +46,8 @@ const CustomizedListItem = (props) => {
             {
                 props.files.map((file)=>{
                 return (
-                    <ListItemButton onClick={()=>openPdf(file)} sx={{ pl: 4, pt: 0, pb:0 }}>
+                    <ListItemButton onClick={()=>{if(!props.isVideo){openPdf(file)}}} sx={{ pl: 4, pt: 0, pb:0 }}>
+                        {showIcon}
                         <ListItemText primary={file} />
                     </ListItemButton>
                 )

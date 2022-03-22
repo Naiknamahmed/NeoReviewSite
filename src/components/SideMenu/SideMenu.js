@@ -42,8 +42,6 @@ const SideMenu = (props) => {
 
     const classes= useStyles();
 
-    
-
     return (
       <>
         <div style={{width: props.width}} className={`shadow-5 ${classes.container}`}>

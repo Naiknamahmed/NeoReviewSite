@@ -2,12 +2,19 @@
     width:4%;
 }
 
+.imgWidth3 {
+    width:3%
+}
+
 .imgWidth2 {
     width:8%;
 }
 
 @media screen and (max-width: 767px) {
     .imgWidth {
+        width:10%;
+    }
+    .imgWidth3 {
         width:10%;
     }
     .imgWidth2{

@@ -8,17 +8,17 @@ import defaultrank from '../../assets/img/images/Empleo_cabo.png';
 const Homepage = () => {
     const classes= useStyles();
     const data= getLocalUserdata();
-    console.log(data);
-    console.log(data.rank_image);
-
+    
     //default profile pic remaining only
     return (
         <div className={classes.container}>
             <div className={`${classes.wrapper} flex justify-between`}>
                 <div style={{marginLeft:'0'}} className='mr-1 w-1/4 lg:w-1/12 h-2/5 lg:ml-24'>
-                    <img alt='Profile_picture' src={data.photo!=null ? data.photo : profilepic}/>
+                    {console.log(data.photo)}
+                    {console.log(data)}
+                    <img alt='Profile_picture' src={data.photo!=null ? `https://neoestudio.net/userImage/${data.photo}` : profilepic}/>
                 </div>
-                <div className='imgWidth mr-1'>
+                <div className='imgWidth3 mr-1'>
                     <img alt='Rank_image' src={data.rank_image!=null ? `https://neoestudio.net/${data.rank_image}` : defaultrank}/>
                     <h2 className={`${classes.font} text-center fontSize`}>{data.rank_name!=null ? data.rank_name : '-'}</h2>
                     <p className='text-center fontSize'>{data.userName!=null ? data.userName : '-'}</p>

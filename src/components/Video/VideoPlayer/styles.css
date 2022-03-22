@@ -1,0 +1,28 @@
+.div1 {
+    width: 100%;
+    height: 100%;
+    max-width: 1034px;
+    max-height: 543px;
+    margin: 0 auto;
+}
+.div1 .div2 {
+    position: relative;
+    padding-top: 2px;
+    padding-bottom: 67.5%;
+    height: 0;
+}
+.div2 video {
+    box-sizing: border-box;
+    background: url('../../../../src/assets/img/images/mobileframe.png') center center no-repeat;
+    background-size: contain;
+    padding-top:6.7%;
+    padding-bottom: 8.75%;
+    padding-left: 13%;
+    padding-right: 12.9%;
+    position: absolute;
+    border-radius: 10%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 85%;
+}

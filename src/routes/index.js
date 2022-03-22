@@ -19,6 +19,7 @@ function Root() {
         <Route exact path="/home" element={<Home/>} />
         <Route exact path='/menu' element={<Menu />} />
         <Route exact path='/course' element={<Course />} />
+
       </Routes>
     </Router>
   );
