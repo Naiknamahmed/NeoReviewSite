@@ -5,6 +5,7 @@ import SideMenu from 'components/SideMenu/SideMenu.js';
 import Homepage from 'components/Homepage/Homepage';
 import Temario from 'components/Temario/Temario';
 import Video from 'components/Video/Video'
+import Classes from 'components/Classes/Classes'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 
@@ -39,12 +40,14 @@ function Home() {
       return <Temario folderToggle={folderToggle}/> 
     else if(currentPage === 'Video') 
       return <Video folderToggle={folderToggle}/>  
+    else if(currentPage === 'Classes') 
+      return <Classes folderToggle={folderToggle}/>
   }
 
   return (
     <>
       <HomeNavbar toggleSideMenu={toggleSideMenu}/>
-      <div style={{}}>
+      <div>
         <SideMenu width={wid} updatePage={updatePage}/>
         {renderOption()}
       </div>
