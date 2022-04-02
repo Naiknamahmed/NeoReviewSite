@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import HomeNavbar from 'components/Navbars/HomeNavbar.js';
 import SideMenu from 'components/SideMenu/SideMenu.js';
-import Homepage from 'components/Homepage/Homepage';
-import Temario from 'components/Temario/Temario';
-import Video from 'components/Video/Video'
-import Classes from 'components/Classes/Classes'
+import Homepage from 'components/Homepage/Homepage.js';
+import Temario from 'components/Temario/Temario.js';
+import Video from 'components/Video/Video.js'
+import Classes from 'components/Classes/Classes.js'
+import RankingGlobal from 'components/RankingGlobal/RankingGlobal.js';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 
@@ -39,9 +40,11 @@ function Home() {
     else if(currentPage === 'Temario')
       return <Temario folderToggle={folderToggle}/> 
     else if(currentPage === 'Video') 
-      return <Video folderToggle={folderToggle}/>  
+      return <Video />  
     else if(currentPage === 'Classes') 
-      return <Classes folderToggle={folderToggle}/>
+      return <Classes />
+    else if(currentPage === 'Ranking global')
+      return <RankingGlobal />
   }
 
   return (
