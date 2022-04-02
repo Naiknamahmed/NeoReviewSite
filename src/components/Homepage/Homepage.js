@@ -17,8 +17,6 @@ const Homepage = () => {
           style={{ marginLeft: "0" }}
           className="mr-1 w-1/4 lg:w-1/12 h-2/5 lg:ml-24"
         >
-          {console.log(data.photo)}
-          {console.log(data)}
           <img
             alt="Profile_picture"
             src={
