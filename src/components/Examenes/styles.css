@@ -1,0 +1,24 @@
+.btnClass {
+  background-color: #ccd5fc;
+  color: white;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 50%;
+  height: 33px;
+  width: 35px;
+  text-align: center;
+}
+
+.btnClass.clicked {
+  background-color: #0544ae;
+  color: white;
+}
+
+@media screen and (max-width: 720px) {
+  .btnClass {
+    font-size: 13px;
+    height: 32px;
+    width: 33px;
+    padding: 0px;
+  }
+}

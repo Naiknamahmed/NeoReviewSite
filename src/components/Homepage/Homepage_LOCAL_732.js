@@ -1,9 +1,9 @@
-import React from "react";
-import useStyles from "./styles";
-import "./styles.css";
-import { getLocalUserdata } from "../../services/auth/localStorageData";
-import profilepic from "../../assets/img/images/layer_25.png";
-import defaultrank from "../../assets/img/images/Empleo_cabo.png";
+import React from 'react'
+import useStyles from './styles';
+import './styles.css';
+import { getLocalUserdata } from '../../services/auth/localStorageData';
+import profilepic from '../../assets/img/images/layer_25.png';
+import defaultrank from '../../assets/img/images/Empleo_cabo.png';
 
 const Homepage = () => {
     const classes= useStyles();
@@ -43,6 +43,6 @@ const Homepage = () => {
                 </div>
             </div>
         </div>
-  );
-};
-export default Homepage;
+  )
+}
+export default Homepage
