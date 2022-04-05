@@ -10,9 +10,9 @@ const Video = (props) => {
   }
 
   return (
-    <div className='flex flex-col justify-center items-center'>
+    <div className='flex justify-center items-center'>
+        <VideoFolders folderToggle={props.folderToggle} updateUrl={updateUrl}/>
         <VideoPlayer url={url}/>
-        <VideoFolders updateUrl={updateUrl}/>
     </div>
   )
 }

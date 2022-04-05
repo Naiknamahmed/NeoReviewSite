@@ -110,7 +110,7 @@ function LoginTypeTrue() {
             </span>
             <input
               type='password'
-              placeholder='Contrasena'
+              placeholder='Contraseña'
               className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='password'
               id='password'

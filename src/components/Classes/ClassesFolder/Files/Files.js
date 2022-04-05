@@ -60,11 +60,11 @@ const Files = (props) => {
 
   return (
     <>
-      <IconButton style={{justifyContent:'start'}} onClick={()=>{props.updateView('folders')}}>
+      <IconButton style={{justifyContent:'start', display: props.folderToggle==='0%'?'none':'flex'}} onClick={()=>{props.updateView('folders')}}>
         <ArrowBackIcon/>
         <Typography variant="subtitle2">Volver a las carpetas</Typography>
       </IconButton>
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'40vh' }}
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'60vh' }}
       className={classes.root}>
       {
         files.length>0 ? 

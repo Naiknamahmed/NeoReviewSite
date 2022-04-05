@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import './styles.css';
 import { getLocalUserdata } from '../../services/auth/localStorageData';
@@ -10,6 +10,7 @@ const PdfCard = (props) => {
     const [pageNumber, setPageNumber] = useState(1);
     const [numPages, setNumPages] = useState(null);
     const [fileName, setFileName] = useState('');
+    const inputval=useRef();
 
 
     function onDocumentLoadSuccess({ numPages }) {
@@ -23,10 +24,19 @@ const PdfCard = (props) => {
 
     function previousPage() {
         changePage(-1);
+        inputval.current.value='';
     }
 
     function nextPage() {
         changePage(1);
+        inputval.current.value='';
+    }
+
+    function userChange(e) {
+        let temp=parseInt(e.target.value);
+        if(temp>0 && temp<=numPages){
+            setPageNumber(temp)
+        }
     }
 
     useEffect (() => {
@@ -37,6 +47,7 @@ const PdfCard = (props) => {
                 resp.data.files.forEach((file)=> {
                     if(file.id===props.pdf.fileId){
                         setFileName(file.file);
+                        inputval.current.value='';
                     }
                 })
             }
@@ -62,8 +73,17 @@ const PdfCard = (props) => {
                     </div>
                 </div>
                 <div style={{display:'flex',alignItems:'center', flexDirection:'column'}}>
-                    <p>
-                        Page {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}
+                    <p style={{display:'flex', justifyContent:'center'}}>
+                        Page <input type='text' placeholder={pageNumber || (numPages ? 1 : '--')} 
+                        style={{width:'12%',
+                        border: '1px solid #111827',
+                        paddingLeft: '2%',
+                        paddingRight: '1%',
+                        marginBottom: '1%',
+                        marginLeft: '2%',
+                        marginRight: '2%'}}
+                        onChange={userChange}
+                        ref={inputval}/> of {numPages || '--'}
                     </p>
                     <div>
                         <button
@@ -71,14 +91,14 @@ const PdfCard = (props) => {
                         type="button"
                         disabled={pageNumber <= 1}
                         onClick={previousPage}>
-                            Previous
+                            <img src={require(`assets/img/images/atras.png`).default} alt="atras"/>
                         </button>
                         <button
                         className="temarioButton"
                         type="button"
                         disabled={pageNumber >= numPages}
                         onClick={nextPage}>
-                            Next
+                            <img src={require(`assets/img/images/siguiente.png`).default} alt="atras"/>
                         </button>
                     </div>
                 </div> 

@@ -41,7 +41,7 @@ export default function Signin() {
                           onChange={(e) => setisToogleOn(e.target.checked)}
                         />
                         <div className='slider round'>
-                          <span className='on'>Alumons</span>
+                          <span className='on'>Alumnos</span>
                           <span className='off'>Prueba</span>
                         </div>
                       </label>

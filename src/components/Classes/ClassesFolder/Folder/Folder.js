@@ -67,7 +67,7 @@ const Folder = (props) => {
 
   return ( 
     folders.length>0 ? 
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '40vh' }}
+    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '60vh' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       className={classes.root}>
@@ -83,7 +83,7 @@ const Folder = (props) => {
           );
         }) }
     </List>
-    : loading ? <div><CircularProgress disableShrink /></div> : <Typography variant="subtitle2">¡No se encontraron archivos!</Typography>
+    : loading ? <div style={{ display:'flex', justifyContent:'center'}}><CircularProgress disableShrink /></div> : <Typography variant="subtitle2">¡No se encontraron archivos!</Typography>
   
   )
 }
