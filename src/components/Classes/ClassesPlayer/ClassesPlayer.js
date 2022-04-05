@@ -7,7 +7,7 @@ const ClassesPlayer = (props) => {
   return (
     <div className='container' >
         <div className='player-wrapper'> 
-        { props.url==='' ? <div style={{display:'flex', justifyContent:'center', paddingTop:'20%'}}>Seleccione para jugar!</div>
+        { props.url==='' ? <div style={{display:'flex', justifyContent:'center', paddingTop:'20%'}}>Selecciona un archivo para empezar.</div>
             : <ReactPlayer
             className='react-player'
             url={props.url}
