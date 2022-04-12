@@ -36,7 +36,6 @@ export default makeStyles(() => ({
   },
   progressContent: {
     width: "80px",
-    padding: "10px 0px",
     "@media (max-width: 720px)": {
       width: "60px",
     },
