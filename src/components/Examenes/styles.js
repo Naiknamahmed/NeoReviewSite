@@ -98,7 +98,7 @@ export default makeStyles(() => ({
   answerLinksInnerImg: {
     height: "2em",
     width: "2em",
-    "@media (max-width: 720px)": {
+    "@media (min-width: 720px)": {
       height: "1em",
       width: "1em",
     },
@@ -107,13 +107,13 @@ export default makeStyles(() => ({
     width: "5%",
     margin: "0 auto",
     color: "royalblue",
-    "@media (max-width: 720px)": {
+    "@media (min-width: 720px)": {
       width: "10%",
     },
   },
   answerLinksInner2: {
     width: "95%",
-    "@media (max-width: 720px)": {
+    "@media (min-width: 720px)": {
       width: "90%",
     },
   },
@@ -230,7 +230,7 @@ export default makeStyles(() => ({
     flexWrap: "wrap",
     justifyContent: "start",
     alignItems: "center",
-    "@media (max-width: 720px)": {
+    "@media (min-width: 720px)": {
       justifyContent: "space-evenly",
     },
   },
