@@ -1,6 +1,5 @@
 import React, {useEffect, useRef} from 'react';
 import './styles.css';
-import ReactPlayer from 'react-player/lazy';
 
 const VideoPlayer = (props) => {
   const videoRef = useRef();
@@ -12,7 +11,7 @@ const VideoPlayer = (props) => {
   return (
     <div className='div1'>
             <div className='div2'>
-                <video width="750" height="500" controls autoPlay muted ref={videoRef}>
+                <video width="750" height="500" controls autoPlay muted ref={videoRef} controlsList="nodownload" onContextMenu={e => e.preventDefault()}>
                     <source src={props.url} type="video/mp4"/>
                     Your browser doesn't support video!
                 </video>

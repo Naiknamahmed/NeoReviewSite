@@ -67,7 +67,9 @@ const PdfCard = (props) => {
                 <div style={{display:'flex', justifyContent:'center', overflow:'auto'}}>
                     <div className="tc dib br3 pa3 ma2 bw2 shadow-5" style={{pointerEvents:'none'}}>
                         <Document file={" https://whispering-chamber-21481.herokuapp.com/" + fileName}
-                        onLoadSuccess={onDocumentLoadSuccess}>
+                        onLoadSuccess={onDocumentLoadSuccess}
+                        onContextMenu={e => e.preventDefault()}
+                        >
                             <Page pageNumber={pageNumber} />
                         </Document>
                     </div>

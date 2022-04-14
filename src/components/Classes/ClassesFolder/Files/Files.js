@@ -37,13 +37,14 @@ const Files = (props) => {
 
   useEffect (() => {
     const data=getLocalUserdata();
-    userServices.commonPostService('/getClassTopicsMaterial',JSON.stringify({"type":data.type,"topicId":props.folderId}))
+    userServices.commonPostService('/getClassTopicsMaterial',JSON.stringify({"type":"video","topicId":props.folderId}))
     .then(response=>{
+      console.log(response);
       if(response.status===200) {
         response.data.forEach((item)=>{
           setFiles(oldArray => [...oldArray, {
-            title:item.title,
-            url:item.url,
+            title:item.name,
+            url:item.material,
           }]);
         })
         setLoading(false);
