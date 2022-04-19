@@ -63,7 +63,7 @@ const PdfCard = (props) => {
 
     if(fileName!=='') {
         return (
-            <div style={{paddingLeft:'3%'}} className='flex flex-col justify-center'>
+            <div className='flex flex-col justify-center'>
                 <div style={{display:'flex', justifyContent:'center', overflow:'auto'}}>
                     <div className="tc dib br3 pa3 ma2 bw2 shadow-5" style={{pointerEvents:'none'}}>
                         <Document file={" https://whispering-chamber-21481.herokuapp.com/" + fileName}

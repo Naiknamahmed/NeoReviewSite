@@ -1,12 +1,6 @@
-import React, {useState,useEffect} from 'react';
-import List from '@mui/material/List';
-import CustomizedListItem from '../../FolderList/CustomizedListItem/CustomizedListItem';
+import React, {useState} from 'react';
 import { getLocalUserdata } from '../../../services/auth/localStorageData';
-import userServices from 'services/httpService/userAuth/userServices';
-import { toast } from 'react-toastify';
-import ErrorService from 'services/formatError/ErrorService';
 import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from '@mui/material/CircularProgress';
 import Folder from './Folder/Folder'
 import Files from './Files/Files'
 
@@ -27,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ClassesFolder = (props) => {
+    const data=getLocalUserdata();
     const [view, setView]=useState('folders');
     const [folderId, setFolderId]= useState(0);
     

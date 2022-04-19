@@ -4,14 +4,17 @@ import ClassesFolder from './ClassesFolder/ClassesFolder.js';
 
 const Classes = (props) => {
   const [url,setUrl]=useState('');
-  const updateUrl = (val) => {
+  const [title,setTitle]=useState('');
+
+  const updateUrl = (val,title) => {
     setUrl(val);
+    setTitle(title);
   }
 
   return (
     <div className='flex justify-center items-center'>
       <ClassesFolder folderToggle={props.folderToggle} updateUrl={updateUrl}/>
-      <ClassesPlayer url={url}/>
+      <ClassesPlayer url={url} title={title}/>
     </div>
   )
 }

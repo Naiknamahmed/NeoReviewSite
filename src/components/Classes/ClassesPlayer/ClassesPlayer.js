@@ -1,8 +1,16 @@
-import React from 'react'
+import React, {useRef, useState} from 'react'
+import { updateLocalStorageTimeStamp, getTimeStamp} from '../../../services/auth/localStorageData';
 import ReactPlayer from 'react-player/lazy'
 import './styles.css'
 
 const ClassesPlayer = (props) => {
+  const videoRef = useRef();
+  const [duration, setDuration]=useState(0);
+
+  const onProgress = (data) => {
+    setDuration(videoRef.current.getCurrentTime());
+    updateLocalStorageTimeStamp('openedClasses',props.title,duration);
+  }
 
   return (
     <div className='container' >
@@ -11,15 +19,20 @@ const ClassesPlayer = (props) => {
             : <ReactPlayer
             // Disable download button
             config={{ file: { attributes: { controlsList: 'nodownload' } } }}
-
             // Disable right click
             onContextMenu={e => e.preventDefault()}
             className='react-player'
-            url={props.url}
             width="750" height="500"
+            url={props.url}
             controls={true}
             muted={true}
             playing={true}
+            ref={videoRef} 
+            onProgress={onProgress}
+            onStart={() => {
+              const timeToStart = getTimeStamp('openedClasses',props.title);
+              videoRef.current.seekTo(timeToStart,'seconds');
+            }}
             />  
         }
         </div>

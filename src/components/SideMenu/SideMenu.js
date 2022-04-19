@@ -15,7 +15,7 @@ const SideMenu = (props) => {
         'Classes',
         'Exámenes',
         'Temario',
-        'Video',
+        'Videos',
         'Batalla',
         'Ranking global',
         'Audiolibro',

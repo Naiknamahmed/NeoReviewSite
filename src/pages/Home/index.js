@@ -24,7 +24,7 @@ function Home() {
       setToggleMenu(false);
     } else if (toggleMenu === false) {
       setWid("20%");
-      setFolderToggle("60%");
+      setFolderToggle("35%");
       setToggleMenu(true);
     }
   };
@@ -38,7 +38,7 @@ function Home() {
     else if (currentPage === "Temario")
       return <Temario folderToggle={folderToggle} />;
     else if (currentPage === "Exámenes") return <ExamenesPage />;
-    else if (currentPage === "Video") return <Video folderToggle={folderToggle}/>;
+    else if (currentPage === "Videos") return <Video folderToggle={folderToggle}/>;
     else if (currentPage === "Classes") return <Classes folderToggle={folderToggle}/>;
     else if (currentPage === "Ranking global") return <RankingGlobal />;
   };
