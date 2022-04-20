@@ -9,14 +9,31 @@ export default makeStyles(() => ({
     fontFamily: "Montserrat-regular",
     backgroundColor: "#f7f7f7",
   },
+  folderWrapper: {
+    margin: "10px auto",
+  },
   heading: {
-    fontSize: "30px",
+    fontSize: "20px",
     color: "black",
-    fontWeight: "900",
-    textAlign: "center",
-    margin: "20px auto",
+    fontWeight: "600",
+    fontFamily: "Rounded Elegance",
+    display: "flex",
+    alignItems: "center",
+    margin: "5px",
     "@media (max-width: 720px)": {
-      fontSize: "20px",
+      fontSize: "9px",
+    },
+  },
+  BoxWrapper1212: {
+    backgroundColor: "#f7f7f7 !important",
+    boxShadow: "none !important",
+  },
+  headingImg: {
+    width: "50px",
+    margin: "0px 10px",
+    "media (max-width:720px)": {
+      width: "40px",
+      margin: "0px 5px",
     },
   },
   headingText: {
@@ -50,17 +67,29 @@ export default makeStyles(() => ({
     },
   },
   comenzarBtnWrapper: {
-    width: "100%",
+    margin: "0px auto",
+    width: "70%",
     textAlign: "center",
   },
   comenzarBtn: {
     width: "30%",
     "@media (max-width: 720px)": {
-      width: "70%",
+      width: "50%",
     },
   },
   quizWrapperInner: {
     padding: "20px",
+    margin: "0px auto",
+    minWidth: "800px",
+    fontFamily: "Montserrat-regular",
+    overflow: "hidden",
+    "@media (max-width: 720px)": {
+      padding: "0px",
+      minWidth: "100%",
+    },
+  },
+  quizEndWrapperInner: {
+    padding: "50px 20px 20px 20px",
     margin: "0px auto",
     minWidth: "800px",
     fontFamily: "Montserrat-regular",
@@ -98,7 +127,7 @@ export default makeStyles(() => ({
   answerLinksInnerImg: {
     height: "2em",
     width: "2em",
-    "@media (min-width: 720px)": {
+    "@media (max-width: 720px)": {
       height: "1em",
       width: "1em",
     },
@@ -107,14 +136,14 @@ export default makeStyles(() => ({
     width: "5%",
     margin: "0 auto",
     color: "royalblue",
-    "@media (min-width: 720px)": {
-      width: "10%",
+    "@media (max-width: 720px)": {
+      width: "15%",
     },
   },
   answerLinksInner2: {
     width: "95%",
-    "@media (min-width: 720px)": {
-      width: "90%",
+    "@media (max-width: 720px)": {
+      width: "85%",
     },
   },
   answerLinksInner3: {
@@ -142,12 +171,15 @@ export default makeStyles(() => ({
   timerIcons: {
     margin: "0px 10px",
     cursor: "pointer",
+    width: "40px",
     justifyContent: "start",
   },
   timerHeading: {
     margin: "0px 10px",
     cursor: "pointer",
     fontSize: "20px",
+    color: "#0A52CB",
+    fontFamily: "ProximaNovaSoft-regular",
     "@media (max-width: 720px)": {
       fontSize: "14px",
       fontWeight: "700",
@@ -227,22 +259,42 @@ export default makeStyles(() => ({
   resultBtnWrapper: {
     margin: "10px auto",
     display: "flex",
-    flexWrap: "wrap",
     justifyContent: "start",
     alignItems: "center",
-    "@media (min-width: 720px)": {
-      justifyContent: "space-evenly",
+    width: "100%",
+    overflowX: "scroll",
+    "&::-webkit-scrollbar": {
+      height: "10px",
+    },
+    "&::-webkit-scrollbar-track": {
+      background: "#bfbfbf",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      background: "gray",
+    },
+    "@media (max-width: 920px)": {
+      overflow: "hidden",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
     },
   },
   resultBtn: {
     fontSize: "16px",
     fontWeight: "800",
-    backgroundColor: "#aab7df;",
     borderRadius: "50%",
     padding: "10px",
     color: "white",
-    height: "100%",
-    width: "100%",
-    backgroundSize: "contain",
+    height: "auto",
+    width: "45px",
+    backgroundSize: "cover",
+  },
+  resultBtn1: {
+    fontSize: "16px",
+    fontWeight: "800",
+    borderRadius: "50%",
+    padding: "10px",
+    color: "white",
+    height: "auto",
+    width: "45px",
   },
 }));
