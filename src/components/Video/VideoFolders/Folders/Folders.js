@@ -63,7 +63,7 @@ const Folders = (props) => {
 
   return ( 
     folders.length>0 ? 
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '40vh' }}
+    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '60vh' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       className={classes.root}>
@@ -74,12 +74,12 @@ const Folders = (props) => {
               <ListItemAvatar>
                 <Avatar alt="folder" src={directory} />
               </ListItemAvatar>
-              <ListItemText primaryTypographyProps={{ fontFamily: 'ProximaNovaSoft-regular' }} primary={`T${count++} - ${item.name}`} />
+              <ListItemText primaryTypographyProps={{ fontFamily: 'RoundedElegance-regular' }} primary={`T${count++} - ${item.name}`} />
             </ListItemButton>
           );
         }) }
     </List>
-    : <div><CircularProgress disableShrink /></div>
+    : <div style={{ display:'flex', justifyContent:'center'}}><CircularProgress disableShrink /></div>
   
   )
 }

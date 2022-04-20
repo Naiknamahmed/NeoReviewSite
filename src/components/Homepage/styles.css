@@ -1,13 +1,13 @@
 .imgWidth {
-    width:4%;
+    width:5.5%;
 }
 
 .imgWidth3 {
-    width:3%
+    width:5%
 }
 
 .imgWidth2 {
-    width:8%;
+    width:9.5%;
 }
 
 @media screen and (max-width: 767px) {

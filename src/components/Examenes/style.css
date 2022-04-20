@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Rounded Elegance";
+  src: url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.eot");
+  src: url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.woff") format("woff"), url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.svg#Rounded Elegance") format("svg");
+}
+
+.selectedAns:focus {
+  background-color: blue;
+}
+
+.noAnswer {
+  background-image: url("../../assets/img/images/transparent.png");
+  background-size: cover;
+}
