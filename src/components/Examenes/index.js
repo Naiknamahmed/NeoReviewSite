@@ -54,10 +54,10 @@ function Examenes1() {
 
   const data = getLocalUserdata();
   const student_type = data.type; // STUDENT TYPE
-  // const studentid = data.id; // STUDENT ID
+  const studentid = data.id; // STUDENT ID
 
   const getExamData = {
-    studentId: 4785, // Use The Student Id Above ^
+    studentId: data.id, // Use The Student Id Above ^
     studentType: student_type,
   };
 
@@ -94,7 +94,7 @@ function Examenes1() {
     localStorage.setItem("examID", ExamNO);
     setLoading(true);
     const startData = {
-      studentId: 4785,
+      studentId: data.id,
       studentType: student_type,
       studentAnswered: null,
       studentAttemptId: null,
@@ -314,7 +314,7 @@ function Examenes1() {
       answer: answerClicked,
     });
     const startData = {
-      studentId: 4785,
+      studentId: data.id,
       studentType: student_type,
       studentAnswered: answerClicked, // exams get
       studentAttemptId: examData[currentQuestion].id, // exams get
@@ -361,7 +361,7 @@ function Examenes1() {
       answer: answerClicked,
     });
     const startData = {
-      studentId: 4785,
+      studentId: data.id,
       studentType: student_type,
       studentAnswered: answerClicked, // exams get
       studentAttemptId: examData[currentQuestion].id, // exams get
