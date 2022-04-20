@@ -53,17 +53,15 @@ function Examenes1() {
   const [ansArry, setAnsArry] = useState([]);
 
   const data = getLocalUserdata();
-  const student_type = data.type; // STUDENT TYPE
-  const studentid = data.id; // STUDENT ID
+  const student_type = data.type;
+  const studentid = data.id;
 
   const getExamData = {
-    studentId: data.id, // Use The Student Id Above ^
+    studentId: data.id,
     studentType: student_type,
   };
 
-  // console.log(data.id);
-
-  // GET ALL EXAM LISTING API /////////////////////////////////
+  // GET ALL EXAM LISTING API
 
   useEffect(() => {
     axios
@@ -183,7 +181,6 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/pauseAnswer`, pauseData)
       .then((response) => {
         setPauseExam(response.data);
-        console.log(response.data.data.canPause);
         if (response.data.data.canPause == "no") {
           alert("You Cannot Pause This Exam");
         } else {
