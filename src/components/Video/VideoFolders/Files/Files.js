@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { getLocalUserdata } from '../../../../services/auth/localStorageData';
+import { getLocalUserdata, updatelocalData } from '../../../../services/auth/localStorageData';
 import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
 import List from '@mui/material/List';
@@ -74,24 +74,32 @@ const Files = (props) => {
     }
   }
 
+  const searchStorage = (title) => {
+    const matchFound=getLocalUserdata().openedVideos.filter((entry) => {return entry.title===title});
+    if(matchFound.length===0){
+      return false;
+    }
+    return true;
+  }
+
   return (
     <>
-      <IconButton style={{justifyContent:'start'}}onClick={()=>{props.updateView('folders')}}>
+      <IconButton style={{justifyContent:'start', display: props.folderToggle==='0%'?'none':'flex'}}onClick={()=>{props.updateView('folders')}}>
         <ArrowBackIcon/>
         <Typography variant="subtitle2">Volver a las carpetas</Typography>
       </IconButton>
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'40vh' }}
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'60vh' }}
       onScroll={handleScroll}
       className={classes.root}>
       {
         files.length>0 ? 
         files.map((item) => {
           return (
-            <ListItemButton onClick={()=>{props.updateUrl(item.url)}}>
+            <ListItemButton onClick={()=>{props.updateUrl(item.url,item.title); updatelocalData('openedVideos',{'title':item.title, 'timeStamp':0})}}>
               <ListItemAvatar>
                 <Avatar alt="videofile" src={icon} variant="square"/>
               </ListItemAvatar>
-              <ListItemText primaryTypographyProps={{fontFamily:'ProximaNovaSoft-regular'}}  primary={item.title} />
+              <ListItemText primaryTypographyProps={{fontFamily:searchStorage(item.title)?'ProximaNovaSoft-bold':'ProximaNovaSoft-regular'}}  primary={item.title} />
             </ListItemButton>
           )
         }) : <div style={{ display:'flex', justifyContent:'center'}}> <CircularProgress disableShrink/> </div>

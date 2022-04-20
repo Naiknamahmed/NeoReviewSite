@@ -8,9 +8,8 @@ const Temario = (props) => {
         setPdf(val);
     }
 
-    //make separate route
     return (
-        <div className='flex flex-row' style={{overflow:'auto', justifyContent: props.folderToggle==='0%'?'center':'unset'}}>
+        <div className='flex flex-row' style={{overflow:'auto', justifyContent: props.folderToggle==='0%'?'center':'unset',marginLeft:'2%'}}>
             <FolderList folderToggle={props.folderToggle} setPdf={updatePdf}/>
             <PdfCard pdf={pdf}/>
         </div>
