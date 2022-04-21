@@ -464,8 +464,7 @@ function Examenes1() {
                                             startExams(e, Conocimientos)
                                           }
                                           style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
+                                            fontFamily: "Proximasoft-regular",
                                           }}
                                         >
                                           {Conocimientos.name}
@@ -474,7 +473,8 @@ function Examenes1() {
                                         "end" ? (
                                         <button
                                           style={{
-                                            fontFamily: "ProximaNovaSoft-bold",
+                                            fontFamily: "Proximasoft-bold",
+                                            fontWeight: "bold",
                                           }}
                                           onClick={(e) => {
                                             return reviewExam(e, Conocimientos);
@@ -489,8 +489,7 @@ function Examenes1() {
                                             startExams(e, Conocimientos)
                                           }
                                           style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
+                                            fontFamily: "Proximasoft-regular",
                                           }}
                                         >
                                           {Conocimientos.name}
@@ -510,8 +509,7 @@ function Examenes1() {
                                           id={Inglés.id}
                                           onClick={(e) => startExams(e, Inglés)}
                                           style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
+                                            fontFamily: "Proximasoft-regular",
                                           }}
                                         >
                                           {Inglés.name}
@@ -519,7 +517,8 @@ function Examenes1() {
                                       ) : Inglés.studentExamStatus === "end" ? (
                                         <button
                                           style={{
-                                            fontFamily: "ProximaNovaSoft-bold",
+                                            fontFamily: "Proximasoft-bold",
+                                            fontWeight: "bold",
                                           }}
                                           onClick={(e) => {
                                             return reviewExam(e, Inglés);
@@ -532,8 +531,7 @@ function Examenes1() {
                                           id={Inglés.id}
                                           onClick={(e) => startExams(e, Inglés)}
                                           style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
+                                            fontFamily: "Proximasoft-regular",
                                           }}
                                         >
                                           {Inglés.name}
@@ -555,8 +553,7 @@ function Examenes1() {
                                           }
                                           id={Psicotécnicos.id}
                                           style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
+                                            fontFamily: "Proximasoft-regular",
                                           }}
                                         >
                                           {Psicotécnicos.name}
@@ -565,7 +562,8 @@ function Examenes1() {
                                         "end" ? (
                                         <button
                                           style={{
-                                            fontFamily: "ProximaNovaSoft-bold",
+                                            fontFamily: "Proximasoft-bold",
+                                            fontWeight: "bold",
                                           }}
                                           onClick={(e) => {
                                             return reviewExam(e, Psicotécnicos);
@@ -580,8 +578,7 @@ function Examenes1() {
                                             startExams(e, Psicotécnicos)
                                           }
                                           style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
+                                            fontFamily: "Proximasoft-regular",
                                           }}
                                         >
                                           {Psicotécnicos.name}
@@ -603,8 +600,7 @@ function Examenes1() {
                                             startExams(e, Ortografía)
                                           }
                                           style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
+                                            fontFamily: "Proximasoft-regular",
                                           }}
                                         >
                                           {Ortografía.name}
@@ -613,7 +609,8 @@ function Examenes1() {
                                         "end" ? (
                                         <button
                                           style={{
-                                            fontFamily: "ProximaNovaSoft-bold",
+                                            fontFamily: "Proximasoft-bold",
+                                            fontWeight: "bold",
                                           }}
                                           onClick={(e) => {
                                             return reviewExam(e, Ortografía);
@@ -628,8 +625,7 @@ function Examenes1() {
                                             startExams(e, Ortografía)
                                           }
                                           style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
+                                            fontFamily: "Proximasoft-regular",
                                           }}
                                         >
                                           {Ortografía.name}
