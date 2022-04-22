@@ -9,6 +9,7 @@ import Classes from "components/Classes/Classes.js";
 import ExamenesPage from "pages/Examenes/index";
 import RankingGlobal from "components/RankingGlobal/RankingGlobal.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Navigate } from "react-router";
 
 function Home() {
   const history = useNavigate();
@@ -38,9 +39,15 @@ function Home() {
     else if (currentPage === "Temario")
       return <Temario folderToggle={folderToggle} />;
     else if (currentPage === "Exámenes") return <ExamenesPage />;
-    else if (currentPage === "Videos") return <Video folderToggle={folderToggle}/>;
-    else if (currentPage === "Classes") return <Classes folderToggle={folderToggle}/>;
+    else if (currentPage === "Videos")
+      return <Video folderToggle={folderToggle} />;
+    else if (currentPage === "Classes")
+      return <Classes folderToggle={folderToggle} />;
     else if (currentPage === "Ranking global") return <RankingGlobal />;
+    else if (currentPage === "Salir") {
+      localStorage.clear();
+      return <Navigate to="/" />;
+    }
   };
 
   return (
