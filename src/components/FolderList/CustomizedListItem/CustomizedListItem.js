@@ -9,8 +9,20 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import folder from "../../../assets/img/images/directory.png";
 import List from "@mui/material/List";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) =>({
+  root : {
+    "&&": {
+      [theme.breakpoints.down('580')]: {
+      display: 'block',
+    },
+  }
+  }
+}));
 
 const CustomizedListItem = (props) => {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleClick = () => {
     setOpen(!open);
@@ -41,7 +53,7 @@ const CustomizedListItem = (props) => {
 
   return (
     <div>
-       <ListItemButton onClick={handleClick}>
+       <ListItemButton className={classes.root} onClick={handleClick}>
             <ListItemAvatar>
                 <Avatar alt="folder" src={folder} />
             </ListItemAvatar>
