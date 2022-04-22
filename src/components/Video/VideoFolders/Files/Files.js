@@ -16,6 +16,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 const useStyles = makeStyles((theme) => ({
+    listItem : {
+      "&&": {
+        [theme.breakpoints.down('580')]: {
+        display: 'block',
+      },
+    }
+    },
     root: {
       "&::-webkit-scrollbar": {
         width: 7,
@@ -95,7 +102,7 @@ const Files = (props) => {
         files.length>0 ? 
         files.map((item) => {
           return (
-            <ListItemButton onClick={()=>{props.updateUrl(item.url,item.title); updatelocalData('openedVideos',{'title':item.title, 'timeStamp':0})}}>
+            <ListItemButton className={classes.listItem} onClick={()=>{props.updateUrl(item.url,item.title); updatelocalData('openedVideos',{'title':item.title, 'timeStamp':0})}}>
               <ListItemAvatar>
                 <Avatar alt="videofile" src={icon} variant="square"/>
               </ListItemAvatar>

@@ -1,10 +1,15 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import { updateLocalStorageTimeStamp, getTimeStamp} from '../../../services/auth/localStorageData';
 import './styles.css';
 
 const VideoPlayer = (props) => {
   const videoRef = useRef();
   const [duration, setDuration]=useState(0);
+
+  useEffect(() => {    
+    videoRef.current?.load();
+  }, [props.url]);
+
 
   const onProgress = (data) => {
     setDuration(videoRef.current.currentTime);
