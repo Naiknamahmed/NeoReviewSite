@@ -1,0 +1,10 @@
+.listItem {
+    display: flex;
+}
+
+@media screen and (max-width: 580px) {
+    .listItem {
+        display:block;
+    }
+
+}

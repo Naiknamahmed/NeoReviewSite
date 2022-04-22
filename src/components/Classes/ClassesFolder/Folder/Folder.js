@@ -14,6 +14,13 @@ import Typography from '@mui/material/Typography';
 
 
 const useStyles = makeStyles((theme) => ({
+    listItem : {
+      "&&": {
+        [theme.breakpoints.down('580')]: {
+        display: 'block',
+      },
+    }
+    },
     root: {
       "&::-webkit-scrollbar": {
         width: 7,
@@ -74,7 +81,7 @@ const Folder = (props) => {
       {
         folders.map((item) => {
           return (
-            <ListItemButton onClick={() => { handleClick(item.id); } }>
+            <ListItemButton className={classes.listItem} onClick={() => { handleClick(item.id); } }>
               <ListItemAvatar>
                 <Avatar alt="folder" src={directory} />
               </ListItemAvatar>
