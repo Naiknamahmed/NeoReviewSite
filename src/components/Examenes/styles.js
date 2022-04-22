@@ -10,23 +10,43 @@ export default makeStyles(() => ({
     backgroundColor: "#f7f7f7",
   },
   folderWrapper: {
-    margin: "10px auto",
+    margin: "30px auto",
+    display: "flex",
   },
   heading: {
     fontSize: "20px",
+    width: "100%",
     color: "black",
     fontWeight: "600",
     fontFamily: "Rounded Elegance",
     display: "flex",
+    cursor: "pointer",
+    justifyContent: "start",
     alignItems: "center",
     margin: "5px",
     "@media (max-width: 720px)": {
       fontSize: "9px",
     },
   },
-  BoxWrapper1212: {
-    backgroundColor: "#f7f7f7 !important",
-    boxShadow: "none !important",
+  folderHeading: {
+    fontSize: "25px",
+    color: "black",
+    fontWeight: "600",
+    fontFamily: "Rounded Elegance",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "30px auto",
+    "@media (max-width: 720px)": {
+      fontSize: "12px",
+      margin: "20px auto 0px",
+    },
+  },
+  folderHeadingImg: {
+    width: "50%",
+    "@media (max-width: 720px)": {
+      width: "25%",
+    },
   },
   headingImg: {
     width: "50px",
