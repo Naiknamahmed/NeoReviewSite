@@ -3,10 +3,7 @@ import axios from "axios";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@mui/material/Button";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CircularProgress from "@mui/material/CircularProgress";
 import ansSelectImg from "../../assets/img/images/Flecha.png";
 import Revisar from "../../assets/img/images/revisar.png";
@@ -51,6 +48,8 @@ function Examenes1() {
   const [ansCircles, setAnsCircles] = useState([]);
   const [ansCheck, setAnsCheck] = useState(0);
   const [ansArry, setAnsArry] = useState([]);
+  const [examFolderName, setExamFolderName] = useState();
+  const [selectedExam, setSelectedExam] = useState([]);
 
   const data = getLocalUserdata();
   const student_type = data.type;
@@ -223,6 +222,15 @@ function Examenes1() {
       });
   };
 
+  const handleExamsListing = (w) => {
+    setExamFolderName(w);
+    folderData.map((item) => {
+      if (item.folderName == w) {
+        setSelectedExam(item);
+      }
+    });
+  };
+
   // SALIR BTN
 
   const SalirBtn = () => {
@@ -286,14 +294,7 @@ function Examenes1() {
     },
     status == true ? 1000 : null
   );
-
-  // ACCORDIION
-
-  const [expanded, setExpanded] = useState();
-
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
+  console.log(examFolderName);
 
   let answerClicked = null;
   let triggerTime;
@@ -425,20 +426,207 @@ function Examenes1() {
                 </div>
               ) : (
                 <>
-                  {folderData.map((data) => {
-                    const panel = data.folderName;
-                    return (
-                      <div className={Styles.folderWrapper}>
-                        <Accordion
-                          expanded={expanded === data.folderName}
-                          onChange={handleChange(panel)}
-                          TransitionProps={{ unmountOnExit: true }}
-                          className={Styles.BoxWrapper1212}
-                        >
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            className={Styles.BoxWrapper1212}
-                          >
+                  {examFolderName != null ? (
+                    <>
+                      <div className={Styles.folderHeading}>
+                        {selectedExam.folderName}
+                      </div>
+                      <ArrowBackIosNewIcon
+                        className="cursor-pointer m-4 "
+                        onClick={() => {
+                          setExamFolderName();
+                        }}
+                      />
+                      <div className={Styles.dataWrapper}>
+                        <div>
+                          {selectedExam.Conocimientos.map((Conocimientos) => {
+                            return (
+                              <div className={Styles.examLinks}>
+                                {Conocimientos.studentExamStatus ===
+                                "notAttempted" ? (
+                                  <button
+                                    id={Conocimientos.id}
+                                    onClick={(e) =>
+                                      startExams(e, Conocimientos)
+                                    }
+                                    style={{
+                                      fontFamily: "Proximasoft-regular",
+                                    }}
+                                  >
+                                    {Conocimientos.name}
+                                  </button>
+                                ) : Conocimientos.studentExamStatus ===
+                                  "end" ? (
+                                  <button
+                                    style={{
+                                      fontFamily: "Proximasoft-bold",
+                                      fontWeight: "bold",
+                                    }}
+                                    onClick={(e) => {
+                                      return reviewExam(e, Conocimientos);
+                                    }}
+                                  >
+                                    {Conocimientos.name}
+                                  </button>
+                                ) : (
+                                  <button
+                                    id={Conocimientos.id}
+                                    onClick={(e) =>
+                                      startExams(e, Conocimientos)
+                                    }
+                                    style={{
+                                      fontFamily: "Proximasoft-regular",
+                                    }}
+                                  >
+                                    {Conocimientos.name}
+                                  </button>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div>
+                          {selectedExam.Inglés.map((Inglés) => {
+                            return (
+                              <div className={Styles.examLinks}>
+                                {Inglés.studentExamStatus === "notAttempted" ? (
+                                  <button
+                                    id={Inglés.id}
+                                    onClick={(e) => startExams(e, Inglés)}
+                                    style={{
+                                      fontFamily: "Proximasoft-regular",
+                                    }}
+                                  >
+                                    {Inglés.name}
+                                  </button>
+                                ) : Inglés.studentExamStatus === "end" ? (
+                                  <button
+                                    style={{
+                                      fontFamily: "Proximasoft-bold",
+                                      fontWeight: "bold",
+                                    }}
+                                    onClick={(e) => {
+                                      return reviewExam(e, Inglés);
+                                    }}
+                                  >
+                                    {Inglés.name}
+                                  </button>
+                                ) : (
+                                  <button
+                                    id={Inglés.id}
+                                    onClick={(e) => startExams(e, Inglés)}
+                                    style={{
+                                      fontFamily: "Proximasoft-regular",
+                                    }}
+                                  >
+                                    {Inglés.name}
+                                  </button>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div>
+                          {selectedExam.Psicotécnicos.map((Psicotécnicos) => {
+                            return (
+                              <div className={Styles.examLinks}>
+                                {Psicotécnicos.studentExamStatus ===
+                                "notAttempted" ? (
+                                  <button
+                                    onClick={(e) =>
+                                      startExams(e, Psicotécnicos)
+                                    }
+                                    id={Psicotécnicos.id}
+                                    style={{
+                                      fontFamily: "Proximasoft-regular",
+                                    }}
+                                  >
+                                    {Psicotécnicos.name}
+                                  </button>
+                                ) : Psicotécnicos.studentExamStatus ===
+                                  "end" ? (
+                                  <button
+                                    style={{
+                                      fontFamily: "Proximasoft-bold",
+                                      fontWeight: "bold",
+                                    }}
+                                    onClick={(e) => {
+                                      return reviewExam(e, Psicotécnicos);
+                                    }}
+                                  >
+                                    {Psicotécnicos.name}
+                                  </button>
+                                ) : (
+                                  <button
+                                    id={Psicotécnicos.id}
+                                    onClick={(e) =>
+                                      startExams(e, Psicotécnicos)
+                                    }
+                                    style={{
+                                      fontFamily: "Proximasoft-regular",
+                                    }}
+                                  >
+                                    {Psicotécnicos.name}
+                                  </button>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div>
+                          {selectedExam.Ortografía.map((Ortografía) => {
+                            return (
+                              <div className={Styles.examLinks}>
+                                {Ortografía.studentExamStatus ===
+                                "notAttempted" ? (
+                                  <button
+                                    id={Ortografía.id}
+                                    onClick={(e) => startExams(e, Ortografía)}
+                                    style={{
+                                      fontFamily: "Proximasoft-regular",
+                                    }}
+                                  >
+                                    {Ortografía.name}
+                                  </button>
+                                ) : Ortografía.studentExamStatus === "end" ? (
+                                  <button
+                                    style={{
+                                      fontFamily: "Proximasoft-bold",
+                                      fontWeight: "bold",
+                                    }}
+                                    onClick={(e) => {
+                                      return reviewExam(e, Ortografía);
+                                    }}
+                                  >
+                                    {Ortografía.name}
+                                  </button>
+                                ) : (
+                                  <button
+                                    id={Ortografía.id}
+                                    onClick={(e) => startExams(e, Ortografía)}
+                                    style={{
+                                      fontFamily: "Proximasoft-regular",
+                                    }}
+                                  >
+                                    {Ortografía.name}
+                                  </button>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                      <div className={Styles.comenzarBtnWrapper}>
+                        <button className={Styles.comenzarBtn}>
+                          <img src={Comenzar} alt="" />
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {folderData.map((data) => {
+                        return (
+                          <div className={Styles.folderWrapper}>
                             <div>
                               <img
                                 src={directoryImg}
@@ -446,206 +634,19 @@ function Examenes1() {
                                 className={Styles.headingImg}
                               />
                             </div>
-                            <div className={Styles.heading}>
+                            <div
+                              className={Styles.heading}
+                              onClick={(e) =>
+                                handleExamsListing(data.folderName)
+                              }
+                            >
                               {data.folderName}
                             </div>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <div className={Styles.dataWrapper}>
-                              <div>
-                                {data.Conocimientos.map((Conocimientos) => {
-                                  return (
-                                    <div className={Styles.examLinks}>
-                                      {Conocimientos.studentExamStatus ===
-                                      "notAttempted" ? (
-                                        <button
-                                          id={Conocimientos.id}
-                                          onClick={(e) =>
-                                            startExams(e, Conocimientos)
-                                          }
-                                          style={{
-                                            fontFamily: "Proximasoft-regular",
-                                          }}
-                                        >
-                                          {Conocimientos.name}
-                                        </button>
-                                      ) : Conocimientos.studentExamStatus ===
-                                        "end" ? (
-                                        <button
-                                          style={{
-                                            fontFamily: "Proximasoft-bold",
-                                            fontWeight: "bold",
-                                          }}
-                                          onClick={(e) => {
-                                            return reviewExam(e, Conocimientos);
-                                          }}
-                                        >
-                                          {Conocimientos.name}
-                                        </button>
-                                      ) : (
-                                        <button
-                                          id={Conocimientos.id}
-                                          onClick={(e) =>
-                                            startExams(e, Conocimientos)
-                                          }
-                                          style={{
-                                            fontFamily: "Proximasoft-regular",
-                                          }}
-                                        >
-                                          {Conocimientos.name}
-                                        </button>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                              <div>
-                                {data.Inglés.map((Inglés) => {
-                                  return (
-                                    <div className={Styles.examLinks}>
-                                      {Inglés.studentExamStatus ===
-                                      "notAttempted" ? (
-                                        <button
-                                          id={Inglés.id}
-                                          onClick={(e) => startExams(e, Inglés)}
-                                          style={{
-                                            fontFamily: "Proximasoft-regular",
-                                          }}
-                                        >
-                                          {Inglés.name}
-                                        </button>
-                                      ) : Inglés.studentExamStatus === "end" ? (
-                                        <button
-                                          style={{
-                                            fontFamily: "Proximasoft-bold",
-                                            fontWeight: "bold",
-                                          }}
-                                          onClick={(e) => {
-                                            return reviewExam(e, Inglés);
-                                          }}
-                                        >
-                                          {Inglés.name}
-                                        </button>
-                                      ) : (
-                                        <button
-                                          id={Inglés.id}
-                                          onClick={(e) => startExams(e, Inglés)}
-                                          style={{
-                                            fontFamily: "Proximasoft-regular",
-                                          }}
-                                        >
-                                          {Inglés.name}
-                                        </button>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                              <div>
-                                {data.Psicotécnicos.map((Psicotécnicos) => {
-                                  return (
-                                    <div className={Styles.examLinks}>
-                                      {Psicotécnicos.studentExamStatus ===
-                                      "notAttempted" ? (
-                                        <button
-                                          onClick={(e) =>
-                                            startExams(e, Psicotécnicos)
-                                          }
-                                          id={Psicotécnicos.id}
-                                          style={{
-                                            fontFamily: "Proximasoft-regular",
-                                          }}
-                                        >
-                                          {Psicotécnicos.name}
-                                        </button>
-                                      ) : Psicotécnicos.studentExamStatus ===
-                                        "end" ? (
-                                        <button
-                                          style={{
-                                            fontFamily: "Proximasoft-bold",
-                                            fontWeight: "bold",
-                                          }}
-                                          onClick={(e) => {
-                                            return reviewExam(e, Psicotécnicos);
-                                          }}
-                                        >
-                                          {Psicotécnicos.name}
-                                        </button>
-                                      ) : (
-                                        <button
-                                          id={Psicotécnicos.id}
-                                          onClick={(e) =>
-                                            startExams(e, Psicotécnicos)
-                                          }
-                                          style={{
-                                            fontFamily: "Proximasoft-regular",
-                                          }}
-                                        >
-                                          {Psicotécnicos.name}
-                                        </button>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                              <div>
-                                {data.Ortografía.map((Ortografía) => {
-                                  return (
-                                    <div className={Styles.examLinks}>
-                                      {Ortografía.studentExamStatus ===
-                                      "notAttempted" ? (
-                                        <button
-                                          id={Ortografía.id}
-                                          onClick={(e) =>
-                                            startExams(e, Ortografía)
-                                          }
-                                          style={{
-                                            fontFamily: "Proximasoft-regular",
-                                          }}
-                                        >
-                                          {Ortografía.name}
-                                        </button>
-                                      ) : Ortografía.studentExamStatus ===
-                                        "end" ? (
-                                        <button
-                                          style={{
-                                            fontFamily: "Proximasoft-bold",
-                                            fontWeight: "bold",
-                                          }}
-                                          onClick={(e) => {
-                                            return reviewExam(e, Ortografía);
-                                          }}
-                                        >
-                                          {Ortografía.name}
-                                        </button>
-                                      ) : (
-                                        <button
-                                          id={Ortografía.id}
-                                          onClick={(e) =>
-                                            startExams(e, Ortografía)
-                                          }
-                                          style={{
-                                            fontFamily: "Proximasoft-regular",
-                                          }}
-                                        >
-                                          {Ortografía.name}
-                                        </button>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          </AccordionDetails>
-                          <div className={Styles.comenzarBtnWrapper}>
-                            <button className={Styles.comenzarBtn}>
-                              <img src={Comenzar} alt="" />
-                            </button>
                           </div>
-                        </Accordion>
-                      </div>
-                    );
-                  })}
+                        );
+                      })}
+                    </>
+                  )}
                 </>
               )}
             </Container>

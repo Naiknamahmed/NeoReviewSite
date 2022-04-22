@@ -10,18 +10,35 @@ export default makeStyles(() => ({
     backgroundColor: "#f7f7f7",
   },
   folderWrapper: {
-    margin: "10px auto",
+    margin: "30px auto",
+    display: "flex",
   },
   heading: {
     fontSize: "20px",
+    width: "100%",
     color: "black",
     fontWeight: "600",
     fontFamily: "Rounded Elegance",
     display: "flex",
+    cursor: "pointer",
+    justifyContent: "start",
     alignItems: "center",
     margin: "5px",
     "@media (max-width: 720px)": {
       fontSize: "9px",
+    },
+  },
+  folderHeading: {
+    fontSize: "25px",
+    color: "black",
+    fontWeight: "600",
+    fontFamily: "Rounded Elegance",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "30px auto",
+    "@media (max-width: 720px)": {
+      fontSize: "12px",
     },
   },
   BoxWrapper1212: {
