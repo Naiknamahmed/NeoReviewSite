@@ -429,14 +429,16 @@ function Examenes1() {
                   {examFolderName != null ? (
                     <>
                       <div className={Styles.folderHeading}>
-                        {selectedExam.folderName}
+                        <div className={Styles.folderHeadingImg}>
+                          <ArrowBackIosNewIcon
+                            className="cursor-pointer m-4 text-start"
+                            onClick={() => {
+                              setExamFolderName();
+                            }}
+                          />
+                        </div>
+                        <div className="w-100">{selectedExam.folderName}</div>
                       </div>
-                      <ArrowBackIosNewIcon
-                        className="cursor-pointer m-4 "
-                        onClick={() => {
-                          setExamFolderName();
-                        }}
-                      />
                       <div className={Styles.dataWrapper}>
                         <div>
                           {selectedExam.Conocimientos.map((Conocimientos) => {

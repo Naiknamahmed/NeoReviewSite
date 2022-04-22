@@ -39,11 +39,14 @@ export default makeStyles(() => ({
     margin: "30px auto",
     "@media (max-width: 720px)": {
       fontSize: "12px",
+      margin: "20px auto 0px",
     },
   },
-  BoxWrapper1212: {
-    backgroundColor: "#f7f7f7 !important",
-    boxShadow: "none !important",
+  folderHeadingImg: {
+    width: "50%",
+    "@media (max-width: 720px)": {
+      width: "25%",
+    },
   },
   headingImg: {
     width: "50px",
