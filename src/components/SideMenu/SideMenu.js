@@ -44,6 +44,8 @@ const SideMenu = (props) => {
 
     const classes= useStyles();
 
+    const notActive = [ 'Actividades','Entrenamiento','Batalla','Audiolibro','Repaso','Entrevista','Descargas'];
+
     return (
       <>
         <div style={{width: props.width}} className={`shadow-5 ${classes.container}`}>
@@ -54,7 +56,7 @@ const SideMenu = (props) => {
                     className='w-1/5 menuItem'
                     src={require(`assets/img/images/${fileNames[i]}.png`).default}
                 />
-                <div className='fSize' style={{fontFamily:active===x ? 'Montserrat-bold': 'Montserrat-regular'}}>
+                <div className='fSize' style={{fontFamily:active===x ? 'Montserrat-bold': 'Montserrat-regular', opacity:notActive.includes(x)?'40%':'1'}}>
                     {x}
                 </div>
             </div>

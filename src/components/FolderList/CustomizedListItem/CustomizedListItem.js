@@ -57,7 +57,7 @@ const CustomizedListItem = (props) => {
             <ListItemAvatar>
                 <Avatar alt="folder" src={folder} />
             </ListItemAvatar>
-            <ListItemText primaryTypographyProps={{ fontFamily: 'RoundedElegance-regular' }} primary={`T${props.count} - ${props.folder}`} />
+            <ListItemText primaryTypographyProps={{ fontFamily: 'RoundedElegance-regular' }} primary={props.folder} />
             {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>

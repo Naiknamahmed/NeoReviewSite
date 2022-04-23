@@ -81,7 +81,7 @@ const Folders = (props) => {
               <ListItemAvatar>
                 <Avatar alt="folder" src={directory} />
               </ListItemAvatar>
-              <ListItemText primaryTypographyProps={{ fontFamily: 'RoundedElegance-regular' }} primary={`T${count++} - ${item.name}`} />
+              <ListItemText primaryTypographyProps={{ fontFamily: 'RoundedElegance-regular' }} primary={item.name} />
             </ListItemButton>
           );
         }) }
