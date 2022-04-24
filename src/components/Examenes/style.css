@@ -9,8 +9,9 @@
   src: local("Proxima Soft"),
     url("../../assets/fonts/ProximaSoft-Regular.ttf") format("truetype"),
     url("../../assets/fonts/ProximaSoft-Bold.ttf") format("truetype"),
-    url("../../assets/fonts/Proximasoft-regular.otf") format("opentype"),
-    url("../../assets/fonts/Proximasoft-bold.otf") format("opentype");
+    url("../../assets/img/images/ProximaSoft-Regular.ttf") format("truetype"),
+    url("../../assets/img/images/ProximaSoft-Bold.ttf") format("truetype");
+    
 }
 
 @font-face {
