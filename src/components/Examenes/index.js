@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import axios from "axios";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -66,9 +66,9 @@ function Examenes1() {
     axios
       .post(`https://neoestudio.net/api/getAllExam`, getExamData)
       .then((response) => {
-        setFolderData(response.data.data);
-        setShowScreen(true);
         setLoading(false);
+        setShowScreen(true);
+        setFolderData(response.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -282,6 +282,21 @@ function Examenes1() {
     return pauseAnswer();
   };
 
+  const handleNextQ = () => {
+    if (currentQuestion + 1 >= examData.length) {
+      endQuiz();
+    } else {
+      setAnsCheck(currentQuestion + 1);
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  };
+  const handlePreviousQ = () => {
+    if (currentQuestion - 1 >= 0) {
+      setAnsCheck(currentQuestion - 1);
+      setCurrentQuestion(currentQuestion - 1);
+    }
+  };
+
   useInterval(
     () => {
       if (status == true) {
@@ -294,7 +309,6 @@ function Examenes1() {
     },
     status == true ? 1000 : null
   );
-  console.log(examFolderName);
 
   let answerClicked = null;
   let triggerTime;
@@ -394,7 +408,7 @@ function Examenes1() {
       {showScreen ? (
         <div>
           <main className={Styles.courseWrapper}>
-            <Container maxWidth="lg">
+            <Container>
               <Grid container spacing={2}>
                 <Grid item xs={3} md={3} className={Styles.topImgHeadWrapper}>
                   <img src={Conocimientos} alt="" height={150} />
@@ -452,7 +466,7 @@ function Examenes1() {
                                       startExams(e, Conocimientos)
                                     }
                                     style={{
-                                      fontFamily: "Proximasoft-regular",
+                                      fontFamily: "Proxima Soft",
                                     }}
                                   >
                                     {Conocimientos.name}
@@ -461,7 +475,7 @@ function Examenes1() {
                                   "end" ? (
                                   <button
                                     style={{
-                                      fontFamily: "Proximasoft-bold",
+                                      fontFamily: "Proxima Soft",
                                       fontWeight: "bold",
                                     }}
                                     onClick={(e) => {
@@ -477,7 +491,7 @@ function Examenes1() {
                                       startExams(e, Conocimientos)
                                     }
                                     style={{
-                                      fontFamily: "Proximasoft-regular",
+                                      fontFamily: "Proxima Soft",
                                     }}
                                   >
                                     {Conocimientos.name}
@@ -496,7 +510,7 @@ function Examenes1() {
                                     id={Inglés.id}
                                     onClick={(e) => startExams(e, Inglés)}
                                     style={{
-                                      fontFamily: "Proximasoft-regular",
+                                      fontFamily: "Proxima Soft",
                                     }}
                                   >
                                     {Inglés.name}
@@ -504,7 +518,7 @@ function Examenes1() {
                                 ) : Inglés.studentExamStatus === "end" ? (
                                   <button
                                     style={{
-                                      fontFamily: "Proximasoft-bold",
+                                      fontFamily: "Proxima Soft",
                                       fontWeight: "bold",
                                     }}
                                     onClick={(e) => {
@@ -518,7 +532,7 @@ function Examenes1() {
                                     id={Inglés.id}
                                     onClick={(e) => startExams(e, Inglés)}
                                     style={{
-                                      fontFamily: "Proximasoft-regular",
+                                      fontFamily: "Proxima Soft",
                                     }}
                                   >
                                     {Inglés.name}
@@ -540,7 +554,7 @@ function Examenes1() {
                                     }
                                     id={Psicotécnicos.id}
                                     style={{
-                                      fontFamily: "Proximasoft-regular",
+                                      fontFamily: "Proxima Soft",
                                     }}
                                   >
                                     {Psicotécnicos.name}
@@ -549,7 +563,7 @@ function Examenes1() {
                                   "end" ? (
                                   <button
                                     style={{
-                                      fontFamily: "Proximasoft-bold",
+                                      fontFamily: "Proxima Soft",
                                       fontWeight: "bold",
                                     }}
                                     onClick={(e) => {
@@ -565,7 +579,7 @@ function Examenes1() {
                                       startExams(e, Psicotécnicos)
                                     }
                                     style={{
-                                      fontFamily: "Proximasoft-regular",
+                                      fontFamily: "Proxima Soft",
                                     }}
                                   >
                                     {Psicotécnicos.name}
@@ -585,7 +599,7 @@ function Examenes1() {
                                     id={Ortografía.id}
                                     onClick={(e) => startExams(e, Ortografía)}
                                     style={{
-                                      fontFamily: "Proximasoft-regular",
+                                      fontFamily: "Proxima Soft",
                                     }}
                                   >
                                     {Ortografía.name}
@@ -593,7 +607,7 @@ function Examenes1() {
                                 ) : Ortografía.studentExamStatus === "end" ? (
                                   <button
                                     style={{
-                                      fontFamily: "Proximasoft-bold",
+                                      fontFamily: "Proxima Soft",
                                       fontWeight: "bold",
                                     }}
                                     onClick={(e) => {
@@ -607,7 +621,7 @@ function Examenes1() {
                                     id={Ortografía.id}
                                     onClick={(e) => startExams(e, Ortografía)}
                                     style={{
-                                      fontFamily: "Proximasoft-regular",
+                                      fontFamily: "Proxima Soft",
                                     }}
                                   >
                                     {Ortografía.name}
@@ -657,138 +671,476 @@ function Examenes1() {
       ) : showResultScreen == true ? (
         <>
           <main className="flex">
-            <Container maxWidth="lg">
-              <div className={Styles.quizEndWrapperInner}>
-                <div>
-                  <Markup content={examReviewData[currentQuestion].question} />
-                  <div className={Styles.Options}>
-                    <button className={Styles.answerLinks}>
-                      <div className={Styles.answerLinksInner3}>
-                        {examReviewData[currentQuestion].status == "correct" &&
+            <div className={Styles.quizEndWrapperInner}>
+              <div>
+                <span
+                  style={{
+                    fontFamily: "Proxima Soft",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <Markup
+                    style={{
+                      fontFamily: "Proxima Soft",
+                      fontWeight: "bold",
+                    }}
+                    content={examReviewData[currentQuestion].question}
+                  />
+                </span>
+                <div className={Styles.Options}>
+                  <button className={Styles.answerLinks}>
+                    <div className={Styles.answerLinksInner3}>
+                      {examReviewData[currentQuestion].status == "correct" &&
+                      examReviewData[currentQuestion].correct == "a" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
                         examReviewData[currentQuestion].correct == "a" ? (
-                          <img src={tick} alt="" />
-                        ) : examReviewData[currentQuestion].status == "wrong" &&
-                          examReviewData[currentQuestion].correct == "a" ? (
-                          <img src={tick} alt="" />
-                        ) : examReviewData[currentQuestion].status == "wrong" &&
-                          examReviewData[currentQuestion].studentAnswered ==
-                            "a" ? (
-                          <img src={cross} alt="" />
-                        ) : examReviewData[currentQuestion].status ==
-                            "notAttempted" &&
-                          examReviewData[currentQuestion].correct == "a" ? (
-                          <img src={tick} alt="" />
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].studentAnswered ==
+                          "a" ? (
+                        <img src={cross} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status ==
+                          "notAttempted" &&
+                        examReviewData[currentQuestion].correct == "a" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className={Styles.answerLinksInner2}>
+                      <Markup
+                        content={examReviewData[currentQuestion].answer1}
+                        width="90%"
+                      />
+                    </div>
+                  </button>
+                  <button className={Styles.answerLinks}>
+                    <div className={Styles.answerLinksInner3}>
+                      {examReviewData[currentQuestion].status == "correct" &&
+                      examReviewData[currentQuestion].correct == "b" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].correct == "b" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].studentAnswered ==
+                          "b" ? (
+                        <img src={cross} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status ==
+                          "notAttempted" &&
+                        examReviewData[currentQuestion].correct == "b" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className={Styles.answerLinksInner2}>
+                      <Markup
+                        content={examReviewData[currentQuestion].answer2}
+                      />
+                    </div>
+                  </button>
+                  <button className={Styles.answerLinks}>
+                    <div className={Styles.answerLinksInner3}>
+                      {examReviewData[currentQuestion].status == "correct" &&
+                      examReviewData[currentQuestion].correct == "c" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].correct == "c" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].studentAnswered ==
+                          "c" ? (
+                        <img src={cross} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status ==
+                          "notAttempted" &&
+                        examReviewData[currentQuestion].correct == "c" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className={Styles.answerLinksInner2}>
+                      <Markup
+                        content={examReviewData[currentQuestion].answer3}
+                      />
+                    </div>
+                  </button>
+
+                  <button className={Styles.answerLinks}>
+                    <div className={Styles.answerLinksInner3}>
+                      {examReviewData[currentQuestion].status == "correct" &&
+                      examReviewData[currentQuestion].correct == "d" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].correct == "d" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].studentAnswered ==
+                          "d" ? (
+                        <img src={cross} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status ==
+                          "notAttempted" &&
+                        examReviewData[currentQuestion].correct == "d" ? (
+                        <img src={tick} alt="" width={"40px"} />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className={Styles.answerLinksInner2}>
+                      <Markup
+                        content={examReviewData[currentQuestion].answer4}
+                      />
+                    </div>
+                  </button>
+                </div>
+                <div className="m-4 ">
+                  <Markup
+                    content={examReviewData[currentQuestion].description}
+                  />
+                </div>
+                <div className="w-50 text-center m-auto">
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setShowScreen(true);
+                      setShowResult(false);
+                      setShowScore(false);
+                    }}
+                  >
+                    Volver a la Lista de Exámenes
+                  </Button>
+                </div>
+              </div>
+              <div className={Styles.resultBtnWrapper}>
+                {examReviewData.map((data, index) => {
+                  return (
+                    <div
+                      style={{
+                        margin: "10px",
+                      }}
+                    >
+                      <button
+                        className={Styles.resultBtn}
+                        onClick={() => {
+                          setCurrentQuestion(index);
+                        }}
+                        style={{
+                          backgroundImage:
+                            currentQuestion == index
+                              ? `url(${golden})`
+                              : data.status == "notAttempted"
+                              ? `url(${nullImg})`
+                              : data.status == "correct"
+                              ? `url(${correctImg})`
+                              : `url(${wrongImg})`,
+                        }}
+                      >
+                        {index + 1}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </main>
+        </>
+      ) : showScore == true ? (
+        <main className={Styles.wrapperExam3Main}>
+          <h1 className={Styles.examenesHeading3}>
+            Examenes 3 - Derecho penal
+          </h1>
+          <Grid container spacing={1} marginTop={10}>
+            <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
+              <div className={Styles.innerResultWrapper}>
+                <p className={Styles.resultData}>
+                  Time Elasped :
+                  <span className={Styles.resultDataBold}>
+                    {endExam.examDuration} / {endExam.totalTime}
+                  </span>
+                </p>
+                <p className={Styles.resultData}>
+                  Aciertos :
+                  <span className={Styles.resultDataBold}>
+                    {endExam.correctCount}
+                  </span>
+                </p>
+                <p className={Styles.resultData}>
+                  Fallos :
+                  <span className={Styles.resultDataBold}>
+                    {endExam.wrongCount}
+                  </span>
+                </p>
+                <p className={Styles.resultData}>
+                  Nulos :
+                  <span className={Styles.resultDataBold}>
+                    {endExam.nonAttemptedCount}
+                  </span>
+                </p>
+                <p className={Styles.resultData} style={{ marginTop: "30px" }}>
+                  Puntos :
+                  <span className={Styles.resultDataBold}>{endExam.score}</span>
+                </p>
+                <p
+                  style={{
+                    marginTop: "10px",
+                    textAlign: "center",
+                    fontWeight: 600,
+                    fontSize: "25px",
+                  }}
+                >
+                  {endExam.result}
+                </p>
+              </div>
+            </Grid>
+            <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
+              <div className={Styles.progressBarWrapper}>
+                <Progressbar
+                  bgcolor={`linear-gradient(to bottom, rgba(17,148,47,1), rgba(106,170,101,1))`}
+                  progress={endExam.correctPercentage}
+                />
+                <img src={tick} style={{ width: "40px" }} />
+              </div>
+              <div className={Styles.progressBarWrapper}>
+                <Progressbar
+                  bgcolor={`linear-gradient(to bottom, rgba(206,8,17,1), rgba(222,110,81,1))`}
+                  progress={endExam.wrongPercentage}
+                />
+                <img src={cross} style={{ width: "40px" }} />
+              </div>
+              <div className={Styles.progressBarWrapper}>
+                <Progressbar
+                  bgcolor={`linear-gradient(to top, rgba(47,49,47,1), rgba(119,118,119,1))`}
+                  progress={endExam.nullPercentage}
+                />
+                <h3 style={{ fontSize: "25px" }}>Nulos</h3>
+              </div>
+            </Grid>
+            <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
+              <div className={Styles.resultBtnMain}>
+                <button className={Styles.revisarBtn} onClick={reviewExam}>
+                  <img src={Revisar} alt="Revisar Button" width={"350px"} />
+                </button>
+                <button className={Styles.salirBtn} onClick={SalirBtn}>
+                  <img src={Salir} alt="Salir Button" width={"350px"} />
+                </button>
+              </div>
+            </Grid>
+          </Grid>
+
+          <div className={Styles.resultBtnWrapper}>
+            {endExam.answersArray.map((data, index) => {
+              return (
+                <div
+                  style={{
+                    margin: "10px",
+                  }}
+                >
+                  <button
+                    className={Styles.resultBtn}
+                    style={{
+                      backgroundImage:
+                        data == "notAttempted"
+                          ? `url(${nullImg})`
+                          : data == "correct"
+                          ? `url(${correctImg})`
+                          : `url(${wrongImg})`,
+                    }}
+                  >
+                    {index + 1}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </main>
+      ) : showExam == true ? (
+        <>
+          <div className={Styles.wrapperMain}>
+            <main className="flex m-5 w-100">
+              <div className={Styles.quizWrapperInner}>
+                <div className={Styles.timerWrapper}>
+                  {/* Timer STARTS HERE                      */}
+                  <div className={Styles.timerWrapper}>
+                    <div className="flex">
+                      <img
+                        src={pauseImg}
+                        className={Styles.timerIcons}
+                        onClick={handleStart}
+                      />
+                      <img
+                        src={stopImg}
+                        className={Styles.timerIcons}
+                        onClick={endQuiz}
+                      />
+                    </div>
+                    <div className={`flex ${Styles.timerHeading}`}>
+                      <span className="text-black">Tiempo : </span>
+                      {twoDigits(minutesToDisplay)}:
+                      {twoDigits(secondsToDisplay)}
+                    </div>
+                  </div>
+                  {/* Timer Ends Here                      */}
+                </div>
+                <div>
+                  <span
+                    style={{
+                      fontFamily: "Proxima Soft",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <Markup content={examData[currentQuestion].question} />
+                  </span>
+                  <div className={Styles.Options}>
+                    <button
+                      onClick={(e) => {
+                        setLoading(true);
+                        if (triggerTime < 4000) {
+                          handleSetAnswer("a");
+                        } else {
+                          handelUnSelect("a");
+                        }
+                      }}
+                      onMouseDown={(e) => {
+                        triggerTime = new Date().getTime();
+                      }}
+                      onMouseUp={(e) => {
+                        let thisMoment = new Date().getTime();
+                        triggerTime = thisMoment - triggerTime;
+                      }}
+                      className={Styles.answerLinks}
+                    >
+                      <div className={Styles.answerLinksInner1}>
+                        {ansArry[currentQuestion].answer == "a" &&
+                        currentQuestion == ansCheck ? (
+                          <img src={ansSelectImg} width={"80%"} />
                         ) : (
                           ""
                         )}
                       </div>
                       <div className={Styles.answerLinksInner2}>
                         <Markup
-                          content={examReviewData[currentQuestion].answer1}
+                          content={examData[currentQuestion].answer1}
                           width="90%"
                         />
                       </div>
                     </button>
-                    <button className={Styles.answerLinks}>
-                      <div className={Styles.answerLinksInner3}>
-                        {examReviewData[currentQuestion].status == "correct" &&
-                        examReviewData[currentQuestion].correct == "b" ? (
-                          <img src={tick} alt="" />
-                        ) : examReviewData[currentQuestion].status == "wrong" &&
-                          examReviewData[currentQuestion].correct == "b" ? (
-                          <img src={tick} alt="" />
-                        ) : examReviewData[currentQuestion].status == "wrong" &&
-                          examReviewData[currentQuestion].studentAnswered ==
-                            "b" ? (
-                          <img src={cross} alt="" />
-                        ) : examReviewData[currentQuestion].status ==
-                            "notAttempted" &&
-                          examReviewData[currentQuestion].correct == "b" ? (
-                          <img src={tick} alt="" />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className={Styles.answerLinksInner2}>
-                        <Markup
-                          content={examReviewData[currentQuestion].answer2}
-                        />
-                      </div>
-                    </button>
-                    <button className={Styles.answerLinks}>
-                      <div className={Styles.answerLinksInner3}>
-                        {examReviewData[currentQuestion].status == "correct" &&
-                        examReviewData[currentQuestion].correct == "c" ? (
-                          <img src={tick} alt="" />
-                        ) : examReviewData[currentQuestion].status == "wrong" &&
-                          examReviewData[currentQuestion].correct == "c" ? (
-                          <img src={tick} alt="" />
-                        ) : examReviewData[currentQuestion].status == "wrong" &&
-                          examReviewData[currentQuestion].studentAnswered ==
-                            "c" ? (
-                          <img src={cross} alt="" />
-                        ) : examReviewData[currentQuestion].status ==
-                            "notAttempted" &&
-                          examReviewData[currentQuestion].correct == "c" ? (
-                          <img src={tick} alt="" />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className={Styles.answerLinksInner2}>
-                        <Markup
-                          content={examReviewData[currentQuestion].answer3}
-                        />
-                      </div>
-                    </button>
-
-                    <button className={Styles.answerLinks}>
-                      <div className={Styles.answerLinksInner3}>
-                        {examReviewData[currentQuestion].status == "correct" &&
-                        examReviewData[currentQuestion].correct == "d" ? (
-                          <img src={tick} alt="" />
-                        ) : examReviewData[currentQuestion].status == "wrong" &&
-                          examReviewData[currentQuestion].correct == "d" ? (
-                          <img src={tick} alt="" />
-                        ) : examReviewData[currentQuestion].status == "wrong" &&
-                          examReviewData[currentQuestion].studentAnswered ==
-                            "d" ? (
-                          <img src={cross} alt="" />
-                        ) : examReviewData[currentQuestion].status ==
-                            "notAttempted" &&
-                          examReviewData[currentQuestion].correct == "d" ? (
-                          <img src={tick} alt="" />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className={Styles.answerLinksInner2}>
-                        <Markup
-                          content={examReviewData[currentQuestion].answer4}
-                        />
-                      </div>
-                    </button>
-                  </div>
-                  <div className="m-4 ">
-                    <Markup
-                      content={examReviewData[currentQuestion].description}
-                    />
-                  </div>
-                  <div className="w-50 text-center m-auto">
-                    <Button
-                      variant="contained"
-                      onClick={() => {
-                        setShowScreen(true);
-                        setShowResult(false);
-                        setShowScore(false);
+                    <button
+                      onClick={(e) => {
+                        setLoading(true);
+                        if (triggerTime < 4000) {
+                          handleSetAnswer("b");
+                        } else {
+                          handelUnSelect("b");
+                        }
                       }}
+                      onMouseDown={(e) => {
+                        triggerTime = new Date().getTime();
+                      }}
+                      onMouseUp={(e) => {
+                        let thisMoment = new Date().getTime();
+                        triggerTime = thisMoment - triggerTime;
+                      }}
+                      className={Styles.answerLinks}
                     >
-                      Back To Examenes
+                      <div className={Styles.answerLinksInner1}>
+                        {ansArry[currentQuestion].answer == "b" &&
+                        currentQuestion == ansCheck ? (
+                          <img src={ansSelectImg} width={"80%"} />
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div className={Styles.answerLinksInner2}>
+                        <Markup content={examData[currentQuestion].answer2} />
+                      </div>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        setLoading(true);
+                        if (triggerTime < 4000) {
+                          handleSetAnswer("c");
+                        } else {
+                          handelUnSelect("c");
+                        }
+                      }}
+                      onMouseDown={(e) => {
+                        triggerTime = new Date().getTime();
+                      }}
+                      onMouseUp={(e) => {
+                        let thisMoment = new Date().getTime();
+                        triggerTime = thisMoment - triggerTime;
+                      }}
+                      className={Styles.answerLinks}
+                    >
+                      <div className={Styles.answerLinksInner1}>
+                        {ansArry[currentQuestion].answer == "c" &&
+                        currentQuestion == ansCheck ? (
+                          <img src={ansSelectImg} width={"80%"} />
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div className={Styles.answerLinksInner2}>
+                        <Markup content={examData[currentQuestion].answer3} />
+                      </div>
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        setLoading(true);
+                        if (triggerTime < 4000) {
+                          handleSetAnswer("d");
+                        } else {
+                          handelUnSelect("d");
+                        }
+                      }}
+                      onMouseDown={(e) => {
+                        triggerTime = new Date().getTime();
+                      }}
+                      onMouseUp={(e) => {
+                        let thisMoment = new Date().getTime();
+                        triggerTime = thisMoment - triggerTime;
+                      }}
+                      className={Styles.answerLinks}
+                    >
+                      <div className={Styles.answerLinksInner1}>
+                        {ansArry[currentQuestion].answer == "d" &&
+                        currentQuestion == ansCheck ? (
+                          <img src={ansSelectImg} width={"80%"} />
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div className={Styles.answerLinksInner2}>
+                        <Markup content={examData[currentQuestion].answer4} />
+                      </div>
+                    </button>
+                  </div>
+                  <div className="flex justify-between w-100">
+                    <Button variant="contained" onClick={handlePreviousQ}>
+                      Anterior
+                    </Button>
+                    <Button variant="contained" onClick={handleNextQ}>
+                      Siguiente
                     </Button>
                   </div>
                 </div>
+                {loading ? (
+                  <div className="w-100 text-center">
+                    <CircularProgress
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        margin: "10px",
+                      }}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
                 <div className={Styles.resultBtnWrapper}>
-                  {examReviewData.map((data, index) => {
+                  {ansCircles.map((data, index) => {
                     return (
                       <div
                         style={{
@@ -796,19 +1148,17 @@ function Examenes1() {
                         }}
                       >
                         <button
-                          className={Styles.resultBtn}
                           onClick={() => {
                             setCurrentQuestion(index);
+                            setAnsCheck(index);
+                            setStudentAnswered(null);
                           }}
+                          className={`${Styles.resultBtn} noAnswer`}
                           style={{
                             backgroundImage:
                               currentQuestion == index
                                 ? `url(${golden})`
-                                : data.status == "notAttempted"
-                                ? `url(${nullImg})`
-                                : data.status == "correct"
-                                ? `url(${correctImg})`
-                                : `url(${wrongImg})`,
+                                : `url(${data.img})`,
                           }}
                         >
                           {index + 1}
@@ -818,327 +1168,6 @@ function Examenes1() {
                   })}
                 </div>
               </div>
-            </Container>
-          </main>
-        </>
-      ) : showScore == true ? (
-        <main className={Styles.wrapperMain}>
-          <Container maxWidth="lg">
-            <h1 className={Styles.examenesHeading3}>
-              Examenes 3 - Derecho penal
-            </h1>
-            <Grid container spacing={1} marginTop={10}>
-              <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
-                <div className={Styles.innerResultWrapper}>
-                  <p className={Styles.resultData}>
-                    Time Elasped :
-                    <span className={Styles.resultDataBold}>
-                      {endExam.examDuration} / {endExam.totalTime}
-                    </span>
-                  </p>
-                  <p className={Styles.resultData}>
-                    Aciertos :
-                    <span className={Styles.resultDataBold}>
-                      {endExam.correctCount}
-                    </span>
-                  </p>
-                  <p className={Styles.resultData}>
-                    Fallos :
-                    <span className={Styles.resultDataBold}>
-                      {endExam.wrongCount}
-                    </span>
-                  </p>
-                  <p className={Styles.resultData}>
-                    Nulos :
-                    <span className={Styles.resultDataBold}>
-                      {endExam.nonAttemptedCount}
-                    </span>
-                  </p>
-                  <p
-                    className={Styles.resultData}
-                    style={{ marginTop: "30px" }}
-                  >
-                    Puntos :
-                    <span className={Styles.resultDataBold}>
-                      {endExam.score}
-                    </span>
-                  </p>
-                  <p
-                    style={{
-                      marginTop: "10px",
-                      textAlign: "center",
-                      fontWeight: 600,
-                      fontSize: "25px",
-                    }}
-                  >
-                    {endExam.result}
-                  </p>
-                </div>
-              </Grid>
-              <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
-                <div className={Styles.progressBarWrapper}>
-                  <Progressbar
-                    bgcolor={`linear-gradient(to bottom, rgba(17,148,47,1), rgba(106,170,101,1))`}
-                    progress={endExam.correctPercentage}
-                  />
-                  <img src={tick} style={{ width: "40px" }} />
-                </div>
-                <div className={Styles.progressBarWrapper}>
-                  <Progressbar
-                    bgcolor={`linear-gradient(to bottom, rgba(206,8,17,1), rgba(222,110,81,1))`}
-                    progress={endExam.wrongPercentage}
-                  />
-                  <img src={cross} style={{ width: "40px" }} />
-                </div>
-                <div className={Styles.progressBarWrapper}>
-                  <Progressbar
-                    bgcolor={`linear-gradient(to top, rgba(47,49,47,1), rgba(119,118,119,1))`}
-                    progress={endExam.nullPercentage}
-                  />
-                  <h3 style={{ fontSize: "25px" }}>Nulos</h3>
-                </div>
-              </Grid>
-              <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
-                <div className={Styles.resultBtnMain}>
-                  <button className={Styles.revisarBtn} onClick={reviewExam}>
-                    <img src={Revisar} alt="Revisar Button" width={"350px"} />
-                  </button>
-                  <button className={Styles.salirBtn} onClick={SalirBtn}>
-                    <img src={Salir} alt="Salir Button" width={"350px"} />
-                  </button>
-                </div>
-              </Grid>
-            </Grid>
-
-            <div className={Styles.resultBtnWrapper}>
-              {endExam.answersArray.map((data, index) => {
-                return (
-                  <div
-                    style={{
-                      margin: "10px",
-                    }}
-                  >
-                    <button
-                      className={Styles.resultBtn}
-                      style={{
-                        backgroundImage:
-                          data == "notAttempted"
-                            ? `url(${nullImg})`
-                            : data == "correct"
-                            ? `url(${correctImg})`
-                            : `url(${wrongImg})`,
-                      }}
-                    >
-                      {index + 1}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </Container>
-        </main>
-      ) : showExam == true ? (
-        <>
-          <div className={Styles.wrapperMain}>
-            <main className="flex mx-auto">
-              <Container maxWidth="lg">
-                <div className={Styles.quizWrapperInner}>
-                  <div className={Styles.timerWrapper}>
-                    {/* Timer STARTS HERE                      */}
-                    <div className={Styles.timerWrapper}>
-                      <div className="flex">
-                        <img
-                          src={pauseImg}
-                          className={Styles.timerIcons}
-                          onClick={handleStart}
-                        />
-                        <img
-                          src={stopImg}
-                          className={Styles.timerIcons}
-                          onClick={endQuiz}
-                        />
-                      </div>
-                      <div className="flex text-xl">
-                        Tiempo :
-                        <h2 className={Styles.timerHeading}>
-                          {twoDigits(minutesToDisplay)}:
-                          {twoDigits(secondsToDisplay)}
-                        </h2>
-                      </div>
-                    </div>
-                    {/* Timer Ends Here                      */}
-                  </div>
-                  <div>
-                    <Markup content={examData[currentQuestion].question} />
-                    <div className={Styles.Options}>
-                      <button
-                        onClick={(e) => {
-                          setLoading(true);
-                          if (triggerTime < 4000) {
-                            handleSetAnswer("a");
-                          } else {
-                            handelUnSelect("a");
-                          }
-                        }}
-                        onMouseDown={(e) => {
-                          triggerTime = new Date().getTime();
-                        }}
-                        onMouseUp={(e) => {
-                          let thisMoment = new Date().getTime();
-                          triggerTime = thisMoment - triggerTime;
-                        }}
-                        className={Styles.answerLinks}
-                      >
-                        <div className={Styles.answerLinksInner1}>
-                          {ansArry[currentQuestion].answer == "a" &&
-                          currentQuestion == ansCheck ? (
-                            <img src={ansSelectImg} width={"80%"} />
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                        <div className={Styles.answerLinksInner2}>
-                          <Markup
-                            content={examData[currentQuestion].answer1}
-                            width="90%"
-                          />
-                        </div>
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          setLoading(true);
-                          if (triggerTime < 4000) {
-                            handleSetAnswer("b");
-                          } else {
-                            handelUnSelect("b");
-                          }
-                        }}
-                        onMouseDown={(e) => {
-                          triggerTime = new Date().getTime();
-                        }}
-                        onMouseUp={(e) => {
-                          let thisMoment = new Date().getTime();
-                          triggerTime = thisMoment - triggerTime;
-                        }}
-                        className={Styles.answerLinks}
-                      >
-                        <div className={Styles.answerLinksInner1}>
-                          {ansArry[currentQuestion].answer == "b" &&
-                          currentQuestion == ansCheck ? (
-                            <img src={ansSelectImg} width={"80%"} />
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                        <div className={Styles.answerLinksInner2}>
-                          <Markup content={examData[currentQuestion].answer2} />
-                        </div>
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          setLoading(true);
-                          if (triggerTime < 4000) {
-                            handleSetAnswer("c");
-                          } else {
-                            handelUnSelect("c");
-                          }
-                        }}
-                        onMouseDown={(e) => {
-                          triggerTime = new Date().getTime();
-                        }}
-                        onMouseUp={(e) => {
-                          let thisMoment = new Date().getTime();
-                          triggerTime = thisMoment - triggerTime;
-                        }}
-                        className={Styles.answerLinks}
-                      >
-                        <div className={Styles.answerLinksInner1}>
-                          {ansArry[currentQuestion].answer == "c" &&
-                          currentQuestion == ansCheck ? (
-                            <img src={ansSelectImg} width={"80%"} />
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                        <div className={Styles.answerLinksInner2}>
-                          <Markup content={examData[currentQuestion].answer3} />
-                        </div>
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          setLoading(true);
-                          if (triggerTime < 4000) {
-                            handleSetAnswer("d");
-                          } else {
-                            handelUnSelect("d");
-                          }
-                        }}
-                        onMouseDown={(e) => {
-                          triggerTime = new Date().getTime();
-                        }}
-                        onMouseUp={(e) => {
-                          let thisMoment = new Date().getTime();
-                          triggerTime = thisMoment - triggerTime;
-                        }}
-                        className={Styles.answerLinks}
-                      >
-                        <div className={Styles.answerLinksInner1}>
-                          {ansArry[currentQuestion].answer == "d" &&
-                          currentQuestion == ansCheck ? (
-                            <img src={ansSelectImg} width={"80%"} />
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                        <div className={Styles.answerLinksInner2}>
-                          <Markup content={examData[currentQuestion].answer4} />
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                  {loading ? (
-                    <div className="w-100 text-center">
-                      <CircularProgress
-                        style={{
-                          width: "60px",
-                          height: "60px",
-                          margin: "10px",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  <div className={Styles.resultBtnWrapper}>
-                    {ansCircles.map((data, index) => {
-                      return (
-                        <div
-                          style={{
-                            margin: "10px",
-                          }}
-                        >
-                          <button
-                            onClick={() => {
-                              setCurrentQuestion(index);
-                              setAnsCheck(index);
-                              setStudentAnswered(null);
-                            }}
-                            className={`${Styles.resultBtn} noAnswer`}
-                            style={{
-                              backgroundImage:
-                                currentQuestion == index
-                                  ? `url(${golden})`
-                                  : `url(${data.img})`,
-                            }}
-                          >
-                            {index + 1}
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </Container>
             </main>
           </div>
         </>
