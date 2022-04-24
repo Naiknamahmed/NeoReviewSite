@@ -1,14 +1,21 @@
 @font-face {
   font-family: "Rounded Elegance";
   src: local("RoundedElegance"),
-    url("../../assets/fonts/RoundedElegance-Regular.ttf") format("truetype");
+  url("../../assets/fonts/RoundedElegance-Regular.ttf") format("truetype");
 }
-
 @font-face {
   font-family: "Proxmia Soft";
   src: local("Proxima Soft"),
-    url("../../assets/fonts/ProximaSoft-Regular.ttf") format("truetype"),
-    url("../../assets/fonts/ProximaSoft-Bold.ttf") format("truetype");
+  url("../../assets/fonts/ProximaSoft-Regular.ttf") format("truetype"),
+  url("../../assets/fonts/ProximaSoft-Bold.ttf") format("truetype"),
+}
+@font-face {
+  font-family: 'Proxima Soft';
+  src: url('../../assets/fonts/ProximaSoft-Regular.ttf');
+  src: local('Proxima Soft Regular'), local('ProximaSoft-Regular'),
+    url('../../assets/fonts/ProximaSoft-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 
