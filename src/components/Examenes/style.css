@@ -12,6 +12,15 @@
     url("../../assets/fonts/Proximasoft-regular.otf") format("opentype"),
     url("../../assets/fonts/Proximasoft-bold.otf") format("opentype");
 }
+@font-face {
+  font-family: 'Proxima Soft';
+  src: url('../../assets/fonts/ProximaSoft-Regular.ttf');
+  src: local('Proxima Soft Regular'), local('ProximaSoft-Regular'),
+    url('../../assets/fonts/ProximaSoft-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 @font-face {
   font-family: 'Proxima Soft';
