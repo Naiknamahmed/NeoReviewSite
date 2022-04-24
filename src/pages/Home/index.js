@@ -10,7 +10,6 @@ import ExamenesPage from "pages/Examenes/index";
 import RankingGlobal from "components/RankingGlobal/RankingGlobal.js";
 import { Navigate } from "react-router";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navigate } from "react-router";
 
 function Home() {
   const history = useNavigate();
