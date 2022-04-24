@@ -645,23 +645,23 @@ function Examenes1() {
                         {folderData.map((data) => {
                           return (
                             <LazyLoad>
-                            <div className={Styles.folderWrapper}>
-                              <div>
-                                <img
-                                  src={directoryImg}
-                                  alt=""
-                                  className={Styles.headingImg}
-                                />
+                              <div className={Styles.folderWrapper}>
+                                <div>
+                                  <img
+                                    src={directoryImg}
+                                    alt=""
+                                    className={Styles.headingImg}
+                                  />
+                                </div>
+                                <div
+                                  className={Styles.heading}
+                                  onClick={(e) =>
+                                    handleExamsListing(data.folderName)
+                                  }
+                                >
+                                  {data.folderName}
+                                </div>
                               </div>
-                              <div
-                                className={Styles.heading}
-                                onClick={(e) =>
-                                  handleExamsListing(data.folderName)
-                                }
-                              >
-                                {data.folderName}
-                              </div>
-                            </div>
                             </LazyLoad>
                           );
                         })}
@@ -800,8 +800,18 @@ function Examenes1() {
                     </div>
                   </button>
                 </div>
-                <div className="m-4 ">
+                <div
+                  className="m-4 "
+                  style={{
+                    fontFamily: "Proxima Soft",
+                    fontWeight: "bold",
+                  }}
+                >
                   <Markup
+                    style={{
+                      fontFamily: "Proxima Soft",
+                      fontWeight: "bold",
+                    }}
                     content={examReviewData[currentQuestion].description}
                   />
                 </div>
@@ -812,6 +822,7 @@ function Examenes1() {
                       setShowScreen(true);
                       setShowResult(false);
                       setShowScore(false);
+                      setCurrentQuestion(0);
                     }}
                   >
                     Volver a la Lista de Exámenes
