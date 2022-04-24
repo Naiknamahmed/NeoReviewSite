@@ -16,6 +16,7 @@ import psicoImg from "../../assets/img/images/psicotecnicos.png";
 import ortoImg from "../../assets/img/images/ortografia.png";
 import correctImg from "../../assets/img/images/green.png";
 import wrongImg from "../../assets/img/images/red.png";
+import LazyLoad from "react-lazyload";
 import nullImg from "../../assets/img/images/grey.png";
 import answerImg1 from "../../assets/img/images/blue.png";
 import noSelect from "../../assets/img/images/transparent.png";
@@ -640,27 +641,31 @@ function Examenes1() {
                     </>
                   ) : (
                     <>
-                      {folderData.map((data) => {
-                        return (
-                          <div className={Styles.folderWrapper}>
-                            <div>
-                              <img
-                                src={directoryImg}
-                                alt=""
-                                className={Styles.headingImg}
-                              />
+                      <LazyLoad>
+                        {folderData.map((data) => {
+                          return (
+                            <LazyLoad>
+                            <div className={Styles.folderWrapper}>
+                              <div>
+                                <img
+                                  src={directoryImg}
+                                  alt=""
+                                  className={Styles.headingImg}
+                                />
+                              </div>
+                              <div
+                                className={Styles.heading}
+                                onClick={(e) =>
+                                  handleExamsListing(data.folderName)
+                                }
+                              >
+                                {data.folderName}
+                              </div>
                             </div>
-                            <div
-                              className={Styles.heading}
-                              onClick={(e) =>
-                                handleExamsListing(data.folderName)
-                              }
-                            >
-                              {data.folderName}
-                            </div>
-                          </div>
-                        );
-                      })}
+                            </LazyLoad>
+                          );
+                        })}
+                      </LazyLoad>
                     </>
                   )}
                 </>

@@ -1,10 +1,12 @@
-import React from "react";
-import Examenes from "../../components/Examenes/index";
+import React, { Suspense } from "react";
+const Examenes = React.lazy(() => import("../../components/Examenes/index"));
 
 function ExamenesPage() {
   return (
     <>
-      <Examenes />
+      <Suspense fallback={<div>Cargando...</div>}>
+        <Examenes />
+      </Suspense>
     </>
   );
 }
