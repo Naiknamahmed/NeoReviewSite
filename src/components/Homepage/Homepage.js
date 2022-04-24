@@ -1,9 +1,9 @@
-import React from 'react'
-import useStyles from './styles';
-import './styles.css';
-import { getLocalUserdata } from '../../services/auth/localStorageData';
-import profilepic from '../../assets/img/images/layer_25.png';
-import defaultrank from '../../assets/img/images/Empleo_cabo.png';
+import React from "react";
+import useStyles from "./styles";
+import "./styles.css";
+import { getLocalUserdata } from "../../services/auth/localStorageData";
+import profilepic from "../../assets/img/images/layer_25.png";
+import defaultrank from "../../assets/img/images/Empleo_cabo.png";
 
 const Homepage = () => {
     const classes= useStyles();
@@ -13,7 +13,7 @@ const Homepage = () => {
     return (
         <div className={classes.container}>
             <div className={`${classes.wrapper} flex justify-between`}>
-                <div style={{marginLeft:'0'}} className='mr-1 w-1/4 lg:w-1/12 h-2/5 lg:ml-24'>
+                <div style={{marginLeft:'0'}} className='mr-1 w-1/4 lg:w-2/12 h-2/5 lg:ml-24'>
                     <img alt='Profile_picture' src={data.photo!=null ? `https://neoestudio.net/userImage/${data.photo}` : profilepic}/>
                 </div>
                 <div className='imgWidth3 mr-1'>
@@ -43,6 +43,6 @@ const Homepage = () => {
                 </div>
             </div>
         </div>
-  )
-}
-export default Homepage
+  );
+};
+export default Homepage;

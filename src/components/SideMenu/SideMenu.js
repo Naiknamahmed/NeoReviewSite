@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import useStyles from './styles';
+import useStyles from './styles.js';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import {Link, useLocation} from 'react-router-dom';
 
 const SideMenu = (props) => {
   const history=useNavigate();
+  const [active,setActive]=useState('Mi escritorio');
+
     const [menu] = useState([
         'Mi escritorio',
         'Actividades',
@@ -13,7 +15,7 @@ const SideMenu = (props) => {
         'Classes',
         'Exámenes',
         'Temario',
-        'Video',
+        'Videos',
         'Batalla',
         'Ranking global',
         'Audiolibro',
@@ -42,17 +44,19 @@ const SideMenu = (props) => {
 
     const classes= useStyles();
 
+    const notActive = [ 'Actividades','Entrenamiento','Batalla','Audiolibro','Repaso','Entrevista','Descargas'];
+
     return (
       <>
         <div style={{width: props.width}} className={`shadow-5 ${classes.container}`}>
         {menu.map((x, i) => (
-            <div onClick={() => {props.updatePage(x)}} component={Link} to={`/${x}`} className={`${classes.sidebaritems} sidebaritems items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50`}>
+            <div onClick={() => {setActive(x);props.updatePage(x)}} component={Link} to={`/${x}`} className={`${classes.sidebaritems} sidebaritems items-center cursor-pointer transition-opacity duration-100 ease-out opacity-100 hover:opacity-50`}>
                 <img
                     alt='...'
                     className='w-1/5 menuItem'
                     src={require(`assets/img/images/${fileNames[i]}.png`).default}
                 />
-                <div className='fSize'>
+                <div className='fSize' style={{fontFamily:active===x ? 'Montserrat-bold': 'Montserrat-regular', opacity:notActive.includes(x)?'40%':'1'}}>
                     {x}
                 </div>
             </div>

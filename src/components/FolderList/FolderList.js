@@ -97,7 +97,7 @@ const FolderList = (props) => {
                         return (         
                             <CustomizedListItem parentFolder={folder} setPdf={props.setPdf} count={count} folder={folderName} files={files2}/>
                         )
-                    }) : <div>Loading folders ...</div>
+                    }) : <div>Cargando carpetas...</div>
             }
             </List>
         </div>

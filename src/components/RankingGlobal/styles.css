@@ -24,3 +24,7 @@
     width: 100%;
     height: 100%;
 }
+
+.holder {
+    background:url('../../assets/img/images/loading.gif') center center no-repeat
+}
