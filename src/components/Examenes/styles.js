@@ -6,7 +6,7 @@ export default makeStyles(() => ({
     overflow: "hidden",
     display: "flex",
     minHeight: "100vh",
-    fontFamily: "Montserrat-regular",
+
     backgroundColor: "#f7f7f7",
   },
   folderWrapper: {
@@ -80,7 +80,6 @@ export default makeStyles(() => ({
     margin: "10px 0px",
     "&:hover": {
       color: "royalblue",
-      fontFamily: "Montserrat-bold",
     },
     "@media (max-width: 720px)": {
       fontSize: "10px",
@@ -101,8 +100,7 @@ export default makeStyles(() => ({
     padding: "20px",
     margin: "0px auto",
     minWidth: "800px",
-    fontFamily: "Montserrat-regular",
-    overflow: "hidden",
+    width: "90%",
     "@media (max-width: 720px)": {
       padding: "0px",
       minWidth: "100%",
@@ -112,7 +110,7 @@ export default makeStyles(() => ({
     padding: "50px 20px 20px 20px",
     margin: "0px auto",
     minWidth: "800px",
-    fontFamily: "Montserrat-regular",
+
     overflow: "hidden",
     "@media (max-width: 720px)": {
       padding: "0px",
@@ -123,7 +121,7 @@ export default makeStyles(() => ({
     fontSize: "30px",
     margin: "20px ",
     textAlign: "start",
-    fontFamily: "Montserrat-regular",
+
     "@media (max-width: 720px)": {
       fontSize: "20px",
       margin: "5px auto",
@@ -168,9 +166,10 @@ export default makeStyles(() => ({
   },
   answerLinksInner3: {
     width: "5%",
-    margin: "0 15px",
+    margin: "0 auto",
     color: "royalblue",
-    height: "50px",
+    height: "30px",
+    width: "60px",
   },
   ImgTextHeading: {
     fontSize: "15px",
@@ -198,8 +197,10 @@ export default makeStyles(() => ({
     margin: "0px 10px",
     cursor: "pointer",
     fontSize: "20px",
+    justifyContent: "end",
     color: "#0A52CB",
-    fontFamily: "ProximaNovaSoft-regular",
+    fontFamily: "Proxima Soft",
+    fontWeight: "bold",
     "@media (max-width: 720px)": {
       fontSize: "14px",
       fontWeight: "700",
@@ -211,7 +212,11 @@ export default makeStyles(() => ({
     margin: "0 auto",
     overflow: "hidden",
     display: "flex",
-    fontFamily: "Montserrat-regular",
+  },
+  wrapperExam3Main: {
+    margin: "0 auto",
+    width: "90%",
+    overflow: "hidden",
   },
   examenesHeading3: {
     fontSize: "30px",
@@ -226,7 +231,6 @@ export default makeStyles(() => ({
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
-    fontFamily: "Montserrat-regular",
   },
   innerResultWrapper: {
     width: "100%",
@@ -256,14 +260,13 @@ export default makeStyles(() => ({
     justifyContent: "center",
     margin: "0px auto",
     height: "100%",
-    fontFamily: "Montserrat-regular",
   },
   resultData: {
     fontSize: "20px",
     padding: "10px",
     display: "flex",
     justifyContent: "space-between",
-    fontFamily: "Montserrat-regular",
+
     "@media (max-width: 720px)": {
       fontSize: "15px",
     },
@@ -280,6 +283,7 @@ export default makeStyles(() => ({
     margin: "10px auto",
     display: "flex",
     justifyContent: "start",
+    cursor: "pointer",
     alignItems: "center",
     width: "100%",
     overflowX: "scroll",
@@ -299,22 +303,22 @@ export default makeStyles(() => ({
     },
   },
   resultBtn: {
-    fontSize: "16px",
+    fontSize: "14px",
     fontWeight: "800",
     borderRadius: "50%",
     padding: "10px",
     color: "white",
     height: "auto",
-    width: "45px",
+    width: "40px",
     backgroundSize: "cover",
   },
   resultBtn1: {
-    fontSize: "16px",
+    fontSize: "14px",
     fontWeight: "800",
     borderRadius: "50%",
     padding: "10px",
     color: "white",
     height: "auto",
-    width: "45px",
+    width: "40px",
   },
 }));
