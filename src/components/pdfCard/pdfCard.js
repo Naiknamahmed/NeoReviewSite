@@ -69,14 +69,15 @@ const PdfCard = (props) => {
                         <Document file={" https://whispering-chamber-21481.herokuapp.com/" + fileName}
                         onLoadSuccess={onDocumentLoadSuccess}
                         onContextMenu={e => e.preventDefault()}
+                        loading="Cargando PDF..."
                         >
-                            <Page pageNumber={pageNumber} />
+                            <Page renderMode="svg" scale={96/72} pageNumber={pageNumber} />
                         </Document>
                     </div>
                 </div>
                 <div style={{display:'flex',alignItems:'center', flexDirection:'column'}}>
                     <p style={{display:'flex', justifyContent:'center'}}>
-                        Page <input type='text' placeholder={pageNumber || (numPages ? 1 : '--')} 
+                        Página <input type='text' placeholder={pageNumber || (numPages ? 1 : '--')} 
                         style={{width:'12%',
                         border: '1px solid #111827',
                         paddingLeft: '2%',
