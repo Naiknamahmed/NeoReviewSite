@@ -5,9 +5,9 @@
 }
 @font-face {
   font-family: 'Proxima Soft';
-  src: local('ProximaSoft-Regular'), local('ProximaSoft-Bold'),
-    url('../../assets/fonts/ProximaSoft-Regular.ttf') format('truetype'),
-    url('../../assets/fonts/ProximaSoft-Bold.ttf') format('truetype');
+  src: local('ProximaSoft'),
+    url("../../assets/fonts/ProximaSoft-Regular.ttf") format('truetype'),
+    url("../../assets/fonts/ProximaSoft-Bold.ttf") format('truetype');
   font-weight: normal;
   font-style: normal;
 }
