@@ -215,7 +215,6 @@ export default makeStyles(() => ({
   },
   wrapperExam3Main: {
     margin: "0 auto",
-    width: "90%",
     overflow: "hidden",
   },
   examenesHeading3: {
