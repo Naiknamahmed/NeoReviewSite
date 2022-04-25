@@ -1,10 +1,13 @@
-import React, { Suspense } from "react";
+import React from "react";
+import LazyLoad from "react-lazyload";
 import Examenes from "../../components/Examenes/index";
 
 function ExamenesPage() {
   return (
     <>
-      <Examenes />
+      <LazyLoad>
+        <Examenes />
+      </LazyLoad>
     </>
   );
 }
