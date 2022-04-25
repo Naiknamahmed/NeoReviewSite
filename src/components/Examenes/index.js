@@ -226,9 +226,9 @@ function Examenes1() {
     setLoading(true);
     folderData.map((data) => {
       if (data.folderName == id) {
-        setLoading(false);
         setExamFolderName(false);
         setSelectedExam(data);
+        setLoading(false);
       }
     });
   };
