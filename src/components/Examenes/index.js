@@ -16,7 +16,6 @@ import psicoImg from "../../assets/img/images/psicotecnicos.png";
 import ortoImg from "../../assets/img/images/ortografia.png";
 import correctImg from "../../assets/img/images/green.png";
 import wrongImg from "../../assets/img/images/red.png";
-import LazyLoad from "react-lazyload";
 import nullImg from "../../assets/img/images/grey.png";
 import answerImg1 from "../../assets/img/images/blue.png";
 import noSelect from "../../assets/img/images/transparent.png";
@@ -49,12 +48,11 @@ function Examenes1() {
   const [ansCircles, setAnsCircles] = useState([]);
   const [ansCheck, setAnsCheck] = useState(0);
   const [ansArry, setAnsArry] = useState([]);
-  const [examFolderName, setExamFolderName] = useState();
+  const [examFolderName, setExamFolderName] = useState(true);
   const [selectedExam, setSelectedExam] = useState([]);
 
   const data = getLocalUserdata();
   const student_type = data.type;
-  const studentid = data.id;
 
   const getExamData = {
     studentId: data.id,
@@ -67,13 +65,14 @@ function Examenes1() {
     axios
       .post(`https://neoestudio.net/api/getAllExam`, getExamData)
       .then((response) => {
+        setFolderData(response.data.data);
         setLoading(false);
         setShowScreen(true);
-        setFolderData(response.data.data);
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
+        setExamFolderName(true);
         alert("Exams List Not Available, Please Refresh The Page");
       });
   }, []);
@@ -223,11 +222,14 @@ function Examenes1() {
       });
   };
 
-  const handleExamsListing = (w) => {
-    setExamFolderName(w);
-    folderData.map((item) => {
-      if (item.folderName == w) {
-        setSelectedExam(item);
+  const handleExamsListing = (id) => {
+    setLoading(true);
+    folderData.map((data) => {
+      if (data.folderName == id) {
+        setExamFolderName(false);
+        console.log(data.folderName);
+        setSelectedExam(data);
+        setLoading(false);
       }
     });
   };
@@ -428,27 +430,476 @@ function Examenes1() {
                   <div className={Styles.headingText}>Ortografia</div>
                 </Grid>
               </Grid>
-              {loading ? (
-                <div className="w-100 text-center">
-                  <CircularProgress
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                      margin: "90px",
+              {examFolderName ? (
+                <>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      setLoading(true);
+                      handleExamsListing(e.target.id);
                     }}
-                  />
-                  <h2>Cargando Exámenes Por favor, espera.</h2>
-                </div>
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div id="Tema 1 - Derecho penal" className={Styles.heading}>
+                      Tema 1 - Derecho penal
+                    </div>
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      setLoading(true);
+                      handleExamsListing(e.target.id);
+                    }}
+                    className={Styles.folderWrapper}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 2 - Derecho procesal"
+                    >
+                      Tema 2 - Derecho procesal
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div id="Tema 3 - Derecho civil" className={Styles.heading}>
+                      Tema 3 - Derecho civil
+                    </div>
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                    className={Styles.folderWrapper}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      id="Tema 4 - Derecho constitucional"
+                      className={Styles.heading}
+                    >
+                      Tema 4 - Derecho constitucional
+                    </div>
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                    className={Styles.folderWrapper}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 5 -Derechos Humanos"
+                    >
+                      Tema 5 -Derechos Humanos
+                    </div>
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                    className={Styles.folderWrapper}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      id="Tema 6 - Derecho de la Unión Europea"
+                      className={Styles.heading}
+                    >
+                      Tema 6 - Derecho de la Unión Europea
+                    </div>
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                    className={Styles.folderWrapper}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 7 - Instituciones Internacionales"
+                    >
+                      Tema 7 - Instituciones Internacionales
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 8 - Extranjería e Inmigración"
+                    >
+                      Tema 8 - Extranjería e Inmigración
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 9 - Derecho Administrativo"
+                    >
+                      Tema 9 - Derecho Administrativo
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 10 - Fuerzas y Cuerpos de Seguridad. Guardia Civil"
+                    >
+                      Tema 10 - Fuerzas y Cuerpos de Seguridad. Guardia Civil
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 11 - Ministerio de Interior y Ministerio de Defensa"
+                    >
+                      Tema 11 - Ministerio de Interior y Ministerio de Defensa
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 12 - Seguridad Pública y  Privada"
+                    >
+                      Tema 12 - Seguridad Pública y Privada
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 13 - Protección Civil. Desarrollo sostenible. Eficiencia energética"
+                    >
+                      Tema 13 - Protección Civil. Desarrollo sostenible.
+                      Eficiencia energética
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 14 - Tecnologías de la Información. Estadística"
+                    >
+                      Tema 14 - Tecnologías de la Información. Estadística
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div className={Styles.heading} id="Tema 15 - Igualdad">
+                      Tema 15 - Igualdad
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 16 - Prevención de Riesgos Laborales"
+                    >
+                      Tema 16 - Prevención de Riesgos Laborales
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 17 - Protección de Datos"
+                    >
+                      Tema 17 - Protección de Datos
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div className={Styles.heading} id="Tema 18 - Matemáticas">
+                      Tema 18 - Matemáticas
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 19 - Física y Química"
+                    >
+                      Tema 19 - Física y Química
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div className={Styles.heading} id="Tema 20 - Topografía">
+                      Tema 20 - Topografía
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 21 - Geografía e Historia"
+                    >
+                      Tema 21 - Geografía e Historia
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div
+                      className={Styles.heading}
+                      id="Tema 22 - Literatura española"
+                    >
+                      Tema 22 - Literatura española
+                    </div>
+                  </div>
+                  <div
+                    className={Styles.folderWrapper}
+                    onClick={(e) => {
+                      handleExamsListing(e.target.id);
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={directoryImg}
+                        alt=""
+                        className={Styles.headingImg}
+                      />
+                    </div>
+                    <div className={Styles.heading} id="Final">
+                      Final
+                    </div>
+                  </div>
+                </>
               ) : (
                 <>
-                  {examFolderName != null ? (
+                  {loading ? (
+                    <div className="w-100 text-center">
+                      <CircularProgress
+                        style={{
+                          width: "60px",
+                          height: "60px",
+                          margin: "90px",
+                        }}
+                      />
+                      <h2>Cargando Exámenes Por favor, espera.</h2>
+                    </div>
+                  ) : (
                     <>
                       <div className={Styles.folderHeading}>
                         <div className={Styles.folderHeadingImg}>
                           <ArrowBackIosNewIcon
                             className="cursor-pointer m-4 text-start"
                             onClick={() => {
-                              setExamFolderName();
+                              setExamFolderName(true);
+                              setSelectedExam();
                             }}
                           />
                         </div>
@@ -638,34 +1089,6 @@ function Examenes1() {
                           <img src={Comenzar} alt="" />
                         </button>
                       </div>
-                    </>
-                  ) : (
-                    <>
-                      <LazyLoad>
-                        {folderData.map((data) => {
-                          return (
-                            <LazyLoad>
-                              <div className={Styles.folderWrapper}>
-                                <div>
-                                  <img
-                                    src={directoryImg}
-                                    alt=""
-                                    className={Styles.headingImg}
-                                  />
-                                </div>
-                                <div
-                                  className={Styles.heading}
-                                  onClick={(e) =>
-                                    handleExamsListing(data.folderName)
-                                  }
-                                >
-                                  {data.folderName}
-                                </div>
-                              </div>
-                            </LazyLoad>
-                          );
-                        })}
-                      </LazyLoad>
                     </>
                   )}
                 </>
