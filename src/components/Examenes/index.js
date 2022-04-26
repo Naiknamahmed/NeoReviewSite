@@ -62,6 +62,7 @@ function Examenes1() {
   // GET ALL EXAM LISTING API
 
   useEffect(() => {
+    setLoading(true);
     axios
       .post(`https://neoestudio.net/api/getAllExam`, getExamData)
       .then((response) => {
@@ -211,6 +212,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/reviewExam`, reviewData)
       .then((response) => {
         setExamReviewData(response.data.data);
+        console.log(response.data.data);
         setShowScreen(false);
         setShowExam(false);
         setShowScore(false);
@@ -223,7 +225,6 @@ function Examenes1() {
   };
 
   const handleExamsListing = (id) => {
-    setLoading(true);
     folderData.map((data) => {
       if (data.folderName == id) {
         setExamFolderName(false);
@@ -395,8 +396,8 @@ function Examenes1() {
         if (currentQuestion + 1 >= examData.length) {
           endQuiz();
         } else {
-          setAnsCheck(currentQuestion + 1);
-          setCurrentQuestion(currentQuestion + 1);
+          setAnsCheck(currentQuestion);
+          setCurrentQuestion(currentQuestion);
           setLoading(false);
           answerClicked = null;
         }
@@ -447,7 +448,6 @@ function Examenes1() {
                   <div
                     className={Styles.folderWrapper}
                     onClick={(e) => {
-                      setLoading(true);
                       handleExamsListing(e.target.id);
                     }}
                   >
@@ -464,7 +464,6 @@ function Examenes1() {
                   </div>
                   <div
                     onClick={(e) => {
-                      setLoading(true);
                       handleExamsListing(e.target.id);
                     }}
                     className={Styles.folderWrapper}
@@ -1118,8 +1117,12 @@ function Examenes1() {
                           "notAttempted" &&
                         examReviewData[currentQuestion].correct == "a" ? (
                         <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].studentAnswered ==
+                          "answer1" ? (
+                        <img src={cross} alt="" width={"40px"} />
                       ) : (
-                        ""
+                        " "
                       )}
                     </div>
                     <div className={Styles.answerLinksInner2}>
@@ -1145,6 +1148,10 @@ function Examenes1() {
                           "notAttempted" &&
                         examReviewData[currentQuestion].correct == "b" ? (
                         <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].studentAnswered ==
+                          "answer2" ? (
+                        <img src={cross} alt="" width={"40px"} />
                       ) : (
                         ""
                       )}
@@ -1171,6 +1178,10 @@ function Examenes1() {
                           "notAttempted" &&
                         examReviewData[currentQuestion].correct == "c" ? (
                         <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].studentAnswered ==
+                          "answer3" ? (
+                        <img src={cross} alt="" width={"40px"} />
                       ) : (
                         ""
                       )}
@@ -1198,6 +1209,10 @@ function Examenes1() {
                           "notAttempted" &&
                         examReviewData[currentQuestion].correct == "d" ? (
                         <img src={tick} alt="" width={"40px"} />
+                      ) : examReviewData[currentQuestion].status == "wrong" &&
+                        examReviewData[currentQuestion].studentAnswered ==
+                          "answer4" ? (
+                        <img src={cross} alt="" width={"40px"} />
                       ) : (
                         ""
                       )}
@@ -1401,9 +1416,11 @@ function Examenes1() {
                       />
                     </div>
                     <div className={`flex ${Styles.timerHeading}`}>
-                      <span className="text-black">Tiempo : </span>
-                      {twoDigits(minutesToDisplay)}:
-                      {twoDigits(secondsToDisplay)}
+                      <span className="text-black mx-2">Tiempo:</span>
+                      <span>
+                        {twoDigits(minutesToDisplay)}:
+                        {twoDigits(secondsToDisplay)}
+                      </span>
                     </div>
                   </div>
                   {/* Timer Ends Here                      */}

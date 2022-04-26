@@ -100,7 +100,7 @@ export default makeStyles(() => ({
     padding: "20px",
     margin: "0px auto",
     minWidth: "800px",
-    width: "90%",
+    width: "95%",
     "@media (max-width: 720px)": {
       padding: "0px",
       minWidth: "100%",
@@ -109,12 +109,10 @@ export default makeStyles(() => ({
   quizEndWrapperInner: {
     padding: "50px 20px 20px 20px",
     margin: "0px auto",
-    minWidth: "800px",
-
-    overflow: "hidden",
+    overflow: "auto",
     "@media (max-width: 720px)": {
-      padding: "0px",
-      minWidth: "100%",
+      padding: "20px",
+      minWidth: "95%",
     },
   },
   quizQuestionHeading: {
@@ -151,7 +149,7 @@ export default makeStyles(() => ({
     },
   },
   answerLinksInner1: {
-    width: "5%",
+    width: "3%",
     margin: "0 auto",
     color: "royalblue",
     "@media (max-width: 720px)": {
@@ -285,7 +283,7 @@ export default makeStyles(() => ({
     cursor: "pointer",
     alignItems: "center",
     width: "100%",
-    overflowX: "scroll",
+    overflow: "auto",
     "&::-webkit-scrollbar": {
       height: "10px",
     },
