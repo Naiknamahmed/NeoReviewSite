@@ -3,7 +3,10 @@ import axios from "axios";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@mui/material/Button";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CircularProgress from "@mui/material/CircularProgress";
 import ansSelectImg from "../../assets/img/images/Flecha.png";
 import Revisar from "../../assets/img/images/revisar.png";
@@ -67,8 +70,8 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/getAllExam`, getExamData)
       .then((response) => {
         setFolderData(response.data.data);
-        setShowScreen(true);
         setLoading(false);
+        setShowScreen(true);
       })
       .catch((error) => {
         console.log(error);
@@ -212,7 +215,6 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/reviewExam`, reviewData)
       .then((response) => {
         setExamReviewData(response.data.data);
-        console.log(response.data.data);
         setShowScreen(false);
         setShowExam(false);
         setShowScore(false);
@@ -312,6 +314,12 @@ function Examenes1() {
     },
     status == true ? 1000 : null
   );
+
+  // ACCORDIION
+  const [expanded, setExpanded] = useState();
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   let answerClicked = null;
   let triggerTime;
@@ -441,641 +449,232 @@ function Examenes1() {
                   />
                 </div>
               ) : (
-                ""
-              )}
-              {examFolderName ? (
                 <>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div id="Tema 1 - Derecho penal" className={Styles.heading}>
-                      Tema 1 - Derecho penal
-                    </div>
-                  </div>
-                  <div
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                    className={Styles.folderWrapper}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 2 - Derecho procesal"
-                    >
-                      Tema 2 - Derecho procesal
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div id="Tema 3 - Derecho civil" className={Styles.heading}>
-                      Tema 3 - Derecho civil
-                    </div>
-                  </div>
-                  <div
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                    className={Styles.folderWrapper}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      id="Tema 4 - Derecho constitucional"
-                      className={Styles.heading}
-                    >
-                      Tema 4 - Derecho constitucional
-                    </div>
-                  </div>
-                  <div
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                    className={Styles.folderWrapper}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 5 -Derechos Humanos"
-                    >
-                      Tema 5 -Derechos Humanos
-                    </div>
-                  </div>
-                  <div
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                    className={Styles.folderWrapper}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      id="Tema 6 - Derecho de la Unión Europea"
-                      className={Styles.heading}
-                    >
-                      Tema 6 - Derecho de la Unión Europea
-                    </div>
-                  </div>
-                  <div
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                    className={Styles.folderWrapper}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 7 - Instituciones Internacionales"
-                    >
-                      Tema 7 - Instituciones Internacionales
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 8 - Extranjería e Inmigración"
-                    >
-                      Tema 8 - Extranjería e Inmigración
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 9 - Derecho Administrativo"
-                    >
-                      Tema 9 - Derecho Administrativo
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 10 - Fuerzas y Cuerpos de Seguridad. Guardia Civil"
-                    >
-                      Tema 10 - Fuerzas y Cuerpos de Seguridad. Guardia Civil
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 11 - Ministerio de Interior y Ministerio de Defensa"
-                    >
-                      Tema 11 - Ministerio de Interior y Ministerio de Defensa
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 12 - Seguridad Pública y  Privada"
-                    >
-                      Tema 12 - Seguridad Pública y Privada
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 13 - Protección Civil. Desarrollo sostenible. Eficiencia energética"
-                    >
-                      Tema 13 - Protección Civil. Desarrollo sostenible.
-                      Eficiencia energética
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 14 - Tecnologías de la Información. Estadística"
-                    >
-                      Tema 14 - Tecnologías de la Información. Estadística
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div className={Styles.heading} id="Tema 15 - Igualdad">
-                      Tema 15 - Igualdad
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 16 - Prevención de Riesgos Laborales"
-                    >
-                      Tema 16 - Prevención de Riesgos Laborales
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 17 - Protección de Datos"
-                    >
-                      Tema 17 - Protección de Datos
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div className={Styles.heading} id="Tema 18 - Matemáticas">
-                      Tema 18 - Matemáticas
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 19 - Física y Química"
-                    >
-                      Tema 19 - Física y Química
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div className={Styles.heading} id="Tema 20 - Topografía">
-                      Tema 20 - Topografía
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 21 - Geografía e Historia"
-                    >
-                      Tema 21 - Geografía e Historia
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div
-                      className={Styles.heading}
-                      id="Tema 22 - Literatura española"
-                    >
-                      Tema 22 - Literatura española
-                    </div>
-                  </div>
-                  <div
-                    className={Styles.folderWrapper}
-                    onClick={(e) => {
-                      handleExamsListing(e.target.id);
-                    }}
-                  >
-                    <div>
-                      <img
-                        src={directoryImg}
-                        alt=""
-                        className={Styles.headingImg}
-                      />
-                    </div>
-                    <div className={Styles.heading} id="Final">
-                      Final
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className={Styles.folderHeading}>
-                    <div className={Styles.folderHeadingImg}>
-                      <ArrowBackIosNewIcon
-                        className="cursor-pointer m-4 text-start"
-                        onClick={() => {
-                          setExamFolderName(true);
-                          setSelectedExam();
-                        }}
-                      />
-                    </div>
-                    <div className="w-100">{selectedExam.folderName}</div>
-                  </div>
-                  <div className={Styles.dataWrapper}>
-                    <div>
-                      {selectedExam.Conocimientos.map((Conocimientos) => {
-                        return (
-                          <div className={Styles.examLinks}>
-                            {Conocimientos.studentExamStatus ===
-                            "notAttempted" ? (
-                              <button
-                                id={Conocimientos.id}
-                                onClick={(e) => startExams(e, Conocimientos)}
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                }}
-                              >
-                                {Conocimientos.name}
-                              </button>
-                            ) : Conocimientos.studentExamStatus === "end" ? (
-                              <button
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                  fontWeight: "bold",
-                                }}
-                                onClick={(e) => {
-                                  return reviewExam(e, Conocimientos);
-                                }}
-                              >
-                                {Conocimientos.name}
-                              </button>
-                            ) : (
-                              <button
-                                id={Conocimientos.id}
-                                onClick={(e) => startExams(e, Conocimientos)}
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                }}
-                              >
-                                {Conocimientos.name}
-                              </button>
-                            )}
+                  {folderData.map((data) => {
+                    const panel = data.folderName;
+                    return (
+                      <div className={Styles.folderWrapper}>
+                        <Accordion
+                          expanded={expanded === data.folderName}
+                          onChange={handleChange(panel)}
+                          TransitionProps={{ unmountOnExit: true }}
+                          className={Styles.BoxWrapper1212}
+                        >
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            className={Styles.BoxWrapper1212}
+                          >
+                            <div>
+                              <img
+                                src={directoryImg}
+                                alt=""
+                                className={Styles.headingImg}
+                              />
+                            </div>
+                            <div className={Styles.heading}>
+                              {data.folderName}
+                            </div>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <div className={Styles.dataWrapper}>
+                              <div>
+                                {data.Conocimientos.map((Conocimientos) => {
+                                  return (
+                                    <div className={Styles.examLinks}>
+                                      {Conocimientos.studentExamStatus ===
+                                      "notAttempted" ? (
+                                        <button
+                                          id={Conocimientos.id}
+                                          onClick={(e) =>
+                                            startExams(e, Conocimientos)
+                                          }
+                                          style={{
+                                            fontFamily:
+                                              "ProximaNovaSoft-regular",
+                                          }}
+                                        >
+                                          {Conocimientos.name}
+                                        </button>
+                                      ) : Conocimientos.studentExamStatus ===
+                                        "end" ? (
+                                        <button
+                                          style={{
+                                            fontFamily: "ProximaNovaSoft-bold",
+                                          }}
+                                          onClick={(e) => {
+                                            return reviewExam(e, Conocimientos);
+                                          }}
+                                        >
+                                          {Conocimientos.name}
+                                        </button>
+                                      ) : (
+                                        <button
+                                          id={Conocimientos.id}
+                                          onClick={(e) =>
+                                            startExams(e, Conocimientos)
+                                          }
+                                          style={{
+                                            fontFamily:
+                                              "ProximaNovaSoft-regular",
+                                          }}
+                                        >
+                                          {Conocimientos.name}
+                                        </button>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                              <div>
+                                {data.Inglés.map((Inglés) => {
+                                  return (
+                                    <div className={Styles.examLinks}>
+                                      {Inglés.studentExamStatus ===
+                                      "notAttempted" ? (
+                                        <button
+                                          id={Inglés.id}
+                                          onClick={(e) => startExams(e, Inglés)}
+                                          style={{
+                                            fontFamily:
+                                              "ProximaNovaSoft-regular",
+                                          }}
+                                        >
+                                          {Inglés.name}
+                                        </button>
+                                      ) : Inglés.studentExamStatus === "end" ? (
+                                        <button
+                                          style={{
+                                            fontFamily: "ProximaNovaSoft-bold",
+                                          }}
+                                          onClick={(e) => {
+                                            return reviewExam(e, Inglés);
+                                          }}
+                                        >
+                                          {Inglés.name}
+                                        </button>
+                                      ) : (
+                                        <button
+                                          id={Inglés.id}
+                                          onClick={(e) => startExams(e, Inglés)}
+                                          style={{
+                                            fontFamily:
+                                              "ProximaNovaSoft-regular",
+                                          }}
+                                        >
+                                          {Inglés.name}
+                                        </button>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                              <div>
+                                {data.Psicotécnicos.map((Psicotécnicos) => {
+                                  return (
+                                    <div className={Styles.examLinks}>
+                                      {Psicotécnicos.studentExamStatus ===
+                                      "notAttempted" ? (
+                                        <button
+                                          onClick={(e) =>
+                                            startExams(e, Psicotécnicos)
+                                          }
+                                          id={Psicotécnicos.id}
+                                          style={{
+                                            fontFamily:
+                                              "ProximaNovaSoft-regular",
+                                          }}
+                                        >
+                                          {Psicotécnicos.name}
+                                        </button>
+                                      ) : Psicotécnicos.studentExamStatus ===
+                                        "end" ? (
+                                        <button
+                                          style={{
+                                            fontFamily: "ProximaNovaSoft-bold",
+                                          }}
+                                          onClick={(e) => {
+                                            return reviewExam(e, Psicotécnicos);
+                                          }}
+                                        >
+                                          {Psicotécnicos.name}
+                                        </button>
+                                      ) : (
+                                        <button
+                                          id={Psicotécnicos.id}
+                                          onClick={(e) =>
+                                            startExams(e, Psicotécnicos)
+                                          }
+                                          style={{
+                                            fontFamily:
+                                              "ProximaNovaSoft-regular",
+                                          }}
+                                        >
+                                          {Psicotécnicos.name}
+                                        </button>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                              <div>
+                                {data.Ortografía.map((Ortografía) => {
+                                  return (
+                                    <div className={Styles.examLinks}>
+                                      {Ortografía.studentExamStatus ===
+                                      "notAttempted" ? (
+                                        <button
+                                          id={Ortografía.id}
+                                          onClick={(e) =>
+                                            startExams(e, Ortografía)
+                                          }
+                                          style={{
+                                            fontFamily:
+                                              "ProximaNovaSoft-regular",
+                                          }}
+                                        >
+                                          {Ortografía.name}
+                                        </button>
+                                      ) : Ortografía.studentExamStatus ===
+                                        "end" ? (
+                                        <button
+                                          style={{
+                                            fontFamily: "ProximaNovaSoft-bold",
+                                          }}
+                                          onClick={(e) => {
+                                            return reviewExam(e, Ortografía);
+                                          }}
+                                        >
+                                          {Ortografía.name}
+                                        </button>
+                                      ) : (
+                                        <button
+                                          id={Ortografía.id}
+                                          onClick={(e) =>
+                                            startExams(e, Ortografía)
+                                          }
+                                          style={{
+                                            fontFamily:
+                                              "ProximaNovaSoft-regular",
+                                          }}
+                                        >
+                                          {Ortografía.name}
+                                        </button>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </AccordionDetails>
+                          <div className={Styles.comenzarBtnWrapper}>
+                            <button className={Styles.comenzarBtn}>
+                              <img src={Comenzar} alt="" />
+                            </button>
                           </div>
-                        );
-                      })}
-                    </div>
-                    <div>
-                      {selectedExam.Inglés.map((Inglés) => {
-                        return (
-                          <div className={Styles.examLinks}>
-                            {Inglés.studentExamStatus === "notAttempted" ? (
-                              <button
-                                id={Inglés.id}
-                                onClick={(e) => startExams(e, Inglés)}
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                }}
-                              >
-                                {Inglés.name}
-                              </button>
-                            ) : Inglés.studentExamStatus === "end" ? (
-                              <button
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                  fontWeight: "bold",
-                                }}
-                                onClick={(e) => {
-                                  return reviewExam(e, Inglés);
-                                }}
-                              >
-                                {Inglés.name}
-                              </button>
-                            ) : (
-                              <button
-                                id={Inglés.id}
-                                onClick={(e) => startExams(e, Inglés)}
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                }}
-                              >
-                                {Inglés.name}
-                              </button>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div>
-                      {selectedExam.Psicotécnicos.map((Psicotécnicos) => {
-                        return (
-                          <div className={Styles.examLinks}>
-                            {Psicotécnicos.studentExamStatus ===
-                            "notAttempted" ? (
-                              <button
-                                onClick={(e) => startExams(e, Psicotécnicos)}
-                                id={Psicotécnicos.id}
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                }}
-                              >
-                                {Psicotécnicos.name}
-                              </button>
-                            ) : Psicotécnicos.studentExamStatus === "end" ? (
-                              <button
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                  fontWeight: "bold",
-                                }}
-                                onClick={(e) => {
-                                  return reviewExam(e, Psicotécnicos);
-                                }}
-                              >
-                                {Psicotécnicos.name}
-                              </button>
-                            ) : (
-                              <button
-                                id={Psicotécnicos.id}
-                                onClick={(e) => startExams(e, Psicotécnicos)}
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                }}
-                              >
-                                {Psicotécnicos.name}
-                              </button>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div>
-                      {selectedExam.Ortografía.map((Ortografía) => {
-                        return (
-                          <div className={Styles.examLinks}>
-                            {Ortografía.studentExamStatus === "notAttempted" ? (
-                              <button
-                                id={Ortografía.id}
-                                onClick={(e) => startExams(e, Ortografía)}
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                }}
-                              >
-                                {Ortografía.name}
-                              </button>
-                            ) : Ortografía.studentExamStatus === "end" ? (
-                              <button
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                  fontWeight: "bold",
-                                }}
-                                onClick={(e) => {
-                                  return reviewExam(e, Ortografía);
-                                }}
-                              >
-                                {Ortografía.name}
-                              </button>
-                            ) : (
-                              <button
-                                id={Ortografía.id}
-                                onClick={(e) => startExams(e, Ortografía)}
-                                style={{
-                                  fontFamily: "Proxima Soft",
-                                }}
-                              >
-                                {Ortografía.name}
-                              </button>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                  <div className={Styles.comenzarBtnWrapper}>
-                    <button className={Styles.comenzarBtn}>
-                      <img src={Comenzar} alt="" />
-                    </button>
-                  </div>
+                        </Accordion>
+                      </div>
+                    );
+                  })}
                 </>
               )}
             </Container>

@@ -13,6 +13,9 @@ export default makeStyles(() => ({
     margin: "30px auto",
     display: "flex",
   },
+  BoxWrapper1212: {
+    width: "100%",
+  },
   heading: {
     fontSize: "20px",
     width: "100%",
