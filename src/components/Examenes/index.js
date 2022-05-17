@@ -51,8 +51,6 @@ function Examenes1() {
   const [ansCircles, setAnsCircles] = useState([]);
   const [ansCheck, setAnsCheck] = useState(0);
   const [ansArry, setAnsArry] = useState([]);
-  const [examFolderName, setExamFolderName] = useState(true);
-  const [selectedExam, setSelectedExam] = useState([]);
 
   const data = getLocalUserdata();
   const student_type = data.type;
@@ -76,7 +74,6 @@ function Examenes1() {
       .catch((error) => {
         console.log(error);
         setLoading(false);
-        setExamFolderName(true);
         alert("Exams List Not Available, Please Refresh The Page");
       });
   }, []);
@@ -224,16 +221,6 @@ function Examenes1() {
       .catch((error) => {
         console.log(error, "Not Loading Review Exam Data !");
       });
-  };
-
-  const handleExamsListing = (id) => {
-    folderData.map((data) => {
-      if (data.folderName == id) {
-        setExamFolderName(false);
-        setSelectedExam(data);
-        setLoading(false);
-      }
-    });
   };
 
   // SALIR BTN
