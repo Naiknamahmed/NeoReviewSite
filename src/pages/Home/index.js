@@ -8,6 +8,8 @@ import Video from "components/Video/Video.js";
 import Classes from "components/Classes/Classes.js";
 import ExamenesPage from "pages/Examenes/index";
 import RankingGlobal from "components/RankingGlobal/RankingGlobal.js";
+import Descargas from "components/Descargas/Descargas";
+import AudioLibro from "components/AudioLibro/AudioLibro";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function Home() {
@@ -35,12 +37,13 @@ function Home() {
 
   const renderOption = () => {
     if (currentPage === "Mi escritorio") return <Homepage />;
-    else if (currentPage === "Temario")
-      return <Temario folderToggle={folderToggle} />;
+    else if (currentPage === "Temario") return <Temario folderToggle={folderToggle} />;
     else if (currentPage === "Exámenes") return <ExamenesPage />;
     else if (currentPage === "Videos") return <Video folderToggle={folderToggle}/>;
     else if (currentPage === "Classes") return <Classes folderToggle={folderToggle}/>;
     else if (currentPage === "Ranking global") return <RankingGlobal />;
+    else if (currentPage === "Descargas") return <Descargas />;
+    else if (currentPage === "Audiolibro") return <AudioLibro/>
   };
 
   return (

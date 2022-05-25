@@ -34,6 +34,7 @@ export function saveLocalData(value) {
   value.openedClasses=[];
   value.openedVideos=[];
   value.openedPdfs=[];
+  value.openedAudios=[];
   if(temp===null){
     localStorage.setItem('neoestudio', JSON.stringify(value));
   }

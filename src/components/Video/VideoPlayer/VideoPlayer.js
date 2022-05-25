@@ -6,7 +6,7 @@ const VideoPlayer = (props) => {
   const videoRef = useRef();
   const [duration, setDuration]=useState(0);
 
-  useEffect(() => {    
+  useEffect(() => {
     videoRef.current?.load();
   }, [props.url]);
 
@@ -33,7 +33,7 @@ const VideoPlayer = (props) => {
                       videoRef.current.currentTime=timeToStart;
                       }}
                     onContextMenu={e => e.preventDefault()}>
-                    <source src={props.url} type="video/mp4"/>
+                    <source type="video/mp4" src={props.url}/>
                     Your browser doesn't support video, Choose a better browser!
                 </video>
             </div>
