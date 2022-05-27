@@ -58,7 +58,7 @@ const DownloadFolders = (props) => {
           })
           response.data.files.forEach((item)=>{
             setFiles(oldArray => [...oldArray, {
-              title:item.name,
+              title:item.title===null?item.name:item.title,
               url:item.file,
             }]);
           })

@@ -45,10 +45,11 @@ const DownloadFiles = (props) => {
       const data=getLocalUserdata();
       userServices.commonPostService('/getDownloadFiles',JSON.stringify({"folderId":props.folderId,"studentId":data.id}))
       .then(response=>{
+        console.log(response.data);
         if(response.data.message==='success') {
           response.data.files.forEach((item)=>{
             setFiles(oldArray => [...oldArray, {
-              title:item.name,
+              title:item.title===null?item.name:item.title,
               url:item.file,
             }]);
           })
