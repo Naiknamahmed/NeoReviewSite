@@ -13,15 +13,15 @@ const ClassesPlayer = (props) => {
   }
 
   return (
-    <div className='container' >
-        <div className='player-wrapper'> 
+    <div className='classescontainer' >
+        <div className='classesplayer-wrapper'> 
         { props.url==='' ? <div style={{display:'flex', justifyContent:'center', paddingTop:'20%'}}>Selecciona un archivo para empezar.</div>
             : <ReactPlayer
             // Disable download button
             config={{ file: { attributes: { controlsList: 'nodownload' } } }}
             // Disable right click
             onContextMenu={e => e.preventDefault()}
-            className='react-player'
+            className='classesreact-player'
             width="750" height="500"
             url={props.url}
             controls={true}

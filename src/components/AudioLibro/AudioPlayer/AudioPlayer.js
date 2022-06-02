@@ -13,14 +13,14 @@ const AudioPlayer = (props) => {
     }
   
     return (
-      <div className='container' >
-          <div className='player-wrapper'>
+      <div className='audiocontainer' >
+          <div className='audioplayer-wrapper'>
               <ReactPlayer
               // Disable download button
               config={{ file: { attributes: { controlsList: 'nodownload' }, forceAudio: true } }}
               // Disable right click
               onContextMenu={e => e.preventDefault()}
-              className='react-player'
+              className='audioreact-player'
               width="50" height="50"
               url={props.url}
               controls={true}

@@ -1,17 +1,17 @@
-.container {
+.audiocontainer {
     width: 60%;
     height: 100%;
     max-width: 1034px;
     max-height: 543px;
     margin: 0 auto;
 }
-.player-wrapper {
+.audioplayer-wrapper {
     position: relative;
     padding-top: 30%;
     padding-bottom: 30.5%;
     height: 0;
 }
-.react-player {
+.audioreact-player {
     box-sizing: border-box;
     padding-top:7.7%;
     padding-bottom: 9.75%;

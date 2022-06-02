@@ -12,7 +12,7 @@ const AudioLibro = () => {
   }
 
   return (
-    <div className='flex'>
+    <div className='flex justify-center items-center'>
       <AudioFolder updateUrl={updateUrl}/>
       <AudioPlayer url={url} title={title}/>
     </div>

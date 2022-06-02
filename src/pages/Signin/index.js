@@ -16,7 +16,7 @@ export default function Signin() {
                 'url(' + require('assets/img/bottom.png').default + ')',
             }}
           ></div>
-          <div className='container mx-auto px-4 h-full'>
+          <div className='mx-auto px-4 h-full'>
             <div className='flex content-center items-center justify-center h-full'>
               <div className='w-full lg:w-4/12 px-4'>
                 <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white border-0'>
@@ -25,7 +25,7 @@ export default function Signin() {
                       <img
                         alt='...'
                         className='w-full h-full mr-1'
-                        src={require('assets/img/bg2.png').default}
+                        src={require('assets/img/Newbg.jpg').default}
                       
                       />
                     </div>
