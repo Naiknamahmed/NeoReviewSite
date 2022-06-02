@@ -1,14 +1,9 @@
 import React, {useRef, useState} from 'react';
 
 import './styles.css';
-import download from '../../assets/img/images/down.png';
-import upload from '../../assets/img/images/subidas.png';
 import DownloadMaterial from './DownloadMaterial/DownloadMaterial';
 
 const Descargas = () => {
-  const [view, setView] = useState('download');
-  const uploadref= useRef();
-  const downloadref= useRef();
 
   function handleClick (e) {
    /* if(e.target.name==='download') {
@@ -25,11 +20,13 @@ const Descargas = () => {
 
   return (
     <div className="flex flex-col">
-      <div style={{marginTop:'1%', marginLeft:'2%'}}>   
-          <img name="download" ref={downloadref} src={download} alt="download icon" className='buttonStyle' onClick={handleClick}/>
-      </div>
+    { 
+      /*<div style={{marginTop:'1%', marginLeft:'2%'}}>   
+        <img name="download" ref={downloadref} src={download} alt="download icon" className='buttonStyle' onClick={handleClick}/>
+      </div>*/
+    }
       <div style={{marginTop:'3%', marginLeft:'2%'}}>
-      <DownloadMaterial /> 
+        <DownloadMaterial /> 
       </div>
     </div>
   )

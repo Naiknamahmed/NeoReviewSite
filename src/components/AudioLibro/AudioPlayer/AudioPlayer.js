@@ -14,8 +14,7 @@ const AudioPlayer = (props) => {
   
     return (
       <div className='container' >
-          <div className='player-wrapper'> 
-          
+          <div className='player-wrapper'>
               <ReactPlayer
               // Disable download button
               config={{ file: { attributes: { controlsList: 'nodownload' }, forceAudio: true } }}

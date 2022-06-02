@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { getLocalUserdata } from '../../../../services/auth/localStorageData';
+import { getLocalUserdata, updatelocalData } from '../../../../services/auth/localStorageData';
 import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
 import List from '@mui/material/List';
@@ -36,13 +36,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-
 const DownloadFolders = (props) => {
     
     const classes = useStyles();
     const [folders, setFolders] = useState([]);
     const [files, setFiles] = useState([]);
-    let count=0;
   
     useEffect (() => {
       setFolders([]);
@@ -85,6 +83,14 @@ const DownloadFolders = (props) => {
             saveAs(blob, fileName);
          })();
     }
+
+    const searchStorage = (title) => {
+      const matchFound=getLocalUserdata().downloads.filter((entry) => {return entry.title===title});
+      if(matchFound.length===0){
+        return false;
+      }
+      return true;
+    }
   
     return ( 
       folders.length>0 ? 
@@ -106,11 +112,11 @@ const DownloadFolders = (props) => {
         {
             files.map((item) => {
                 return (
-                <ListItemButton className={classes.listItem} onClick={()=>downloadFile(item)}>
+                <ListItemButton className={classes.listItem} onClick={()=>{downloadFile(item); updatelocalData('downloads',{'title':item.title})}}>
                     <ListItemAvatar>
                         <Avatar alt="videofile" src={downloadIcon} variant="square"/>
                     </ListItemAvatar>
-                    <ListItemText primaryTypographyProps={{fontFamily: 'ProximaNovaSoft-regular'}}  primary={item.title}/>
+                    <ListItemText primaryTypographyProps={{fontFamily:searchStorage(item.title)?'ProximaNovaSoft-bold':'ProximaNovaSoft-regular'}}  primary={item.title}/>
                 </ListItemButton>
             )}) 
         }

@@ -12,7 +12,7 @@ const AudioLibro = () => {
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex'>
       <AudioFolder updateUrl={updateUrl}/>
       <AudioPlayer url={url} title={title}/>
     </div>

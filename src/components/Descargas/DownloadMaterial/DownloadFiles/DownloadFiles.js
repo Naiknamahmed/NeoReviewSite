@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { getLocalUserdata} from '../../../../services/auth/localStorageData';
+import { getLocalUserdata, updatelocalData } from '../../../../services/auth/localStorageData';
 import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
 import List from '@mui/material/List';
@@ -40,12 +40,12 @@ const useStyles = makeStyles((theme) => ({
 const DownloadFiles = (props) => {
     const classes = useStyles();
     const [files, setFiles] = useState([]);
+    const [reload, setReload] = useState(false);
   
     useEffect (() => {
       const data=getLocalUserdata();
       userServices.commonPostService('/getDownloadFiles',JSON.stringify({"folderId":props.folderId,"studentId":data.id}))
       .then(response=>{
-        console.log(response.data);
         if(response.data.message==='success') {
           response.data.files.forEach((item)=>{
             setFiles(oldArray => [...oldArray, {
@@ -64,12 +64,24 @@ const DownloadFiles = (props) => {
   
     },[])
 
+    useEffect (() => {
+      setReload(false);
+    },[reload])
+
     const downloadFile = ({url}) => {
         const fileName = url.split("/").pop(); 
         (async () => {
             let blob = await fetch(`https://whispering-chamber-21481.herokuapp.com/${url}`).then((r) => r.blob());
             saveAs(blob, fileName);
          })();
+    }
+
+    const searchStorage = (title) => {
+      const matchFound=getLocalUserdata().downloads.filter((entry) => {return entry.title===title});
+      if(matchFound.length===0){
+        return false;
+      }
+      return true;
     }
   
     return (
@@ -84,11 +96,11 @@ const DownloadFiles = (props) => {
           files.length>0 ? 
           files.map((item) => {
             return (
-              <ListItemButton className={classes.listItem} onClick={()=>downloadFile(item)}>
+              <ListItemButton className={classes.listItem} onClick={()=>{updatelocalData('downloads',{'title':item.title}); downloadFile(item); setReload(true);}}>
                 <ListItemAvatar>
                   <Avatar alt="videofile" src={downloadIcon} variant="square"/>
                 </ListItemAvatar>
-                <ListItemText primaryTypographyProps={{fontFamily: 'ProximaNovaSoft-regular'}}  primary={item.title}/>
+                <ListItemText primaryTypographyProps={{fontFamily:searchStorage(item.title)?'ProximaNovaSoft-bold':'ProximaNovaSoft-regular'}}  primary={item.title}/>
               </ListItemButton>
             )
           }) : <div style={{ display:'flex', justifyContent:'center'}}> <CircularProgress disableShrink/> </div>
