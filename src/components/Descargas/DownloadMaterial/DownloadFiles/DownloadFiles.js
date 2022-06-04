@@ -90,7 +90,7 @@ const DownloadFiles = (props) => {
           <ArrowBackIcon/>
           <Typography variant="subtitle2">Volver a las carpetas</Typography>
         </IconButton>
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'55vh', alignSelf:'center'}}
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'75vh', alignSelf:'center'}}
         className={classes.root}>
         {
           files.length>0 ? 

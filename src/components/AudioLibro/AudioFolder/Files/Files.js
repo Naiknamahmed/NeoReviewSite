@@ -78,7 +78,7 @@ const Files = (props) => {
           <ArrowBackIcon/>
           <Typography variant="subtitle2">Volver a las carpetas</Typography>
         </IconButton>
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'60vh' }}
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'80vh' }}
         className={classes.root}>
         {
           files.length>0 ? 

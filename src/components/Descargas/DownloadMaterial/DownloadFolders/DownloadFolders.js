@@ -94,7 +94,7 @@ const DownloadFolders = (props) => {
   
     return ( 
       folders.length>0 ? 
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '55vh', alignSelf:'center' }}
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '75vh', alignSelf:'center' }}
         component="nav"
         aria-labelledby="nested-list-subheader"
         className={classes.root}>
