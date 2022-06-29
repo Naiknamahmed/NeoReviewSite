@@ -22,7 +22,7 @@ function LoginTypeFalse() {
         console.log(data.data);
 
         if (data.data.status === 'Sucessfull') {
-          toast.success('Login successfully');
+          toast.success('Has iniciado sesión con éxito');
           saveLocalData(data.data.data);
         } else {
           setError(data.data.message);
@@ -69,15 +69,15 @@ function LoginTypeFalse() {
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
-        <div className='relative w-full mb-3'>
+        <div className='relative w-full '>
           <div className='relative flex w-full flex-wrap items-stretch mb-3'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <i className='fas fa-envelope'></i>
+              <img alt='email_icon' src={require('assets/img/email.png').default} className='w-full h-full mr-1'/>
             </span>
             <input
               type='text'
-              placeholder='email'
-              className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
+              placeholder='Email'
+              className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='email'
               id='email'
               value={formik.values.studentCode}
@@ -97,14 +97,14 @@ function LoginTypeFalse() {
                     >
                       Password
                     </label> */}
-          <div className='relative flex w-full flex-wrap items-stretch mb-3'>
+          <div className='relative flex w-full flex-wrap items-stretch'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <i className='fas fa-phone'></i>
+              <img alt='telephone_icon' src={require('assets/img/telephone.png').default} className='w-full h-full mr-1'/>
             </span>
             <input
               type='text'
-              placeholder='telephone'
-              className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10'
+              placeholder='Teléfono'
+              className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='telephone'
               id='telephone'
               value={formik.values.password}
@@ -126,7 +126,7 @@ function LoginTypeFalse() {
         <div className='text-center'>
           
           <button
-            className='text-white  text-sm font-bold uppercase px-6 py-3  outline-none focus:outline-none  '
+            className='text-white text-sm font-bold uppercase px-6 py-3 outline-none focus:outline-none  '
             type='submit'
           >
             <img

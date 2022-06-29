@@ -45,6 +45,7 @@ const Files = (props) => {
       const data=getLocalUserdata();
       userServices.commonPostService('/getAudioFiles',JSON.stringify({"id":props.folderId,"studentId":data.id}))
       .then(response=>{
+        console.log(response);
         if(response.data.status==="Successfull") {
           response.data.data.forEach((item)=>{
             setFiles(oldArray => [...oldArray, {
@@ -91,7 +92,7 @@ const Files = (props) => {
                 <ListItemText primaryTypographyProps={{fontFamily:searchStorage(item.title)?'ProximaNovaSoft-bold':'ProximaNovaSoft-regular'}}  primary={item.title} />
               </ListItemButton>
             )
-          }) : loading ? <div style={{ display:'flex', justifyContent:'center'}}> <CircularProgress disableShrink/> </div> : <Typography variant="subtitle2">¡No se encontraron archivos!</Typography>
+          }) : (!loading&&files.length===0) ? <Typography variant="subtitle2">¡No se encontraron archivos!</Typography> : <div style={{ display:'flex', justifyContent:'center'}}> <CircularProgress disableShrink/> </div>
         }
         </List>
       </>    

@@ -61,7 +61,6 @@ const Folders = (props) => {
       .catch((error)=> {
         toast.error("Error fetching folders.");
       });
-  
     },[])
   
     const handleClick = (id) => {
@@ -87,7 +86,7 @@ const Folders = (props) => {
             );
           }) }
       </List>
-      : loading ? <div style={{ display:'flex', justifyContent:'center'}}><CircularProgress disableShrink /></div> : <Typography variant="subtitle2">¡No se encontraron archivos!</Typography>
+      : (!loading&&folders.length===0) ? <Typography variant="subtitle2">¡No se encontraron archivos!</Typography> : <div style={{ display:'flex', justifyContent:'center'}}><CircularProgress disableShrink /></div>
     
     )
 }
