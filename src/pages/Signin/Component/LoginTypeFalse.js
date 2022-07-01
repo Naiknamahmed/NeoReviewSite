@@ -72,14 +72,15 @@ function LoginTypeFalse() {
         <div className='relative w-full '>
           <div className='relative flex w-full flex-wrap items-stretch mb-3'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <img alt='email_icon' src={require('assets/img/email.png').default} className='w-full h-full mr-1'/>
+              <img alt='email_icon' src={require('assets/img/email.png').default} className='w-full h-full py-1'/>
             </span>
             <input
               type='text'
               placeholder='Email'
-              className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm outline-none focus:outline-none focus:shadow-outline w-full pl-10'
+              className='px-3 py-5 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='email'
               id='email'
+              style={{lineHeight:'10%'}}
               value={formik.values.studentCode}
               onChange={(e) => formik.setFieldValue('email', e.target.value)}
             />
@@ -99,15 +100,16 @@ function LoginTypeFalse() {
                     </label> */}
           <div className='relative flex w-full flex-wrap items-stretch'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <img alt='telephone_icon' src={require('assets/img/telephone.png').default} className='w-full h-full mr-1'/>
+              <img alt='telephone_icon' src={require('assets/img/telephone.png').default} className='w-full h-full py-1'/>
             </span>
             <input
               type='text'
               placeholder='Teléfono'
-              className='px-3 py-3 placeholder-blueGray-800 text-blueGray-600 relative bg-input rounded text-sm outline-none focus:outline-none focus:shadow-outline w-full pl-10'
+              className='px-3 py-5 placeholder-blueGray-900 text-blueGray-600 relative bg-input rounded text-sm outline-none focus:outline-none focus:shadow-outline w-full pl-10'
               name='telephone'
               id='telephone'
               value={formik.values.password}
+              style={{lineHeight:'10%'}}
               onChange={(e) =>
                 formik.setFieldValue('telephone', e.target.value)
               }
@@ -126,7 +128,7 @@ function LoginTypeFalse() {
         <div className='text-center'>
           
           <button
-            className='text-white text-sm font-bold uppercase px-6 py-3 outline-none focus:outline-none  '
+            className='text-white text-sm font-bold uppercase px-6 py-1 outline-none focus:outline-none  '
             type='submit'
           >
             <img

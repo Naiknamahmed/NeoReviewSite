@@ -6,7 +6,7 @@ import logo from '../../assets/img/login_logo.png'
 
 const useStyles = makeStyles({
     logo: {
-      maxWidth: 100,
+      maxWidth: 96,
       marginLeft: 'auto',
     },
     appBar: {

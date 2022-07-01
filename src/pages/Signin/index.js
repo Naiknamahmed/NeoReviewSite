@@ -10,7 +10,7 @@ export default function Signin() {
     <>
       <LoginNavbar/>
       <main>
-        <section className='relative w-full h-full py-10 min-h-screen' style={{marginTop:'-1%'}}>
+        <section className='relative w-full h-full py-10 min-h-screen' >
           <div
             className='absolute top-0 w-full h-full bg-white-800 bg-no-repeat bg-full bg-fixed'
             style={{
@@ -20,7 +20,7 @@ export default function Signin() {
           ></div>
           <div className='mx-auto px-4 h-full'>
             <div className='flex content-center items-center justify-center h-full'>
-              <div className='w-full lg:w-4/12 md:w-6/12 px-4'>
+              <div className='4xl:w-2/12 3xl:w-3/12 2xl:w-4/12 xl:w-2/6 lg:w-2/5 md:w-6/12 sm:w-6/12  px-4'>
                 <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white border-0'>
                   <div className='rounded-t mb-0 px-2 py-2'>
                     <div className='flex grid content-center items-center justify-center '>
