@@ -34,7 +34,7 @@ export default function Signin() {
                     <hr className='mt-6 border-b-1 border-blueGray-300' />
                   </div>
                   <div className='flex-auto px-4 lg:px-10 py-2 pt-0'>
-                    <div className='flex text-black mb-3 font-bold'>
+                    <div className='flex text-black mb-3 font-bold' style={{justifyContent:'center'}}>
                       <div className='font-styl'>Versión: &nbsp;</div>
                       <label className='switch'>
                         <input

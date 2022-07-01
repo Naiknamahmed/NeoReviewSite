@@ -54,7 +54,7 @@ function LoginTypeTrue() {
         <div className='relative w-full mb-2'>
           <div className='relative flex w-full flex-wrap items-stretch mb-3'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-            <img alt='studentcode_icon' src={require('assets/img/user.png').default} className='w-full h-full py-1'/>
+            <img alt='studentcode_icon' src={require('assets/img/user.png').default} className='w-full h-full py-2'/>
             </span>
             <input
               type='text'
