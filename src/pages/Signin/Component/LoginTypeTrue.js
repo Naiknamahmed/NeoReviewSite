@@ -107,7 +107,7 @@ function LoginTypeTrue() {
                     </label> */}
           <div className='relative flex w-full flex-wrap items-stretch mb-3'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-            <img alt='password_icon' src={require('assets/img/password.png').default} className='w-full h-full py-1'/>
+            <img alt='password_icon' src={require('assets/img/password.png').default} className='w-full h-full py-1.5 px-0.5'/>
             </span>
             <input
               type='password'

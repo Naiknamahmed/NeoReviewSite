@@ -72,7 +72,7 @@ function LoginTypeFalse() {
         <div className='relative w-full '>
           <div className='relative flex w-full flex-wrap items-stretch mb-3'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <img alt='email_icon' src={require('assets/img/email.png').default} className='w-full h-full py-1'/>
+              <img alt='email_icon' src={require('assets/img/email.png').default} className='w-full h-full py-0.5'/>
             </span>
             <input
               type='text'
