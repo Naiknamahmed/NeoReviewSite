@@ -10,6 +10,7 @@ import ExamenesPage from "pages/Examenes/index";
 import RankingGlobal from "components/RankingGlobal/RankingGlobal.js";
 import Descargas from "components/Descargas/Descargas";
 import AudioLibro from "components/AudioLibro/AudioLibro";
+import Directo from "components/Directo/Directo";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function Home() {
@@ -44,6 +45,7 @@ function Home() {
     else if (currentPage === "Ranking global") return <RankingGlobal />;
     else if (currentPage === "Descargas") return <Descargas />;
     else if (currentPage === "Audiolibro") return <AudioLibro/>
+    else if (currentPage === "En Directo") return <Directo/>
   };
 
   return (
