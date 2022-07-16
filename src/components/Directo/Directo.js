@@ -7,9 +7,8 @@ ZoomMtg.preLoadWasm()
 ZoomMtg.prepareJssdk()
 
 // loads language files, also passes any error messages to the ui
-ZoomMtg.i18n.load('en-US')
-ZoomMtg.i18n.reload('en-US')
-
+ZoomMtg.i18n.load('es-ES')
+ZoomMtg.i18n.reload('es-ES')
 
 const Directo = () => {
 
@@ -17,7 +16,7 @@ const Directo = () => {
   var sdkKey = 'ejMUC7sZJxrReEZ4iLrllWD4iYqM9W6tOqpS'
   var meetingNumber = '4269760334'
   var role = 0
-  var leaveUrl = 'http://localhost:3000'
+  var leaveUrl = window.location.href
   var userName = 'React'
   var userEmail = ''
   var passWord = 'Ehkuc2'

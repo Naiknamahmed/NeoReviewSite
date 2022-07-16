@@ -1,6 +1,8 @@
 import React, { useState, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import { getLocalUserdata } from "../../services/auth/localStorageData";
 import HomeNavbar from "components/Navbars/HomeNavbar.js";
 import SideMenu from "components/SideMenu/SideMenu.js";
 import Homepage from "components/Homepage/Homepage.js";
@@ -19,6 +21,7 @@ function Home() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [currentPage, setCurrentPage] = useState("Mi escritorio");
   const [folderToggle, setFolderToggle] = useState("0%");
+  const data = getLocalUserdata();
 
   const toggleSideMenu = () => {
     if (toggleMenu === true) {
@@ -46,17 +49,24 @@ function Home() {
     else if (currentPage === "Descargas") return <Descargas />;
     else if (currentPage === "Audiolibro") return <AudioLibro/>
     else if (currentPage === "En Directo") {
-      var stylesheet = document.styleSheets[0];
-      stylesheet.disabled = false;
-      stylesheet = document.styleSheets[1];
-      stylesheet.disabled = false;
-      return (
-      <div>
-        <Suspense fallback={<div></div>}>
-          <Directo />
-        </Suspense>
-      </div>
-    )}
+      if(data.type==='Alumno'||data.type==='Alumno-Free Trial'){
+        var stylesheet = document.styleSheets[0];
+        stylesheet.disabled = false;
+        stylesheet = document.styleSheets[1];
+        stylesheet.disabled = false;
+        return (
+        <div>
+          <Suspense fallback={<div></div>}>
+            <Directo />
+          </Suspense>
+        </div>
+      )}
+      else {
+        return (
+          <div className="flex justify-center">Compre el plan para acceder a este módulo.</div>
+        )
+      }
+    }
   };
 
   return (

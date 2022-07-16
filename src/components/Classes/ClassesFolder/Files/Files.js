@@ -43,7 +43,6 @@ const Files = (props) => {
   const [loading,setLoading]=useState(true);
 
   useEffect (() => {
-    const data=getLocalUserdata();
     userServices.commonPostService('/getClassTopicsMaterial',JSON.stringify({"type":"video","topicId":props.folderId}))
     .then(response=>{
       if(response.status===200) {

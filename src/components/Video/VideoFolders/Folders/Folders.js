@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 const Folders = (props) => {
   const classes = useStyles();
   const [folders, setFolders] = useState([]);
-  let count=0;
 
   useEffect (() => {
     setFolders([]);

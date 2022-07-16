@@ -41,8 +41,6 @@ const Folder = (props) => {
   const [folders, setFolders] = useState([]);
   const [loading,setLoading]=useState(true);
 
-  let count=0;
-
   useEffect (() => {
     setFolders([]);
     const data=getLocalUserdata();
