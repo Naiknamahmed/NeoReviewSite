@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeNavbar from "components/Navbars/HomeNavbar.js";
 import SideMenu from "components/SideMenu/SideMenu.js";
 import Homepage from "components/Homepage/Homepage.js";
@@ -10,8 +11,7 @@ import ExamenesPage from "pages/Examenes/index";
 import RankingGlobal from "components/RankingGlobal/RankingGlobal.js";
 import Descargas from "components/Descargas/Descargas";
 import AudioLibro from "components/AudioLibro/AudioLibro";
-import Directo from "components/Directo/Directo";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+const Directo = React.lazy(() => import('../../components/Directo/Directo.js'));
 
 function Home() {
   const history = useNavigate();
@@ -45,7 +45,18 @@ function Home() {
     else if (currentPage === "Ranking global") return <RankingGlobal />;
     else if (currentPage === "Descargas") return <Descargas />;
     else if (currentPage === "Audiolibro") return <AudioLibro/>
-    else if (currentPage === "En Directo") return <Directo/>
+    else if (currentPage === "En Directo") {
+      var stylesheet = document.styleSheets[0];
+      stylesheet.disabled = false;
+      stylesheet = document.styleSheets[1];
+      stylesheet.disabled = false;
+      return (
+      <div>
+        <Suspense fallback={<div></div>}>
+          <Directo />
+        </Suspense>
+      </div>
+    )}
   };
 
   return (

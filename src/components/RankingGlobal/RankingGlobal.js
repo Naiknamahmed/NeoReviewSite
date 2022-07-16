@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { getLocalUserdata } from '../../services/auth/localStorageData';
 import './styles.css'
-import CircularProgress from '@mui/material/CircularProgress';
 
 const RankingGlobal = () => {
   const data=getLocalUserdata();

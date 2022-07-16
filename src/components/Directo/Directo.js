@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react'
 import { ZoomMtg } from '@zoomus/websdk'
 
+ZoomMtg.setZoomJSLib('https://source.zoom.us/2.5.0/lib', '/av')
+
 ZoomMtg.preLoadWasm()
 ZoomMtg.prepareJssdk()
 
@@ -8,7 +10,6 @@ ZoomMtg.prepareJssdk()
 ZoomMtg.i18n.load('en-US')
 ZoomMtg.i18n.reload('en-US')
 
-ZoomMtg.setZoomJSLib('https://source.zoom.us/2.5.0/lib', '/av')
 
 const Directo = () => {
 
@@ -20,7 +21,7 @@ const Directo = () => {
   var userName = 'React'
   var userEmail = ''
   var passWord = 'Ehkuc2'
-  // pass in the registrant's token if your meeting or webinar requires registration. More info here:
+  // pass in the registrant's token if your meeting or webinar requires registration.
   var registrantToken = ''
 
   function getSignature() {
