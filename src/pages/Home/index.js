@@ -7,11 +7,11 @@ import HomeNavbar from "components/Navbars/HomeNavbar.js";
 import SideMenu from "components/SideMenu/SideMenu.js";
 import Homepage from "components/Homepage/Homepage.js";
 import Temario from "components/Temario/Temario.js";
-import Video from "components/Video/Video.js";
 import Classes from "components/Classes/Classes.js";
 import ExamenesPage from "pages/Examenes/index";
 import RankingGlobal from "components/RankingGlobal/RankingGlobal.js";
 import Descargas from "components/Descargas/Descargas";
+import Video from "components/Video/Video";
 import AudioLibro from "components/AudioLibro/AudioLibro";
 const Directo = React.lazy(() => import('../../components/Directo/Directo.js'));
 
@@ -43,11 +43,11 @@ function Home() {
     if (currentPage === "Mi escritorio") return <Homepage />;
     else if (currentPage === "Temario") return <Temario folderToggle={folderToggle} />;
     else if (currentPage === "Exámenes") return <ExamenesPage />;
-    else if (currentPage === "Videos") return <Video folderToggle={folderToggle}/>;
+    else if (currentPage === "Videos") return (<Video folderToggle={folderToggle}/>)
     else if (currentPage === "Classes") return <Classes folderToggle={folderToggle}/>;
     else if (currentPage === "Ranking global") return <RankingGlobal />;
     else if (currentPage === "Descargas") return <Descargas />;
-    else if (currentPage === "Audiolibro") return <AudioLibro/>
+    else if (currentPage === "Audiolibro") return (<AudioLibro />)
     else if (currentPage === "En Directo") {
       if(data.type==='Alumno'||data.type==='Alumno-Free Trial'){
         var stylesheet = document.styleSheets[0];
@@ -55,11 +55,9 @@ function Home() {
         stylesheet = document.styleSheets[1];
         stylesheet.disabled = false;
         return (
-        <div>
           <Suspense fallback={<div></div>}>
             <Directo />
           </Suspense>
-        </div>
       )}
       else {
         return (

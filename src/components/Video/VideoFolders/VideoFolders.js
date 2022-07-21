@@ -20,7 +20,7 @@ const VideoFolders = (props) => {
         <div style={{marginLeft:'2%', width:props.folderToggle}}>
             {
                 (view==='folders') 
-                ? <Folders endPoint={'/getTopics'} request={JSON.stringify({"studentType":data.type,"studentId":data.id,"type":'video'})} updateView={updateView} updateId={updateId}/> 
+                ? <Folders updateView={updateView} updateId={updateId}/> 
                 : <Files folderToggle={props.folderToggle} updateView={updateView} updateUrl={props.updateUrl} folderId={folderId}/>
             }
         </div>

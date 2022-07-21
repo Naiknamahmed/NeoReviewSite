@@ -2,7 +2,7 @@ import React from 'react';
 import {AppBar, Toolbar} from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 
-import logo from '../../assets/img/login_logo.png'
+import logo from '../../assets/img/login_logo.webp'
 
 const useStyles = makeStyles({
     logo: {
