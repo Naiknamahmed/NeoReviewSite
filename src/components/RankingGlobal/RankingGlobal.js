@@ -1,15 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { getLocalUserdata } from '../../services/auth/localStorageData';
 import './styles.css'
-import CircularProgress from '@mui/material/CircularProgress';
 
 const RankingGlobal = () => {
   const data=getLocalUserdata();
-  const [loading,setLoading]=useState(true);
-
-  const hideSpinner = () => {
-    setLoading(false);
-  };
   
   return (
     <div className='flex justify-center items-center holder'>

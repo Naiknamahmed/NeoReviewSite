@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 const Folders = (props) => {
   const classes = useStyles();
   const [folders, setFolders] = useState([]);
-  let count=0;
 
   useEffect (() => {
     setFolders([]);
@@ -70,7 +69,7 @@ const Folders = (props) => {
 
   return ( 
     folders.length>0 ? 
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '60vh' }}
+    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '85vh', marginTop:'4%' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       className={classes.root}>

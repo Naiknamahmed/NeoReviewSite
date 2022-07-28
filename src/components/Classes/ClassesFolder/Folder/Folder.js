@@ -41,8 +41,6 @@ const Folder = (props) => {
   const [folders, setFolders] = useState([]);
   const [loading,setLoading]=useState(true);
 
-  let count=0;
-
   useEffect (() => {
     setFolders([]);
     const data=getLocalUserdata();
@@ -74,7 +72,7 @@ const Folder = (props) => {
 
   return ( 
     folders.length>0 ? 
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '60vh' }}
+    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow: 'auto', maxHeight: '85vh', marginTop:'4%' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       className={classes.root}>
@@ -90,7 +88,7 @@ const Folder = (props) => {
           );
         }) }
     </List>
-    : loading ? <div style={{ display:'flex', justifyContent:'center'}}><CircularProgress disableShrink /></div> : <Typography variant="subtitle2">¡No se encontraron archivos!</Typography>
+    : loading ? <div style={{ display:'flex', justifyContent:'center', marginTop:'10%'}}><CircularProgress disableShrink /></div> : <Typography variant="subtitle2">¡No se encontraron archivos!</Typography>
   
   )
 }

@@ -12,7 +12,7 @@ const Classes = (props) => {
   }
 
   return (
-    <div className='flex justify-center items-center'>
+    <div className='flex '>
       <ClassesFolder folderToggle={props.folderToggle} updateUrl={updateUrl}/>
       <ClassesPlayer url={url} title={title}/>
     </div>
