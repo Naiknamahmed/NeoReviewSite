@@ -6,50 +6,27 @@ export default makeStyles(() => ({
     overflow: "hidden",
     display: "flex",
     minHeight: "100vh",
-
+    fontFamily: "ProximaSoft-regular",
     backgroundColor: "#f7f7f7",
   },
   folderWrapper: {
-    margin: "30px auto",
-    display: "flex",
-  },
-  BoxWrapper1212: {
-    width: "100%",
+    margin: "10px auto",
   },
   heading: {
     fontSize: "20px",
-    width: "100%",
     color: "black",
     fontWeight: "600",
-    fontFamily: "Rounded Elegance",
+    fontFamily: "ProximaSoft-bold",
     display: "flex",
-    cursor: "pointer",
-    justifyContent: "start",
     alignItems: "center",
     margin: "5px",
     "@media (max-width: 720px)": {
       fontSize: "9px",
     },
   },
-  folderHeading: {
-    fontSize: "25px",
-    color: "black",
-    fontWeight: "600",
-    fontFamily: "Rounded Elegance",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "30px auto",
-    "@media (max-width: 720px)": {
-      fontSize: "12px",
-      margin: "20px auto 0px",
-    },
-  },
-  folderHeadingImg: {
-    width: "50%",
-    "@media (max-width: 720px)": {
-      width: "25%",
-    },
+  BoxWrapper1212: {
+    backgroundColor: "#f7f7f7 !important",
+    boxShadow: "none !important",
   },
   headingImg: {
     width: "50px",
@@ -83,27 +60,18 @@ export default makeStyles(() => ({
     margin: "10px 0px",
     "&:hover": {
       color: "royalblue",
+      fontFamily: "ProximaSoft-bold",
     },
     "@media (max-width: 720px)": {
       fontSize: "10px",
-    },
-  },
-  comenzarBtnWrapper: {
-    margin: "0px auto",
-    width: "70%",
-    textAlign: "center",
-  },
-  comenzarBtn: {
-    width: "30%",
-    "@media (max-width: 720px)": {
-      width: "50%",
     },
   },
   quizWrapperInner: {
     padding: "20px",
     margin: "0px auto",
     minWidth: "800px",
-    width: "95%",
+    fontFamily: "ProximaSoft-regular",
+    overflow: "hidden",
     "@media (max-width: 720px)": {
       padding: "0px",
       minWidth: "100%",
@@ -112,17 +80,19 @@ export default makeStyles(() => ({
   quizEndWrapperInner: {
     padding: "50px 20px 20px 20px",
     margin: "0px auto",
-    overflow: "auto",
+    minWidth: "800px",
+    overflow: "hidden",
     "@media (max-width: 720px)": {
-      padding: "20px",
-      minWidth: "95%",
+      padding: "0px",
+      minWidth: "100%",
     },
   },
+
   quizQuestionHeading: {
     fontSize: "30px",
     margin: "20px ",
     textAlign: "start",
-
+    fontFamily: "ProximaSoft-bold",
     "@media (max-width: 720px)": {
       fontSize: "20px",
       margin: "5px auto",
@@ -152,7 +122,7 @@ export default makeStyles(() => ({
     },
   },
   answerLinksInner1: {
-    width: "3%",
+    width: "60px",
     margin: "0 auto",
     color: "royalblue",
     "@media (max-width: 720px)": {
@@ -167,10 +137,9 @@ export default makeStyles(() => ({
   },
   answerLinksInner3: {
     width: "5%",
-    margin: "0 auto",
+    margin: "0 15px",
     color: "royalblue",
-    height: "30px",
-    width: "60px",
+    height: "50px",
   },
   ImgTextHeading: {
     fontSize: "15px",
@@ -198,10 +167,8 @@ export default makeStyles(() => ({
     margin: "0px 10px",
     cursor: "pointer",
     fontSize: "20px",
-    justifyContent: "end",
     color: "#0A52CB",
-    fontFamily: "Proxima Soft",
-    fontWeight: "bold",
+    fontFamily: "ProximaSoft-regular",
     "@media (max-width: 720px)": {
       fontSize: "14px",
       fontWeight: "700",
@@ -213,10 +180,7 @@ export default makeStyles(() => ({
     margin: "0 auto",
     overflow: "hidden",
     display: "flex",
-  },
-  wrapperExam3Main: {
-    margin: "0 auto",
-    overflow: "hidden",
+    fontFamily: "ProximaSoft-regular",
   },
   examenesHeading3: {
     fontSize: "30px",
@@ -231,6 +195,7 @@ export default makeStyles(() => ({
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
+    fontFamily: "ProximaSoft-regular",
   },
   innerResultWrapper: {
     width: "100%",
@@ -260,13 +225,14 @@ export default makeStyles(() => ({
     justifyContent: "center",
     margin: "0px auto",
     height: "100%",
+    fontFamily: "ProximaSoft-regular",
   },
   resultData: {
     fontSize: "20px",
     padding: "10px",
     display: "flex",
     justifyContent: "space-between",
-
+    fontFamily: "ProximaSoft-regular",
     "@media (max-width: 720px)": {
       fontSize: "15px",
     },
@@ -283,10 +249,9 @@ export default makeStyles(() => ({
     margin: "10px auto",
     display: "flex",
     justifyContent: "start",
-    cursor: "pointer",
     alignItems: "center",
     width: "100%",
-    overflow: "auto",
+    overflowX: "scroll",
     "&::-webkit-scrollbar": {
       height: "10px",
     },
@@ -303,22 +268,22 @@ export default makeStyles(() => ({
     },
   },
   resultBtn: {
-    fontSize: "14px",
+    fontSize: "16px",
     fontWeight: "800",
     borderRadius: "50%",
     padding: "10px",
     color: "white",
     height: "auto",
-    width: "40px",
+    width: "45px",
     backgroundSize: "cover",
   },
   resultBtn1: {
-    fontSize: "14px",
+    fontSize: "16px",
     fontWeight: "800",
     borderRadius: "50%",
     padding: "10px",
     color: "white",
     height: "auto",
-    width: "40px",
+    width: "45px",
   },
 }));

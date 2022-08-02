@@ -12,7 +12,6 @@ import ansSelectImg from "../../assets/img/images/Flecha.png";
 import Revisar from "../../assets/img/images/revisar.png";
 import Salir from "../../assets/img/images/salirExamenes.png";
 import Progressbar from "../ExamenesHelpers/Progressbar";
-import Comenzar from "../../assets/img/images/comenzar.png";
 import Conocimientos from "../../assets/img/images/conocimientos.png";
 import inglesImg from "../../assets/img/images/ingles.png";
 import psicoImg from "../../assets/img/images/psicotecnicos.png";
@@ -36,40 +35,44 @@ import "./style.css";
 function Examenes1() {
   const Styles = useStyles();
   const [showScreen, setShowScreen] = useState(true);
+  const [showScreen2, setShowScreen2] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [showExam, setShowExam] = useState(false);
   const [folderData, setFolderData] = useState([]);
+  const [folderData2, setFolderData2] = useState([]);
+  const [filesData, setFilesData] = useState([]);
   const [examData, setExamData] = useState([]);
   const [endExam, setEndExam] = useState([]);
   const [pauseExam, setPauseExam] = useState([]);
   const [examReviewData, setExamReviewData] = useState([]);
   const [showResultScreen, setShowResult] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(true);
   const [secondsRemaining, setSecondsRemaining] = useState(0);
-  const [studentAnswered, setStudentAnswered] = useState(null);
+  const [studentAnswer, setStudentAnswered] = useState(null);
   const [ansCircles, setAnsCircles] = useState([]);
   const [ansCheck, setAnsCheck] = useState(0);
   const [ansArry, setAnsArry] = useState([]);
 
   const data = getLocalUserdata();
   const student_type = data.type;
+  const student_id = data.id;
 
   const getExamData = {
-    studentId: data.id,
+    studentId: student_id,
     studentType: student_type,
   };
 
-  // GET ALL EXAM LISTING API
+  // GET ALL EXAM FOLDERS API
 
   useEffect(() => {
-    setLoading(true);
     axios
-      .post(`https://neoestudio.net/api/getAllExam`, getExamData)
+      .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
       .then((response) => {
         setFolderData(response.data.data);
-        setLoading(false);
         setShowScreen(true);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -77,6 +80,46 @@ function Examenes1() {
         alert("Exams List Not Available, Please Refresh The Page");
       });
   }, []);
+
+  // GET ALL EXAMS API
+
+  useEffect(() => {
+    axios
+      .post(`https://neoestudio.net/api/getAllExam`, getExamData)
+      .then((response) => {
+        setFolderData2(response.data.data);
+        setShowScreen2(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Exams List Not Available, Please Refresh The Page");
+      });
+  }, []);
+
+  // GET ALL EXAM FILES API
+
+  const handleExamId = (id) => {
+    setListLoading(true);
+    const getExamFiles = {
+      studentId: student_id,
+      studentType: student_type,
+      folderId: id,
+    };
+    axios
+      .post(`https://neoestudio.net/api/getAllExamsOfFolder`, getExamFiles)
+      .then((response) => {
+        setFilesData(response.data.data);
+        setListLoading(false);
+      })
+      .catch((error) => {
+        console.log(error, "Error Loading, Please Try Again !");
+      });
+  };
+
+  const [expanded, setExpanded] = useState();
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   // START EXAM API CALL
 
@@ -162,6 +205,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/endExam`, endData)
       .then((response) => {
         setEndExam(response.data);
+        console.log(response.data);
         setShowScore(true);
       })
       .catch((error) => {
@@ -172,7 +216,7 @@ function Examenes1() {
   // Pause EXAM API CALL
 
   const pauseAnswer = () => {
-    let timeRemaining = secondsRemaining;
+    let timeRemaining = secondsRemaining - examData.examDuration;
     const pauseData = {
       studentExamRecordId: examData[currentQuestion].studentExamRecordId,
       time: timeRemaining,
@@ -181,6 +225,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/pauseAnswer`, pauseData)
       .then((response) => {
         setPauseExam(response.data);
+        console.log(response.data);
         if (response.data.data.canPause == "no") {
           alert("You Cannot Pause This Exam");
         } else {
@@ -212,6 +257,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/reviewExam`, reviewData)
       .then((response) => {
         setExamReviewData(response.data.data);
+        console.log(response.data.data);
         setShowScreen(false);
         setShowExam(false);
         setShowScore(false);
@@ -274,21 +320,6 @@ function Examenes1() {
     return pauseAnswer();
   };
 
-  const handleNextQ = () => {
-    if (currentQuestion + 1 >= examData.length) {
-      endQuiz();
-    } else {
-      setAnsCheck(currentQuestion + 1);
-      setCurrentQuestion(currentQuestion + 1);
-    }
-  };
-  const handlePreviousQ = () => {
-    if (currentQuestion - 1 >= 0) {
-      setAnsCheck(currentQuestion - 1);
-      setCurrentQuestion(currentQuestion - 1);
-    }
-  };
-
   useInterval(
     () => {
       if (status == true) {
@@ -301,12 +332,6 @@ function Examenes1() {
     },
     status == true ? 1000 : null
   );
-
-  // ACCORDIION
-  const [expanded, setExpanded] = useState();
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
 
   let answerClicked = null;
   let triggerTime;
@@ -391,8 +416,8 @@ function Examenes1() {
         if (currentQuestion + 1 >= examData.length) {
           endQuiz();
         } else {
-          setAnsCheck(currentQuestion);
-          setCurrentQuestion(currentQuestion);
+          setAnsCheck(currentQuestion + 1);
+          setCurrentQuestion(currentQuestion + 1);
           setLoading(false);
           answerClicked = null;
         }
@@ -406,7 +431,7 @@ function Examenes1() {
       {showScreen ? (
         <div>
           <main className={Styles.courseWrapper}>
-            <Container>
+            <Container maxWidth="lg">
               <Grid container spacing={2}>
                 <Grid item xs={3} md={3} className={Styles.topImgHeadWrapper}>
                   <img src={Conocimientos} alt="" height={150} />
@@ -429,23 +454,263 @@ function Examenes1() {
                 <div className="w-100 text-center">
                   <CircularProgress
                     style={{
-                      width: "60px",
-                      height: "60px",
+                      width: "50px",
+                      height: "50px",
                       margin: "90px",
                     }}
                   />
+                  <h2>Cargando Exámenes Por favor, espera.</h2>
                 </div>
+              ) : showScreen2 ? (
+                <>
+                  <div>
+                    {folderData2.map((data) => {
+                      return (
+                        <div className={Styles.folderWrapper}>
+                          <Accordion
+                            TransitionProps={{ unmountOnExit: true }}
+                            className={Styles.BoxWrapper1212}
+                          >
+                            <AccordionSummary
+                              expandIcon={<ExpandMoreIcon />}
+                              className={Styles.BoxWrapper1212}
+                            >
+                              <div>
+                                <img
+                                  src={directoryImg}
+                                  alt=""
+                                  className={Styles.headingImg}
+                                />
+                              </div>
+                              <div className={Styles.heading}>
+                                {data.folderName}
+                              </div>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <div className={Styles.dataWrapper}>
+                                <div>
+                                  {data.Conocimientos.map((Conocimientos) => {
+                                    return (
+                                      <div className={Styles.examLinks}>
+                                        {Conocimientos.studentExamStatus ===
+                                        "notAttempted" ? (
+                                          <button
+                                            id={Conocimientos.id}
+                                            onClick={(e) =>
+                                              startExams(e, Conocimientos)
+                                            }
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-regular",
+                                            }}
+                                          >
+                                            {Conocimientos.name}
+                                          </button>
+                                        ) : Conocimientos.studentExamStatus ===
+                                          "end" ? (
+                                          <button
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-bold",
+                                            }}
+                                            onClick={(e) => {
+                                              return reviewExam(
+                                                e,
+                                                Conocimientos
+                                              );
+                                            }}
+                                          >
+                                            {Conocimientos.name}
+                                          </button>
+                                        ) : (
+                                          <button
+                                            id={Conocimientos.id}
+                                            onClick={(e) =>
+                                              startExams(e, Conocimientos)
+                                            }
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-regular",
+                                            }}
+                                          >
+                                            {Conocimientos.name}
+                                          </button>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                                <div>
+                                  {data.Inglés.map((Inglés) => {
+                                    return (
+                                      <div className={Styles.examLinks}>
+                                        {Inglés.studentExamStatus ===
+                                        "notAttempted" ? (
+                                          <button
+                                            id={Inglés.id}
+                                            onClick={(e) =>
+                                              startExams(e, Inglés)
+                                            }
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-regular",
+                                            }}
+                                          >
+                                            {Inglés.name}
+                                          </button>
+                                        ) : Inglés.studentExamStatus ===
+                                          "end" ? (
+                                          <button
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-bold",
+                                            }}
+                                            onClick={(e) => {
+                                              return reviewExam(e, Inglés);
+                                            }}
+                                          >
+                                            {Inglés.name}
+                                          </button>
+                                        ) : (
+                                          <button
+                                            id={Inglés.id}
+                                            onClick={(e) =>
+                                              startExams(e, Inglés)
+                                            }
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-regular",
+                                            }}
+                                          >
+                                            {Inglés.name}
+                                          </button>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                                <div>
+                                  {data.Psicotécnicos.map((Psicotécnicos) => {
+                                    return (
+                                      <div className={Styles.examLinks}>
+                                        {Psicotécnicos.studentExamStatus ===
+                                        "notAttempted" ? (
+                                          <button
+                                            onClick={(e) =>
+                                              startExams(e, Psicotécnicos)
+                                            }
+                                            id={Psicotécnicos.id}
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-regular",
+                                            }}
+                                          >
+                                            {Psicotécnicos.name}
+                                          </button>
+                                        ) : Psicotécnicos.studentExamStatus ===
+                                          "end" ? (
+                                          <button
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-bold",
+                                            }}
+                                            onClick={(e) => {
+                                              return reviewExam(
+                                                e,
+                                                Psicotécnicos
+                                              );
+                                            }}
+                                          >
+                                            {Psicotécnicos.name}
+                                          </button>
+                                        ) : (
+                                          <button
+                                            id={Psicotécnicos.id}
+                                            onClick={(e) =>
+                                              startExams(e, Psicotécnicos)
+                                            }
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-regular",
+                                            }}
+                                          >
+                                            {Psicotécnicos.name}
+                                          </button>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                                <div>
+                                  {data.Ortografía.map((Ortografía) => {
+                                    return (
+                                      <div className={Styles.examLinks}>
+                                        {Ortografía.studentExamStatus ===
+                                        "notAttempted" ? (
+                                          <button
+                                            id={Ortografía.id}
+                                            onClick={(e) =>
+                                              startExams(e, Ortografía)
+                                            }
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-regular",
+                                            }}
+                                          >
+                                            {Ortografía.name}
+                                          </button>
+                                        ) : Ortografía.studentExamStatus ===
+                                          "end" ? (
+                                          <button
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-bold",
+                                            }}
+                                            onClick={(e) => {
+                                              return reviewExam(e, Ortografía);
+                                            }}
+                                          >
+                                            {Ortografía.name}
+                                          </button>
+                                        ) : (
+                                          <button
+                                            id={Ortografía.id}
+                                            onClick={(e) =>
+                                              startExams(e, Ortografía)
+                                            }
+                                            style={{
+                                              fontFamily:
+                                                "ProximaNovaSoft-regular",
+                                            }}
+                                          >
+                                            {Ortografía.name}
+                                          </button>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            </AccordionDetails>
+                          </Accordion>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
               ) : (
                 <>
-                  {folderData.map((data) => {
-                    const panel = data.folderName;
+                  {folderData.map((data, index) => {
+                    const panel = data.name;
                     return (
                       <div className={Styles.folderWrapper}>
                         <Accordion
-                          expanded={expanded === data.folderName}
-                          onChange={handleChange(panel)}
                           TransitionProps={{ unmountOnExit: true }}
+                          expanded={expanded === data.name}
+                          onChange={handleChange(panel)}
                           className={Styles.BoxWrapper1212}
+                          id={data.id}
+                          onClick={() => handleExamId(data.id, index)}
                         >
                           <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -458,206 +723,254 @@ function Examenes1() {
                                 className={Styles.headingImg}
                               />
                             </div>
-                            <div className={Styles.heading}>
-                              {data.folderName}
-                            </div>
+                            <div className={Styles.heading}>{data.name}</div>
                           </AccordionSummary>
                           <AccordionDetails>
-                            <div className={Styles.dataWrapper}>
-                              <div>
-                                {data.Conocimientos.map((Conocimientos) => {
+                            {listLoading ? (
+                              <div className="w-100 text-center">
+                                <CircularProgress
+                                  style={{
+                                    width: "20px",
+                                    height: "20px",
+                                    margin: "10px",
+                                  }}
+                                />
+                              </div>
+                            ) : (
+                              <>
+                                {filesData.map((files) => {
                                   return (
-                                    <div className={Styles.examLinks}>
-                                      {Conocimientos.studentExamStatus ===
-                                      "notAttempted" ? (
-                                        <button
-                                          id={Conocimientos.id}
-                                          onClick={(e) =>
-                                            startExams(e, Conocimientos)
+                                    <div className={Styles.dataWrapper}>
+                                      <div>
+                                        {files.Conocimientos.map(
+                                          (Conocimientos) => {
+                                            return (
+                                              <div className={Styles.examLinks}>
+                                                {Conocimientos.studentExamStatus ===
+                                                "notAttempted" ? (
+                                                  <button
+                                                    id={Conocimientos.id}
+                                                    onClick={(e) =>
+                                                      startExams(
+                                                        e,
+                                                        Conocimientos
+                                                      )
+                                                    }
+                                                    style={{
+                                                      fontFamily:
+                                                        "proximasoft-regular",
+                                                    }}
+                                                  >
+                                                    {Conocimientos.name}
+                                                  </button>
+                                                ) : Conocimientos.studentExamStatus ===
+                                                  "end" ? (
+                                                  <button
+                                                    style={{
+                                                      fontFamily:
+                                                        "proximasoft-bold",
+                                                    }}
+                                                    onClick={(e) => {
+                                                      return reviewExam(
+                                                        e,
+                                                        Conocimientos
+                                                      );
+                                                    }}
+                                                  >
+                                                    {Conocimientos.name}
+                                                  </button>
+                                                ) : (
+                                                  <button
+                                                    id={Conocimientos.id}
+                                                    onClick={(e) =>
+                                                      startExams(
+                                                        e,
+                                                        Conocimientos
+                                                      )
+                                                    }
+                                                    style={{
+                                                      fontFamily:
+                                                        "proximasoft-regular",
+                                                    }}
+                                                  >
+                                                    {Conocimientos.name}
+                                                  </button>
+                                                )}
+                                              </div>
+                                            );
                                           }
-                                          style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
-                                          }}
-                                        >
-                                          {Conocimientos.name}
-                                        </button>
-                                      ) : Conocimientos.studentExamStatus ===
-                                        "end" ? (
-                                        <button
-                                          style={{
-                                            fontFamily: "ProximaNovaSoft-bold",
-                                          }}
-                                          onClick={(e) => {
-                                            return reviewExam(e, Conocimientos);
-                                          }}
-                                        >
-                                          {Conocimientos.name}
-                                        </button>
-                                      ) : (
-                                        <button
-                                          id={Conocimientos.id}
-                                          onClick={(e) =>
-                                            startExams(e, Conocimientos)
+                                        )}
+                                      </div>
+                                      <div>
+                                        {files.Inglés.map((Inglés) => {
+                                          return (
+                                            <div className={Styles.examLinks}>
+                                              {Inglés.studentExamStatus ===
+                                              "notAttempted" ? (
+                                                <button
+                                                  id={Inglés.id}
+                                                  onClick={(e) =>
+                                                    startExams(e, Inglés)
+                                                  }
+                                                  style={{
+                                                    fontFamily:
+                                                      "proximasoft-regular",
+                                                  }}
+                                                >
+                                                  {Inglés.name}
+                                                </button>
+                                              ) : Inglés.studentExamStatus ===
+                                                "end" ? (
+                                                <button
+                                                  style={{
+                                                    fontFamily:
+                                                      "proximasoft-bold",
+                                                  }}
+                                                  onClick={(e) => {
+                                                    return reviewExam(
+                                                      e,
+                                                      Inglés
+                                                    );
+                                                  }}
+                                                >
+                                                  {Inglés.name}
+                                                </button>
+                                              ) : (
+                                                <button
+                                                  id={Inglés.id}
+                                                  onClick={(e) =>
+                                                    startExams(e, Inglés)
+                                                  }
+                                                  style={{
+                                                    fontFamily:
+                                                      "proximasoft-regular",
+                                                  }}
+                                                >
+                                                  {Inglés.name}
+                                                </button>
+                                              )}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                      <div>
+                                        {files.Psicotécnicos.map(
+                                          (Psicotécnicos) => {
+                                            return (
+                                              <div className={Styles.examLinks}>
+                                                {Psicotécnicos.studentExamStatus ===
+                                                "notAttempted" ? (
+                                                  <button
+                                                    onClick={(e) =>
+                                                      startExams(
+                                                        e,
+                                                        Psicotécnicos
+                                                      )
+                                                    }
+                                                    id={Psicotécnicos.id}
+                                                    style={{
+                                                      fontFamily:
+                                                        "proximasoft-regular",
+                                                    }}
+                                                  >
+                                                    {Psicotécnicos.name}
+                                                  </button>
+                                                ) : Psicotécnicos.studentExamStatus ===
+                                                  "end" ? (
+                                                  <button
+                                                    style={{
+                                                      fontFamily:
+                                                        "proximasoft-bold",
+                                                    }}
+                                                    onClick={(e) => {
+                                                      return reviewExam(
+                                                        e,
+                                                        Psicotécnicos
+                                                      );
+                                                    }}
+                                                  >
+                                                    {Psicotécnicos.name}
+                                                  </button>
+                                                ) : (
+                                                  <button
+                                                    id={Psicotécnicos.id}
+                                                    onClick={(e) =>
+                                                      startExams(
+                                                        e,
+                                                        Psicotécnicos
+                                                      )
+                                                    }
+                                                    style={{
+                                                      fontFamily:
+                                                        "proximasoft-regular",
+                                                    }}
+                                                  >
+                                                    {Psicotécnicos.name}
+                                                  </button>
+                                                )}
+                                              </div>
+                                            );
                                           }
-                                          style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
-                                          }}
-                                        >
-                                          {Conocimientos.name}
-                                        </button>
-                                      )}
+                                        )}
+                                      </div>
+                                      <div>
+                                        {files.Ortografía.map((Ortografía) => {
+                                          return (
+                                            <div className={Styles.examLinks}>
+                                              {Ortografía.studentExamStatus ===
+                                              "notAttempted" ? (
+                                                <button
+                                                  id={Ortografía.id}
+                                                  onClick={(e) =>
+                                                    startExams(e, Ortografía)
+                                                  }
+                                                  style={{
+                                                    fontFamily:
+                                                      "proximasoft-regular",
+                                                  }}
+                                                >
+                                                  {Ortografía.name}
+                                                </button>
+                                              ) : Ortografía.studentExamStatus ===
+                                                "end" ? (
+                                                <button
+                                                  style={{
+                                                    fontFamily:
+                                                      "proximasoft-bold",
+                                                  }}
+                                                  onClick={(e) => {
+                                                    return reviewExam(
+                                                      e,
+                                                      Ortografía
+                                                    );
+                                                  }}
+                                                >
+                                                  {Ortografía.name}
+                                                </button>
+                                              ) : (
+                                                <button
+                                                  id={Ortografía.id}
+                                                  onClick={(e) =>
+                                                    startExams(e, Ortografía)
+                                                  }
+                                                  style={{
+                                                    fontFamily:
+                                                      "proximasoft-regular",
+                                                  }}
+                                                >
+                                                  {Ortografía.name}
+                                                </button>
+                                              )}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
                                     </div>
                                   );
                                 })}
-                              </div>
-                              <div>
-                                {data.Inglés.map((Inglés) => {
-                                  return (
-                                    <div className={Styles.examLinks}>
-                                      {Inglés.studentExamStatus ===
-                                      "notAttempted" ? (
-                                        <button
-                                          id={Inglés.id}
-                                          onClick={(e) => startExams(e, Inglés)}
-                                          style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
-                                          }}
-                                        >
-                                          {Inglés.name}
-                                        </button>
-                                      ) : Inglés.studentExamStatus === "end" ? (
-                                        <button
-                                          style={{
-                                            fontFamily: "ProximaNovaSoft-bold",
-                                          }}
-                                          onClick={(e) => {
-                                            return reviewExam(e, Inglés);
-                                          }}
-                                        >
-                                          {Inglés.name}
-                                        </button>
-                                      ) : (
-                                        <button
-                                          id={Inglés.id}
-                                          onClick={(e) => startExams(e, Inglés)}
-                                          style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
-                                          }}
-                                        >
-                                          {Inglés.name}
-                                        </button>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                              <div>
-                                {data.Psicotécnicos.map((Psicotécnicos) => {
-                                  return (
-                                    <div className={Styles.examLinks}>
-                                      {Psicotécnicos.studentExamStatus ===
-                                      "notAttempted" ? (
-                                        <button
-                                          onClick={(e) =>
-                                            startExams(e, Psicotécnicos)
-                                          }
-                                          id={Psicotécnicos.id}
-                                          style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
-                                          }}
-                                        >
-                                          {Psicotécnicos.name}
-                                        </button>
-                                      ) : Psicotécnicos.studentExamStatus ===
-                                        "end" ? (
-                                        <button
-                                          style={{
-                                            fontFamily: "ProximaNovaSoft-bold",
-                                          }}
-                                          onClick={(e) => {
-                                            return reviewExam(e, Psicotécnicos);
-                                          }}
-                                        >
-                                          {Psicotécnicos.name}
-                                        </button>
-                                      ) : (
-                                        <button
-                                          id={Psicotécnicos.id}
-                                          onClick={(e) =>
-                                            startExams(e, Psicotécnicos)
-                                          }
-                                          style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
-                                          }}
-                                        >
-                                          {Psicotécnicos.name}
-                                        </button>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                              <div>
-                                {data.Ortografía.map((Ortografía) => {
-                                  return (
-                                    <div className={Styles.examLinks}>
-                                      {Ortografía.studentExamStatus ===
-                                      "notAttempted" ? (
-                                        <button
-                                          id={Ortografía.id}
-                                          onClick={(e) =>
-                                            startExams(e, Ortografía)
-                                          }
-                                          style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
-                                          }}
-                                        >
-                                          {Ortografía.name}
-                                        </button>
-                                      ) : Ortografía.studentExamStatus ===
-                                        "end" ? (
-                                        <button
-                                          style={{
-                                            fontFamily: "ProximaNovaSoft-bold",
-                                          }}
-                                          onClick={(e) => {
-                                            return reviewExam(e, Ortografía);
-                                          }}
-                                        >
-                                          {Ortografía.name}
-                                        </button>
-                                      ) : (
-                                        <button
-                                          id={Ortografía.id}
-                                          onClick={(e) =>
-                                            startExams(e, Ortografía)
-                                          }
-                                          style={{
-                                            fontFamily:
-                                              "ProximaNovaSoft-regular",
-                                          }}
-                                        >
-                                          {Ortografía.name}
-                                        </button>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
+                              </>
+                            )}
                           </AccordionDetails>
-                          <div className={Styles.comenzarBtnWrapper}>
-                            <button className={Styles.comenzarBtn}>
-                              <img src={Comenzar} alt="" />
-                            </button>
-                          </div>
                         </Accordion>
                       </div>
                     );
@@ -670,505 +983,163 @@ function Examenes1() {
       ) : showResultScreen == true ? (
         <>
           <main className="flex">
-            <div className={Styles.quizEndWrapperInner}>
-              <div>
-                <span
-                  style={{
-                    fontFamily: "Proxima Soft",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <Markup
-                    style={{
-                      fontFamily: "Proxima Soft",
-                      fontWeight: "bold",
-                    }}
-                    content={examReviewData[currentQuestion].question}
-                  />
-                </span>
-                <div className={Styles.Options}>
-                  <button className={Styles.answerLinks}>
-                    <div className={Styles.answerLinksInner3}>
-                      {examReviewData[currentQuestion].status == "correct" &&
-                      examReviewData[currentQuestion].correct == "a" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].correct == "a" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].studentAnswered ==
-                          "a" ? (
-                        <img src={cross} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status ==
-                          "notAttempted" &&
-                        examReviewData[currentQuestion].correct == "a" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].studentAnswered ==
-                          "answer1" ? (
-                        <img src={cross} alt="" width={"40px"} />
-                      ) : (
-                        " "
-                      )}
-                    </div>
-                    <div className={Styles.answerLinksInner2}>
-                      <Markup
-                        content={examReviewData[currentQuestion].answer1}
-                        width="90%"
-                      />
-                    </div>
-                  </button>
-                  <button className={Styles.answerLinks}>
-                    <div className={Styles.answerLinksInner3}>
-                      {examReviewData[currentQuestion].status == "correct" &&
-                      examReviewData[currentQuestion].correct == "b" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].correct == "b" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].studentAnswered ==
-                          "b" ? (
-                        <img src={cross} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status ==
-                          "notAttempted" &&
-                        examReviewData[currentQuestion].correct == "b" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].studentAnswered ==
-                          "answer2" ? (
-                        <img src={cross} alt="" width={"40px"} />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={Styles.answerLinksInner2}>
-                      <Markup
-                        content={examReviewData[currentQuestion].answer2}
-                      />
-                    </div>
-                  </button>
-                  <button className={Styles.answerLinks}>
-                    <div className={Styles.answerLinksInner3}>
-                      {examReviewData[currentQuestion].status == "correct" &&
-                      examReviewData[currentQuestion].correct == "c" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].correct == "c" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].studentAnswered ==
-                          "c" ? (
-                        <img src={cross} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status ==
-                          "notAttempted" &&
-                        examReviewData[currentQuestion].correct == "c" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].studentAnswered ==
-                          "answer3" ? (
-                        <img src={cross} alt="" width={"40px"} />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={Styles.answerLinksInner2}>
-                      <Markup
-                        content={examReviewData[currentQuestion].answer3}
-                      />
-                    </div>
-                  </button>
-
-                  <button className={Styles.answerLinks}>
-                    <div className={Styles.answerLinksInner3}>
-                      {examReviewData[currentQuestion].status == "correct" &&
-                      examReviewData[currentQuestion].correct == "d" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].correct == "d" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].studentAnswered ==
-                          "d" ? (
-                        <img src={cross} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status ==
-                          "notAttempted" &&
-                        examReviewData[currentQuestion].correct == "d" ? (
-                        <img src={tick} alt="" width={"40px"} />
-                      ) : examReviewData[currentQuestion].status == "wrong" &&
-                        examReviewData[currentQuestion].studentAnswered ==
-                          "answer4" ? (
-                        <img src={cross} alt="" width={"40px"} />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={Styles.answerLinksInner2}>
-                      <Markup
-                        content={examReviewData[currentQuestion].answer4}
-                      />
-                    </div>
-                  </button>
-                </div>
-                <div
-                  className="m-4 "
-                  style={{
-                    fontFamily: "Proxima Soft",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <Markup
-                    style={{
-                      fontFamily: "Proxima Soft",
-                      fontWeight: "bold",
-                    }}
-                    content={examReviewData[currentQuestion].description}
-                  />
-                </div>
-                <div className="w-50 text-center m-auto">
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      setShowScreen(true);
-                      setShowResult(false);
-                      setShowScore(false);
-                      setCurrentQuestion(0);
-                    }}
-                  >
-                    Volver a la Lista de Exámenes
-                  </Button>
-                </div>
-              </div>
-              <div className={Styles.resultBtnWrapper}>
-                {examReviewData.map((data, index) => {
-                  return (
-                    <div
-                      style={{
-                        margin: "10px",
-                      }}
-                    >
-                      <button
-                        className={Styles.resultBtn}
-                        onClick={() => {
-                          setCurrentQuestion(index);
-                        }}
-                        style={{
-                          backgroundImage:
-                            currentQuestion == index
-                              ? `url(${golden})`
-                              : data.status == "notAttempted"
-                              ? `url(${nullImg})`
-                              : data.status == "correct"
-                              ? `url(${correctImg})`
-                              : `url(${wrongImg})`,
-                        }}
-                      >
-                        {index + 1}
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </main>
-        </>
-      ) : showScore == true ? (
-        <main className={Styles.wrapperExam3Main}>
-          <h1 className={Styles.examenesHeading3}>
-            Examenes 3 - Derecho penal
-          </h1>
-          <Grid container spacing={1} marginTop={10}>
-            <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
-              <div className={Styles.innerResultWrapper}>
-                <p className={Styles.resultData}>
-                  Time Elasped :
-                  <span className={Styles.resultDataBold}>
-                    {endExam.examDuration} / {endExam.totalTime}
-                  </span>
-                </p>
-                <p className={Styles.resultData}>
-                  Aciertos :
-                  <span className={Styles.resultDataBold}>
-                    {endExam.correctCount}
-                  </span>
-                </p>
-                <p className={Styles.resultData}>
-                  Fallos :
-                  <span className={Styles.resultDataBold}>
-                    {endExam.wrongCount}
-                  </span>
-                </p>
-                <p className={Styles.resultData}>
-                  Nulos :
-                  <span className={Styles.resultDataBold}>
-                    {endExam.nonAttemptedCount}
-                  </span>
-                </p>
-                <p className={Styles.resultData} style={{ marginTop: "30px" }}>
-                  Puntos :
-                  <span className={Styles.resultDataBold}>{endExam.score}</span>
-                </p>
-                <p
-                  style={{
-                    marginTop: "10px",
-                    textAlign: "center",
-                    fontWeight: 600,
-                    fontSize: "25px",
-                  }}
-                >
-                  {endExam.result}
-                </p>
-              </div>
-            </Grid>
-            <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
-              <div className={Styles.progressBarWrapper}>
-                <Progressbar
-                  bgcolor={`linear-gradient(to bottom, rgba(17,148,47,1), rgba(106,170,101,1))`}
-                  progress={endExam.correctPercentage}
-                />
-                <img src={tick} style={{ width: "40px" }} />
-              </div>
-              <div className={Styles.progressBarWrapper}>
-                <Progressbar
-                  bgcolor={`linear-gradient(to bottom, rgba(206,8,17,1), rgba(222,110,81,1))`}
-                  progress={endExam.wrongPercentage}
-                />
-                <img src={cross} style={{ width: "40px" }} />
-              </div>
-              <div className={Styles.progressBarWrapper}>
-                <Progressbar
-                  bgcolor={`linear-gradient(to top, rgba(47,49,47,1), rgba(119,118,119,1))`}
-                  progress={endExam.nullPercentage}
-                />
-                <h3 style={{ fontSize: "25px" }}>Nulos</h3>
-              </div>
-            </Grid>
-            <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
-              <div className={Styles.resultBtnMain}>
-                <button className={Styles.revisarBtn} onClick={reviewExam}>
-                  <img src={Revisar} alt="Revisar Button" width={"350px"} />
-                </button>
-                <button className={Styles.salirBtn} onClick={SalirBtn}>
-                  <img src={Salir} alt="Salir Button" width={"350px"} />
-                </button>
-              </div>
-            </Grid>
-          </Grid>
-
-          <div className={Styles.resultBtnWrapper}>
-            {endExam.answersArray.map((data, index) => {
-              return (
-                <div
-                  style={{
-                    margin: "10px",
-                  }}
-                >
-                  <button
-                    className={Styles.resultBtn}
-                    style={{
-                      backgroundImage:
-                        data == "notAttempted"
-                          ? `url(${nullImg})`
-                          : data == "correct"
-                          ? `url(${correctImg})`
-                          : `url(${wrongImg})`,
-                    }}
-                  >
-                    {index + 1}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </main>
-      ) : showExam == true ? (
-        <>
-          <div className={Styles.wrapperMain}>
-            <main className="flex m-5 w-100">
-              <div className={Styles.quizWrapperInner}>
-                <div className={Styles.timerWrapper}>
-                  {/* Timer STARTS HERE                      */}
-                  <div className={Styles.timerWrapper}>
-                    <div className="flex">
-                      <img
-                        src={pauseImg}
-                        className={Styles.timerIcons}
-                        onClick={handleStart}
-                      />
-                      <img
-                        src={stopImg}
-                        className={Styles.timerIcons}
-                        onClick={endQuiz}
-                      />
-                    </div>
-                    <div className={`flex ${Styles.timerHeading}`}>
-                      <span className="text-black mx-2">Tiempo:</span>
-                      <span>
-                        {twoDigits(minutesToDisplay)}:
-                        {twoDigits(secondsToDisplay)}
-                      </span>
-                    </div>
-                  </div>
-                  {/* Timer Ends Here                      */}
-                </div>
+            <Container maxWidth="xlg">
+              <div className={Styles.quizEndWrapperInner}>
                 <div>
-                  <span
-                    style={{
-                      fontFamily: "Proxima Soft",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    <Markup content={examData[currentQuestion].question} />
-                  </span>
+                  <div style={{ fontFamily: "ProximaSoft-bold" }}>
+                    <Markup
+                      content={examReviewData[currentQuestion].question}
+                    />
+                  </div>
                   <div className={Styles.Options}>
-                    <button
-                      onClick={(e) => {
-                        setLoading(true);
-                        if (triggerTime < 4000) {
-                          handleSetAnswer("a");
-                        } else {
-                          handelUnSelect("a");
-                        }
-                      }}
-                      onMouseDown={(e) => {
-                        triggerTime = new Date().getTime();
-                      }}
-                      onMouseUp={(e) => {
-                        let thisMoment = new Date().getTime();
-                        triggerTime = thisMoment - triggerTime;
-                      }}
-                      className={Styles.answerLinks}
-                    >
-                      <div className={Styles.answerLinksInner1}>
-                        {ansArry[currentQuestion].answer == "a" &&
-                        currentQuestion == ansCheck ? (
-                          <img src={ansSelectImg} width={"80%"} />
+                    <button className={Styles.answerLinks}>
+                      <div className={Styles.answerLinksInner3}>
+                        {examReviewData[currentQuestion].status == "correct" &&
+                        examReviewData[currentQuestion].correct == "a" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].correct == "a" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].studentAnswered ==
+                            "a" ? (
+                          <img src={cross} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status ==
+                            "notAttempted" &&
+                          examReviewData[currentQuestion].correct == "a" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].studentAnswered ==
+                            "answer1" ? (
+                          <img src={cross} alt="" style={{ width: "40px" }} />
                         ) : (
                           ""
                         )}
                       </div>
                       <div className={Styles.answerLinksInner2}>
                         <Markup
-                          content={examData[currentQuestion].answer1}
+                          content={examReviewData[currentQuestion].answer1}
                           width="90%"
                         />
                       </div>
                     </button>
-                    <button
-                      onClick={(e) => {
-                        setLoading(true);
-                        if (triggerTime < 4000) {
-                          handleSetAnswer("b");
-                        } else {
-                          handelUnSelect("b");
-                        }
-                      }}
-                      onMouseDown={(e) => {
-                        triggerTime = new Date().getTime();
-                      }}
-                      onMouseUp={(e) => {
-                        let thisMoment = new Date().getTime();
-                        triggerTime = thisMoment - triggerTime;
-                      }}
-                      className={Styles.answerLinks}
-                    >
-                      <div className={Styles.answerLinksInner1}>
-                        {ansArry[currentQuestion].answer == "b" &&
-                        currentQuestion == ansCheck ? (
-                          <img src={ansSelectImg} width={"80%"} />
+                    <button className={Styles.answerLinks}>
+                      <div className={Styles.answerLinksInner3}>
+                        {examReviewData[currentQuestion].status == "correct" &&
+                        examReviewData[currentQuestion].correct == "b" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].correct == "b" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].studentAnswered ==
+                            "b" ? (
+                          <img src={cross} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status ==
+                            "notAttempted" &&
+                          examReviewData[currentQuestion].correct == "b" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].studentAnswered ==
+                            "answer2" ? (
+                          <img src={cross} alt="" style={{ width: "40px" }} />
                         ) : (
                           ""
                         )}
                       </div>
                       <div className={Styles.answerLinksInner2}>
-                        <Markup content={examData[currentQuestion].answer2} />
+                        <Markup
+                          content={examReviewData[currentQuestion].answer2}
+                        />
                       </div>
                     </button>
-                    <button
-                      onClick={(e) => {
-                        setLoading(true);
-                        if (triggerTime < 4000) {
-                          handleSetAnswer("c");
-                        } else {
-                          handelUnSelect("c");
-                        }
-                      }}
-                      onMouseDown={(e) => {
-                        triggerTime = new Date().getTime();
-                      }}
-                      onMouseUp={(e) => {
-                        let thisMoment = new Date().getTime();
-                        triggerTime = thisMoment - triggerTime;
-                      }}
-                      className={Styles.answerLinks}
-                    >
-                      <div className={Styles.answerLinksInner1}>
-                        {ansArry[currentQuestion].answer == "c" &&
-                        currentQuestion == ansCheck ? (
-                          <img src={ansSelectImg} width={"80%"} />
+                    <button className={Styles.answerLinks}>
+                      <div className={Styles.answerLinksInner3}>
+                        {examReviewData[currentQuestion].status == "correct" &&
+                        examReviewData[currentQuestion].correct == "c" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].correct == "c" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].studentAnswered ==
+                            "c" ? (
+                          <img src={cross} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status ==
+                            "notAttempted" &&
+                          examReviewData[currentQuestion].correct == "c" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].studentAnswered ==
+                            "answer3" ? (
+                          <img src={cross} alt="" style={{ width: "40px" }} />
                         ) : (
                           ""
                         )}
                       </div>
                       <div className={Styles.answerLinksInner2}>
-                        <Markup content={examData[currentQuestion].answer3} />
+                        <Markup
+                          content={examReviewData[currentQuestion].answer3}
+                        />
                       </div>
                     </button>
-                    <button
-                      onClick={(e) => {
-                        setLoading(true);
-                        if (triggerTime < 4000) {
-                          handleSetAnswer("d");
-                        } else {
-                          handelUnSelect("d");
-                        }
-                      }}
-                      onMouseDown={(e) => {
-                        triggerTime = new Date().getTime();
-                      }}
-                      onMouseUp={(e) => {
-                        let thisMoment = new Date().getTime();
-                        triggerTime = thisMoment - triggerTime;
-                      }}
-                      className={Styles.answerLinks}
-                    >
-                      <div className={Styles.answerLinksInner1}>
-                        {ansArry[currentQuestion].answer == "d" &&
-                        currentQuestion == ansCheck ? (
-                          <img src={ansSelectImg} width={"80%"} />
+
+                    <button className={Styles.answerLinks}>
+                      <div className={Styles.answerLinksInner3}>
+                        {examReviewData[currentQuestion].status == "correct" &&
+                        examReviewData[currentQuestion].correct == "d" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].correct == "d" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].studentAnswered ==
+                            "d" ? (
+                          <img src={cross} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status ==
+                            "notAttempted" &&
+                          examReviewData[currentQuestion].correct == "d" ? (
+                          <img src={tick} alt="" style={{ width: "40px" }} />
+                        ) : examReviewData[currentQuestion].status == "wrong" &&
+                          examReviewData[currentQuestion].studentAnswered ==
+                            "answer4" ? (
+                          <img src={cross} alt="" style={{ width: "40px" }} />
                         ) : (
                           ""
                         )}
                       </div>
                       <div className={Styles.answerLinksInner2}>
-                        <Markup content={examData[currentQuestion].answer4} />
+                        <Markup
+                          content={examReviewData[currentQuestion].answer4}
+                        />
                       </div>
                     </button>
                   </div>
-                  <div className="flex justify-between w-100">
-                    <Button variant="contained" onClick={handlePreviousQ}>
-                      Anterior
-                    </Button>
-                    <Button variant="contained" onClick={handleNextQ}>
-                      Siguiente
+                  <div
+                    className="m-4"
+                    style={{
+                      fontFamily: "ProximaSoft-bold",
+                    }}
+                  >
+                    <Markup
+                      content={examReviewData[currentQuestion].description}
+                    />
+                  </div>
+                  <div className="w-50 text-center m-auto">
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        setShowScreen(true);
+                        setShowResult(false);
+                        setShowScore(false);
+                      }}
+                    >
+                      Back To Examenes
                     </Button>
                   </div>
                 </div>
-                {loading ? (
-                  <div className="w-100 text-center">
-                    <CircularProgress
-                      style={{
-                        width: "60px",
-                        height: "60px",
-                        margin: "10px",
-                      }}
-                    />
-                  </div>
-                ) : (
-                  ""
-                )}
                 <div className={Styles.resultBtnWrapper}>
-                  {ansCircles.map((data, index) => {
+                  {examReviewData.map((data, index) => {
                     return (
                       <div
                         style={{
@@ -1176,17 +1147,19 @@ function Examenes1() {
                         }}
                       >
                         <button
+                          className={Styles.resultBtn}
                           onClick={() => {
                             setCurrentQuestion(index);
-                            setAnsCheck(index);
-                            setStudentAnswered(null);
                           }}
-                          className={`${Styles.resultBtn} noAnswer`}
                           style={{
                             backgroundImage:
                               currentQuestion == index
                                 ? `url(${golden})`
-                                : `url(${data.img})`,
+                                : data.status == "notAttempted"
+                                ? `url(${nullImg})`
+                                : data.status == "correct"
+                                ? `url(${correctImg})`
+                                : `url(${wrongImg})`,
                           }}
                         >
                           {index + 1}
@@ -1196,6 +1169,327 @@ function Examenes1() {
                   })}
                 </div>
               </div>
+            </Container>
+          </main>
+        </>
+      ) : showScore == true ? (
+        <main className={Styles.wrapperMain}>
+          <Container maxWidth="xlg">
+            <h1 className={Styles.examenesHeading3}>{endExam.examName}</h1>
+            <Grid container spacing={1} marginTop={10}>
+              <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
+                <div className={Styles.innerResultWrapper}>
+                  <p className={Styles.resultData}>
+                    Time Elasped :
+                    <span className={Styles.resultDataBold}>
+                      {endExam.examDuration} / {endExam.totalTime}
+                    </span>
+                  </p>
+                  <p className={Styles.resultData}>
+                    Aciertos :
+                    <span className={Styles.resultDataBold}>
+                      {endExam.correctCount}
+                    </span>
+                  </p>
+                  <p className={Styles.resultData}>
+                    Fallos :
+                    <span className={Styles.resultDataBold}>
+                      {endExam.wrongCount}
+                    </span>
+                  </p>
+                  <p className={Styles.resultData}>
+                    Nulos :
+                    <span className={Styles.resultDataBold}>
+                      {endExam.nonAttemptedCount}
+                    </span>
+                  </p>
+                  <p
+                    className={Styles.resultData}
+                    style={{ marginTop: "30px" }}
+                  >
+                    Puntos :
+                    <span className={Styles.resultDataBold}>
+                      {endExam.score}
+                    </span>
+                  </p>
+                  <p
+                    style={{
+                      marginTop: "10px",
+                      textAlign: "center",
+                      fontWeight: 600,
+                      fontSize: "25px",
+                    }}
+                  >
+                    {endExam.result}
+                  </p>
+                </div>
+              </Grid>
+              <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
+                <div className={Styles.progressBarWrapper}>
+                  <Progressbar
+                    bgcolor={`linear-gradient(to bottom, rgba(17,148,47,1), rgba(106,170,101,1))`}
+                    progress={endExam.correctPercentage}
+                  />
+                  <img src={tick} style={{ width: "40px" }} />
+                </div>
+                <div className={Styles.progressBarWrapper}>
+                  <Progressbar
+                    bgcolor={`linear-gradient(to bottom, rgba(206,8,17,1), rgba(222,110,81,1))`}
+                    progress={endExam.wrongPercentage}
+                  />
+                  <img src={cross} style={{ width: "40px" }} />
+                </div>
+                <div className={Styles.progressBarWrapper}>
+                  <Progressbar
+                    bgcolor={`linear-gradient(to top, rgba(47,49,47,1), rgba(119,118,119,1))`}
+                    progress={endExam.nullPercentage}
+                  />
+                  <h3 style={{ fontSize: "25px" }}>Nulos</h3>
+                </div>
+              </Grid>
+              <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
+                <div className={Styles.resultBtnMain}>
+                  <button className={Styles.revisarBtn} onClick={reviewExam}>
+                    <img src={Revisar} alt="Revisar Button" width={"350px"} />
+                  </button>
+                  <button className={Styles.salirBtn} onClick={SalirBtn}>
+                    <img src={Salir} alt="Salir Button" width={"350px"} />
+                  </button>
+                </div>
+              </Grid>
+            </Grid>
+
+            <div className={Styles.resultBtnWrapper}>
+              {endExam.answersArray.map((data, index) => {
+                return (
+                  <div
+                    style={{
+                      margin: "10px",
+                    }}
+                  >
+                    <button
+                      className={Styles.resultBtn}
+                      style={{
+                        backgroundImage:
+                          data == "notAttempted"
+                            ? `url(${nullImg})`
+                            : data == "correct"
+                            ? `url(${correctImg})`
+                            : `url(${wrongImg})`,
+                      }}
+                    >
+                      {index + 1}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </Container>
+        </main>
+      ) : showExam == true ? (
+        <>
+          <div className={Styles.wrapperMain}>
+            <main className="flex mx-auto">
+              <Container maxWidth="lg">
+                <div className={Styles.quizWrapperInner}>
+                  <div className={Styles.timerWrapper}>
+                    {/* Timer STARTS HERE                      */}
+                    <div className={Styles.timerWrapper}>
+                      <div className="flex mx-5">
+                        <img
+                          src={pauseImg}
+                          className={Styles.timerIcons}
+                          onClick={handleStart}
+                        />
+                        <img
+                          src={stopImg}
+                          className={Styles.timerIcons}
+                          onClick={endQuiz}
+                        />
+                      </div>
+                      <div className="flex text-xl">
+                        Tiempo :
+                        <h2 className={Styles.timerHeading}>
+                          {twoDigits(minutesToDisplay)}:
+                          {twoDigits(secondsToDisplay)}
+                        </h2>
+                      </div>
+                    </div>
+                    {/* Timer Ends Here                      */}
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: "ProximaSoft-bold" }}>
+                      <Markup content={examData[currentQuestion].question} />
+                    </div>
+                    <div className={Styles.Options}>
+                      <button
+                        onClick={(e) => {
+                          setLoading(true);
+                          if (triggerTime < 500) {
+                            handleSetAnswer("a");
+                          } else {
+                            handelUnSelect("a");
+                          }
+                        }}
+                        onMouseDown={(e) => {
+                          triggerTime = new Date().getTime();
+                        }}
+                        onMouseUp={(e) => {
+                          let thisMoment = new Date().getTime();
+                          triggerTime = thisMoment - triggerTime;
+                        }}
+                        className={Styles.answerLinks}
+                      >
+                        <div className={Styles.answerLinksInner1}>
+                          {ansArry[currentQuestion].answer == "a" &&
+                          currentQuestion == ansCheck ? (
+                            <img src={ansSelectImg} width={"80%"} />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                        <div className={Styles.answerLinksInner2}>
+                          <Markup
+                            content={examData[currentQuestion].answer1}
+                            width="90%"
+                          />
+                        </div>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          setLoading(true);
+                          if (triggerTime < 500) {
+                            handleSetAnswer("b");
+                          } else {
+                            handelUnSelect("b");
+                          }
+                        }}
+                        onMouseDown={(e) => {
+                          triggerTime = new Date().getTime();
+                        }}
+                        onMouseUp={(e) => {
+                          let thisMoment = new Date().getTime();
+                          triggerTime = thisMoment - triggerTime;
+                        }}
+                        className={Styles.answerLinks}
+                      >
+                        <div className={Styles.answerLinksInner1}>
+                          {ansArry[currentQuestion].answer == "b" &&
+                          currentQuestion == ansCheck ? (
+                            <img src={ansSelectImg} width={"80%"} />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                        <div className={Styles.answerLinksInner2}>
+                          <Markup content={examData[currentQuestion].answer2} />
+                        </div>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          setLoading(true);
+                          if (triggerTime < 500) {
+                            handleSetAnswer("c");
+                          } else {
+                            handelUnSelect("c");
+                          }
+                        }}
+                        onMouseDown={(e) => {
+                          triggerTime = new Date().getTime();
+                        }}
+                        onMouseUp={(e) => {
+                          let thisMoment = new Date().getTime();
+                          triggerTime = thisMoment - triggerTime;
+                        }}
+                        className={Styles.answerLinks}
+                      >
+                        <div className={Styles.answerLinksInner1}>
+                          {ansArry[currentQuestion].answer == "c" &&
+                          currentQuestion == ansCheck ? (
+                            <img src={ansSelectImg} width={"80%"} />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                        <div className={Styles.answerLinksInner2}>
+                          <Markup content={examData[currentQuestion].answer3} />
+                        </div>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          setLoading(true);
+                          if (triggerTime < 500) {
+                            handleSetAnswer("d");
+                          } else {
+                            handelUnSelect("d");
+                          }
+                        }}
+                        onMouseDown={(e) => {
+                          triggerTime = new Date().getTime();
+                        }}
+                        onMouseUp={(e) => {
+                          let thisMoment = new Date().getTime();
+                          triggerTime = thisMoment - triggerTime;
+                        }}
+                        className={Styles.answerLinks}
+                      >
+                        <div className={Styles.answerLinksInner1}>
+                          {ansArry[currentQuestion].answer == "d" &&
+                          currentQuestion == ansCheck ? (
+                            <img src={ansSelectImg} width={"80%"} />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                        <div className={Styles.answerLinksInner2}>
+                          <Markup content={examData[currentQuestion].answer4} />
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                  {loading ? (
+                    <div className="w-100 text-center">
+                      <CircularProgress
+                        style={{
+                          width: "60px",
+                          height: "60px",
+                          margin: "10px",
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <div className={Styles.resultBtnWrapper}>
+                    {ansCircles.map((data, index) => {
+                      return (
+                        <div
+                          style={{
+                            margin: "10px",
+                          }}
+                        >
+                          <button
+                            onClick={() => {
+                              setCurrentQuestion(index);
+                              setAnsCheck(index);
+                              setStudentAnswered(null);
+                            }}
+                            className={`${Styles.resultBtn} noAnswer`}
+                            style={{
+                              backgroundImage:
+                                currentQuestion == index
+                                  ? `url(${golden})`
+                                  : `url(${data.img})`,
+                            }}
+                          >
+                            {index + 1}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </Container>
             </main>
           </div>
         </>

@@ -1,23 +1,12 @@
 @font-face {
   font-family: "Rounded Elegance";
-  src: local("RoundedElegance"),
-  url("../../assets/fonts/RoundedElegance-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Proxmia Soft";
-  src: local("Proxima Soft"),
-  url("../../assets/fonts/ProximaSoft-Regular.ttf") format("truetype"),
-  url("../../assets/fonts/ProximaSoft-Bold.ttf") format("truetype"),
-}
-@font-face {
-  font-family: 'Proxima Soft';
-  src: url('../../assets/fonts/ProximaSoft-Regular.ttf');
-  src: local('Proxima Soft Regular'), local('ProximaSoft-Regular'),
-    url('../../assets/fonts/ProximaSoft-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+  src: url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.eot");
+  src: url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.woff") format("woff"), url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/21c892a7f38e340a2c73f61f1bb86c34.svg#Rounded Elegance") format("svg");
 }
 
+.selectedAns:focus {
+  background-color: blue;
+}
 
 .noAnswer {
   background-image: url("../../assets/img/images/transparent.png");

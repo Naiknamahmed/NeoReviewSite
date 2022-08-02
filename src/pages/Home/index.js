@@ -10,15 +10,11 @@ import Temario from "components/Temario/Temario.js";
 import Classes from "components/Classes/Classes.js";
 import ExamenesPage from "pages/Examenes/index";
 import RankingGlobal from "components/RankingGlobal/RankingGlobal.js";
-<<<<<<< HEAD
 import { Navigate } from "react-router";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-=======
 import Descargas from "components/Descargas/Descargas";
 import Video from "components/Video/Video";
 import AudioLibro from "components/AudioLibro/AudioLibro";
-const Directo = React.lazy(() => import('../../components/Directo/Directo.js'));
->>>>>>> ac5fdd3817b075c6291f23ce4f6a4208e21f2bd8
+const Directo = React.lazy(() => import("../../components/Directo/Directo.js"));
 
 function Home() {
   const history = useNavigate();
@@ -27,6 +23,7 @@ function Home() {
   const [currentPage, setCurrentPage] = useState("Mi escritorio");
   const [folderToggle, setFolderToggle] = useState("0%");
   const data = getLocalUserdata();
+  console.log(data);
 
   const toggleSideMenu = () => {
     if (toggleMenu === true) {
@@ -46,25 +43,21 @@ function Home() {
 
   const renderOption = () => {
     if (currentPage === "Mi escritorio") return <Homepage />;
-    else if (currentPage === "Temario") return <Temario folderToggle={folderToggle} />;
+    else if (currentPage === "Temario")
+      return <Temario folderToggle={folderToggle} />;
     else if (currentPage === "Exámenes") return <ExamenesPage />;
-<<<<<<< HEAD
-    else if (currentPage === "Videos")
+    else if (currentPage === "Salir") {
+      localStorage.clear();
+      return <Navigate to="/" />;
+    } else if (currentPage === "Videos")
       return <Video folderToggle={folderToggle} />;
     else if (currentPage === "Classes")
       return <Classes folderToggle={folderToggle} />;
     else if (currentPage === "Ranking global") return <RankingGlobal />;
-    else if (currentPage === "Salir") {
-      localStorage.clear();
-      return <Navigate to="/" />;
-=======
-    else if (currentPage === "Videos") return (<Video folderToggle={folderToggle}/>)
-    else if (currentPage === "Classes") return <Classes folderToggle={folderToggle}/>;
-    else if (currentPage === "Ranking global") return <RankingGlobal />;
     else if (currentPage === "Descargas") return <Descargas />;
-    else if (currentPage === "Audiolibro") return (<AudioLibro />)
+    else if (currentPage === "Audiolibro") return <AudioLibro />;
     else if (currentPage === "En Directo") {
-      if(data.type==='Alumno'||data.type==='Alumno-Free Trial'){
+      if (data.type === "Alumno" || data.type === "Alumno-Free Trial") {
         var stylesheet = document.styleSheets[0];
         stylesheet.disabled = false;
         stylesheet = document.styleSheets[1];
@@ -73,13 +66,14 @@ function Home() {
           <Suspense fallback={<div></div>}>
             <Directo />
           </Suspense>
-      )}
-      else {
+        );
+      } else {
         return (
-          <div className="flex justify-center">Compre el plan para acceder a este módulo.</div>
-        )
+          <div className="flex justify-center">
+            Compre el plan para acceder a este módulo.
+          </div>
+        );
       }
->>>>>>> ac5fdd3817b075c6291f23ce4f6a4208e21f2bd8
     }
   };
 
