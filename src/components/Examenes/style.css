@@ -12,3 +12,7 @@
   background-image: url("../../assets/img/images/transparent.png");
   background-size: cover;
 }
+.css-eglki6-MuiLinearProgress-root{
+  background-color: #d7d5d5 !important;
+  height: 6px !important;
+}

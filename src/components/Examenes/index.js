@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@mui/material/Button";
 import Accordion from "@mui/material/Accordion";
+import LinearProgress from "@mui/material/LinearProgress";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -53,6 +54,7 @@ function Examenes1() {
   const [studentAnswer, setStudentAnswered] = useState(null);
   const [ansCircles, setAnsCircles] = useState([]);
   const [ansCheck, setAnsCheck] = useState(0);
+  const [progress, setProgress] = React.useState(0);
   const [ansArry, setAnsArry] = useState([]);
 
   const data = getLocalUserdata();
@@ -97,7 +99,6 @@ function Examenes1() {
   }, []);
 
   // GET ALL EXAM FILES API
-
   const handleExamId = (id) => {
     setListLoading(true);
     const getExamFiles = {
@@ -140,7 +141,7 @@ function Examenes1() {
       studentAnswered: null,
       studentAttemptId: null,
       tab: null,
-      Restart: "no",
+      isRestart: "no",
       studentType: student_type,
       examId: localStorage.getItem("examID"),
       studentExamRecordId: Conocimientos
@@ -205,7 +206,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/endExam`, endData)
       .then((response) => {
         setEndExam(response.data);
-        console.log(response.data);
+        console.log(response.data, "END EXAM DATA");
         setShowScore(true);
       })
       .catch((error) => {
@@ -214,7 +215,6 @@ function Examenes1() {
   };
 
   // Pause EXAM API CALL
-
   const pauseAnswer = () => {
     let timeRemaining = secondsRemaining - examData.examDuration;
     const pauseData = {
@@ -225,7 +225,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/pauseAnswer`, pauseData)
       .then((response) => {
         setPauseExam(response.data);
-        console.log(response.data);
+        console.log(response.data, "Pause Data");
         if (response.data.data.canPause == "no") {
           alert("You Cannot Pause This Exam");
         } else {
@@ -257,7 +257,6 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/reviewExam`, reviewData)
       .then((response) => {
         setExamReviewData(response.data.data);
-        console.log(response.data.data);
         setShowScreen(false);
         setShowExam(false);
         setShowScore(false);
@@ -324,6 +323,7 @@ function Examenes1() {
     () => {
       if (status == true) {
         setSecondsRemaining(secondsRemaining - 1);
+        setProgress((1550 / secondsRemaining - 1) * 10);
       } else if (secondsRemaining <= 0) {
         endQuiz();
       } else {
@@ -334,7 +334,6 @@ function Examenes1() {
   );
 
   let answerClicked = null;
-  let triggerTime;
 
   const handelUnSelect = (id) => {
     setAnsCheck(currentQuestion);
@@ -385,7 +384,6 @@ function Examenes1() {
   const handleSetAnswer = (id) => {
     setAnsCheck(currentQuestion);
     answerClicked = id;
-    setStudentAnswered(answerClicked);
     ansCircles.splice(ansCheck, 1, {
       img:
         answerClicked != null && ansCheck == currentQuestion
@@ -398,28 +396,26 @@ function Examenes1() {
     const startData = {
       studentId: data.id,
       studentType: student_type,
-      studentAnswered: answerClicked, // exams get
-      studentAttemptId: examData[currentQuestion].id, // exams get
+      studentAnswered: answerClicked,
+      studentAttemptId: examData[currentQuestion].id,
       tab: null,
       Restart: "no",
       studentType: student_type,
-      examId: localStorage.getItem("examID"), // folderData
+      examId: localStorage.getItem("examID"),
       studentExamRecordId: parseInt(
         examData[currentQuestion].studentExamRecordId
-      ), // not done
+      ),
     };
     setSecondsRemaining(secondsRemaining);
-
     axios
       .post(`https://neoestudio.net/api/startExam`, startData)
       .then((response) => {
         if (currentQuestion + 1 >= examData.length) {
           endQuiz();
         } else {
-          setAnsCheck(currentQuestion + 1);
-          setCurrentQuestion(currentQuestion + 1);
+          // setAnsCheck(currentQuestion + 1);
+          // setCurrentQuestion(currentQuestion + 1);
           setLoading(false);
-          answerClicked = null;
         }
       })
       .catch((error) => {
@@ -500,8 +496,7 @@ function Examenes1() {
                                               startExams(e, Conocimientos)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-regular",
+                                              fontFamily: "ProximaSoft-regular",
                                             }}
                                           >
                                             {Conocimientos.name}
@@ -510,8 +505,7 @@ function Examenes1() {
                                           "end" ? (
                                           <button
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-bold",
+                                              fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
                                               return reviewExam(
@@ -529,8 +523,7 @@ function Examenes1() {
                                               startExams(e, Conocimientos)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-regular",
+                                              fontFamily: "ProximaSoft-bold",
                                             }}
                                           >
                                             {Conocimientos.name}
@@ -552,8 +545,7 @@ function Examenes1() {
                                               startExams(e, Inglés)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-regular",
+                                              fontFamily: "ProximaSoft-regular",
                                             }}
                                           >
                                             {Inglés.name}
@@ -562,8 +554,7 @@ function Examenes1() {
                                           "end" ? (
                                           <button
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-bold",
+                                              fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
                                               return reviewExam(e, Inglés);
@@ -578,8 +569,7 @@ function Examenes1() {
                                               startExams(e, Inglés)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-regular",
+                                              fontFamily: "ProximaSoft-bold",
                                             }}
                                           >
                                             {Inglés.name}
@@ -601,8 +591,7 @@ function Examenes1() {
                                             }
                                             id={Psicotécnicos.id}
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-regular",
+                                              fontFamily: "ProximaSoft-regular",
                                             }}
                                           >
                                             {Psicotécnicos.name}
@@ -611,8 +600,7 @@ function Examenes1() {
                                           "end" ? (
                                           <button
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-bold",
+                                              fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
                                               return reviewExam(
@@ -630,8 +618,7 @@ function Examenes1() {
                                               startExams(e, Psicotécnicos)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-regular",
+                                              fontFamily: "ProximaSoft-bold",
                                             }}
                                           >
                                             {Psicotécnicos.name}
@@ -653,8 +640,7 @@ function Examenes1() {
                                               startExams(e, Ortografía)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-regular",
+                                              fontFamily: "ProximaSoft-regular",
                                             }}
                                           >
                                             {Ortografía.name}
@@ -663,8 +649,7 @@ function Examenes1() {
                                           "end" ? (
                                           <button
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-bold",
+                                              fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
                                               return reviewExam(e, Ortografía);
@@ -679,8 +664,7 @@ function Examenes1() {
                                               startExams(e, Ortografía)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaNovaSoft-regular",
+                                              fontFamily: "ProximaSoft-bold",
                                             }}
                                           >
                                             {Ortografía.name}
@@ -1118,7 +1102,7 @@ function Examenes1() {
                   <div
                     className="m-4"
                     style={{
-                      fontFamily: "ProximaSoft-bold",
+                      fontFamily: "ProximaSoft-regular",
                     }}
                   >
                     <Markup
@@ -1134,7 +1118,7 @@ function Examenes1() {
                         setShowScore(false);
                       }}
                     >
-                      Back To Examenes
+                      Volver a Exámenes
                     </Button>
                   </div>
                 </div>
@@ -1157,9 +1141,10 @@ function Examenes1() {
                                 ? `url(${golden})`
                                 : data.status == "notAttempted"
                                 ? `url(${nullImg})`
-                                : data.status == "correct"
-                                ? `url(${correctImg})`
-                                : `url(${wrongImg})`,
+                                : data.status == "wrong" &&
+                                  data.correct != data.studentAnswered
+                                ? `url(${wrongImg})`
+                                : `url(${correctImg})`,
                           }}
                         >
                           {index + 1}
@@ -1180,25 +1165,25 @@ function Examenes1() {
               <Grid item xs={12} md={4} className={Styles.ResultWrappers}>
                 <div className={Styles.innerResultWrapper}>
                   <p className={Styles.resultData}>
-                    Time Elasped :
+                    Tiempo:
                     <span className={Styles.resultDataBold}>
                       {endExam.examDuration} / {endExam.totalTime}
                     </span>
                   </p>
                   <p className={Styles.resultData}>
-                    Aciertos :
+                    Aciertos:
                     <span className={Styles.resultDataBold}>
                       {endExam.correctCount}
                     </span>
                   </p>
                   <p className={Styles.resultData}>
-                    Fallos :
+                    Fallos:
                     <span className={Styles.resultDataBold}>
                       {endExam.wrongCount}
                     </span>
                   </p>
                   <p className={Styles.resultData}>
-                    Nulos :
+                    Nulos:
                     <span className={Styles.resultDataBold}>
                       {endExam.nonAttemptedCount}
                     </span>
@@ -1207,7 +1192,7 @@ function Examenes1() {
                     className={Styles.resultData}
                     style={{ marginTop: "30px" }}
                   >
-                    Puntos :
+                    Puntos:
                     <span className={Styles.resultDataBold}>
                       {endExam.score}
                     </span>
@@ -1325,18 +1310,13 @@ function Examenes1() {
                       <button
                         onClick={(e) => {
                           setLoading(true);
-                          if (triggerTime < 500) {
-                            handleSetAnswer("a");
-                          } else {
+                          if (studentAnswer == "a") {
+                            setStudentAnswered(null);
                             handelUnSelect("a");
+                          } else {
+                            setStudentAnswered("a");
+                            handleSetAnswer("a");
                           }
-                        }}
-                        onMouseDown={(e) => {
-                          triggerTime = new Date().getTime();
-                        }}
-                        onMouseUp={(e) => {
-                          let thisMoment = new Date().getTime();
-                          triggerTime = thisMoment - triggerTime;
                         }}
                         className={Styles.answerLinks}
                       >
@@ -1358,18 +1338,13 @@ function Examenes1() {
                       <button
                         onClick={(e) => {
                           setLoading(true);
-                          if (triggerTime < 500) {
-                            handleSetAnswer("b");
-                          } else {
+                          if (studentAnswer == "b") {
+                            setStudentAnswered(null);
                             handelUnSelect("b");
+                          } else {
+                            setStudentAnswered("b");
+                            handleSetAnswer("b");
                           }
-                        }}
-                        onMouseDown={(e) => {
-                          triggerTime = new Date().getTime();
-                        }}
-                        onMouseUp={(e) => {
-                          let thisMoment = new Date().getTime();
-                          triggerTime = thisMoment - triggerTime;
                         }}
                         className={Styles.answerLinks}
                       >
@@ -1388,18 +1363,13 @@ function Examenes1() {
                       <button
                         onClick={(e) => {
                           setLoading(true);
-                          if (triggerTime < 500) {
-                            handleSetAnswer("c");
-                          } else {
+                          if (studentAnswer == "c") {
+                            setStudentAnswered(null);
                             handelUnSelect("c");
+                          } else {
+                            setStudentAnswered("c");
+                            handleSetAnswer("c");
                           }
-                        }}
-                        onMouseDown={(e) => {
-                          triggerTime = new Date().getTime();
-                        }}
-                        onMouseUp={(e) => {
-                          let thisMoment = new Date().getTime();
-                          triggerTime = thisMoment - triggerTime;
                         }}
                         className={Styles.answerLinks}
                       >
@@ -1418,18 +1388,13 @@ function Examenes1() {
                       <button
                         onClick={(e) => {
                           setLoading(true);
-                          if (triggerTime < 500) {
-                            handleSetAnswer("d");
-                          } else {
+                          if (studentAnswer == "d") {
+                            setStudentAnswered(null);
                             handelUnSelect("d");
+                          } else {
+                            setStudentAnswered("d");
+                            handleSetAnswer("d");
                           }
-                        }}
-                        onMouseDown={(e) => {
-                          triggerTime = new Date().getTime();
-                        }}
-                        onMouseUp={(e) => {
-                          let thisMoment = new Date().getTime();
-                          triggerTime = thisMoment - triggerTime;
                         }}
                         className={Styles.answerLinks}
                       >
@@ -1460,6 +1425,9 @@ function Examenes1() {
                   ) : (
                     ""
                   )}
+                  <div>
+                    <LinearProgress variant="determinate" value={progress} />
+                  </div>
                   <div className={Styles.resultBtnWrapper}>
                     {ansCircles.map((data, index) => {
                       return (
