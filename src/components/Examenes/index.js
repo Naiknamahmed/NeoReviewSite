@@ -781,7 +781,7 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "proximasoft-regular",
+                                                        "proximasoft-bold",
                                                     }}
                                                   >
                                                     {Conocimientos.name}
