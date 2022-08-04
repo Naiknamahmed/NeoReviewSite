@@ -12,6 +12,20 @@ export default makeStyles(() => ({
   folderWrapper: {
     margin: "10px auto",
   },
+  containerStyles: {
+    height: 5,
+    width: "100%",
+    backgroundColor: "#e0e0de",
+  },
+  fillerStyles: {
+    height: "100%",
+    width: "0%",
+    backgroundColor: "#1976d2",
+    transition: "width 10s ease-in-out",
+    "&:focus": {
+      width: "100%",
+    },
+  },
   heading: {
     fontSize: "20px",
     color: "black",
@@ -182,6 +196,21 @@ export default makeStyles(() => ({
     display: "flex",
     fontFamily: "ProximaSoft-regular",
   },
+  wrapperMain1: {
+    margin: "0 auto",
+    display: "flex",
+    fontFamily: "ProximaSoft-regular",
+    overflowX: "auto",
+    "&::-webkit-scrollbar": {
+      height: "10px",
+    },
+    "&::-webkit-scrollbar-track": {
+      background: "#bfbfbf",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      background: "gray",
+    },
+  },
   examenesHeading3: {
     fontSize: "30px",
     margin: "20px auto 10px",
@@ -251,7 +280,7 @@ export default makeStyles(() => ({
     justifyContent: "start",
     alignItems: "center",
     width: "100%",
-    overflowX: "scroll",
+    overflowX: "auto",
     "&::-webkit-scrollbar": {
       height: "10px",
     },

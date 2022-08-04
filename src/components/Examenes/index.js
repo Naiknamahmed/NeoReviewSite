@@ -54,8 +54,9 @@ function Examenes1() {
   const [studentAnswer, setStudentAnswered] = useState(null);
   const [ansCircles, setAnsCircles] = useState([]);
   const [ansCheck, setAnsCheck] = useState(0);
-  const [progress, setProgress] = React.useState(0);
+  const [progress, setProgress] = useState(0);
   const [ansArry, setAnsArry] = useState([]);
+  const [totalLoading, setTotalLoading] = useState(0);
 
   const data = getLocalUserdata();
   const student_type = data.type;
@@ -68,11 +69,14 @@ function Examenes1() {
 
   // GET ALL EXAM FOLDERS API
 
+  console.log(totalLoading, "progress");
+
   useEffect(() => {
     axios
       .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
       .then((response) => {
         setFolderData(response.data.data);
+        console.log(response.data.data, "exam data 1");
         setShowScreen(true);
         setLoading(false);
       })
@@ -132,7 +136,6 @@ function Examenes1() {
       : Ortografía
       ? Ortografía.id
       : Psicotécnicos.id;
-
     localStorage.setItem("examID", ExamNO);
     setLoading(true);
     const startData = {
@@ -152,7 +155,6 @@ function Examenes1() {
         ? Ortografía.studentExamRecordId
         : Psicotécnicos.studentExamRecordId,
     };
-
     setSecondsRemaining(
       Conocimientos
         ? Conocimientos.timeFrom
@@ -160,7 +162,13 @@ function Examenes1() {
         ? Ortografía.timeFrom
         : Psicotécnicos.timeFrom
     );
-
+    setTotalLoading(
+      Conocimientos
+        ? Conocimientos.timeFrom
+        : Inglés.timeFrom
+        ? Ortografía.timeFrom
+        : Psicotécnicos.timeFrom
+    );
     axios
       .post(`https://neoestudio.net/api/startExam`, startData)
       .then((response) => {
@@ -216,10 +224,9 @@ function Examenes1() {
 
   // Pause EXAM API CALL
   const pauseAnswer = () => {
-    let timeRemaining = secondsRemaining - examData.examDuration;
     const pauseData = {
       studentExamRecordId: examData[currentQuestion].studentExamRecordId,
-      time: timeRemaining,
+      time: secondsRemaining,
     };
     axios
       .post(`https://neoestudio.net/api/pauseAnswer`, pauseData)
@@ -309,7 +316,7 @@ function Examenes1() {
 
   const twoDigits = (num) => String(num).padStart(2, "0");
 
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState(false);
 
   const secondsToDisplay = secondsRemaining % 60;
   const minutesRemaining = (secondsRemaining - secondsToDisplay) / 60;
@@ -318,14 +325,14 @@ function Examenes1() {
   const handleStart = () => {
     return pauseAnswer();
   };
-
   useInterval(
     () => {
       if (status == true) {
         setSecondsRemaining(secondsRemaining - 1);
-        setProgress((1550 / secondsRemaining - 1) * 10);
+        setProgress((totalLoading / secondsRemaining) * 100);
       } else if (secondsRemaining <= 0) {
-        endQuiz();
+        setStatus(false);
+        return endQuiz();
       } else {
         endQuiz();
       }
@@ -1213,21 +1220,21 @@ function Examenes1() {
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to bottom, rgba(17,148,47,1), rgba(106,170,101,1))`}
-                    progress={endExam.correctPercentage}
+                    progress={endExam.correctPercentage.toFixed(2)}
                   />
                   <img src={tick} style={{ width: "40px" }} />
                 </div>
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to bottom, rgba(206,8,17,1), rgba(222,110,81,1))`}
-                    progress={endExam.wrongPercentage}
+                    progress={endExam.wrongPercentage.toFixed(2)}
                   />
                   <img src={cross} style={{ width: "40px" }} />
                 </div>
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to top, rgba(47,49,47,1), rgba(119,118,119,1))`}
-                    progress={endExam.nullPercentage}
+                    progress={endExam.nullPercentage.toFixed(2)}
                   />
                   <h3 style={{ fontSize: "25px" }}>Nulos</h3>
                 </div>
@@ -1273,9 +1280,9 @@ function Examenes1() {
         </main>
       ) : showExam == true ? (
         <>
-          <div className={Styles.wrapperMain}>
-            <main className="flex mx-auto">
-              <Container maxWidth="lg">
+          <div>
+            <main className={Styles.wrapperMain1}>
+              <Container maxWidth="xlg">
                 <div className={Styles.quizWrapperInner}>
                   <div className={Styles.timerWrapper}>
                     {/* Timer STARTS HERE                      */}
@@ -1425,9 +1432,7 @@ function Examenes1() {
                   ) : (
                     ""
                   )}
-                  <div>
-                    <LinearProgress variant="determinate" value={progress} />
-                  </div>
+
                   <div className={Styles.resultBtnWrapper}>
                     {ansCircles.map((data, index) => {
                       return (
@@ -1455,6 +1460,20 @@ function Examenes1() {
                         </div>
                       );
                     })}
+                  </div>
+                  {/* <div className={Styles.containerStyles}>
+                    <div
+                      className={Styles.fillerStyles}
+                    ></div>
+                  </div> */}
+                  <div>
+                    <LinearProgress
+                      variant="determinate"
+                      value={progress}
+                      style={{
+                        transition: "transform .04s linear",
+                      }}
+                    />
                   </div>
                 </div>
               </Container>
