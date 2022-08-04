@@ -1461,11 +1461,6 @@ function Examenes1() {
                       );
                     })}
                   </div>
-                  {/* <div className={Styles.containerStyles}>
-                    <div
-                      className={Styles.fillerStyles}
-                    ></div>
-                  </div> */}
                   <div>
                     <LinearProgress
                       variant="determinate"
