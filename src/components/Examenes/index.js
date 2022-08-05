@@ -327,7 +327,7 @@ function Examenes1() {
     () => {
       if (status == true) {
         setSecondsRemaining(secondsRemaining - 1);
-      } else if (secondsRemaining >= 0) {
+      } else if (secondsRemaining <= 0) {
         setStatus(false);
         setShowResult(true);
         return endQuiz();
