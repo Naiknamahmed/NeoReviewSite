@@ -13,20 +13,20 @@
   background-size: cover;
 }
 .css-eglki6-MuiLinearProgress-root{
-  background-color: #1976d2 !important;
+  background-color: #d7d5d5 !important;
   height: 6px !important;
 }
 .css-5xe99f-MuiLinearProgress-bar1{
-  transition: transform .04s !important;
-  background-color: #d7d5d5 !important;
+  background-color: #001aff !important;
+  transition: transform .04s ease !important;
   transform-origin: left !important;
 }
 .MuiLinearProgress-bar, .MuiLinearProgress-barColorPrimary, .MuiLinearProgress-bar1Determinate .css-5xe99f{
-  transition: transform .04s !important;
-    background-color: #d7d5d5 !important;
-    transform-origin: left !important;
+  transition: transform .04s ease !important;
+  transform-origin: left !important;
+  background-color: #001aff !important;
 }
 .css-eglki6 {
-  background-color: #1976d2 !important;
+  background-color: #d7d5d5 !important;
   height: 6px !important;
 }

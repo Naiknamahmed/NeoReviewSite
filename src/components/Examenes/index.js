@@ -69,8 +69,6 @@ function Examenes1() {
 
   // GET ALL EXAM FOLDERS API
 
-  console.log(totalLoading, "progress");
-
   useEffect(() => {
     axios
       .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
@@ -164,10 +162,10 @@ function Examenes1() {
     );
     setTotalLoading(
       Conocimientos
-        ? Conocimientos.timeFrom
-        : Inglés.timeFrom
-        ? Ortografía.timeFrom
-        : Psicotécnicos.timeFrom
+        ? Number(Conocimientos.timeFrom)
+        : Number(Inglés.timeFrom)
+        ? Number(Ortografía.timeFrom)
+        : Number(Psicotécnicos.timeFrom)
     );
     axios
       .post(`https://neoestudio.net/api/startExam`, startData)
@@ -329,15 +327,28 @@ function Examenes1() {
     () => {
       if (status == true) {
         setSecondsRemaining(secondsRemaining - 1);
-        setProgress((totalLoading / secondsRemaining) * 100);
-      } else if (secondsRemaining <= 0) {
+      } else if (secondsRemaining >= 0) {
         setStatus(false);
+        setShowResult(true);
         return endQuiz();
       } else {
         endQuiz();
       }
     },
     status == true ? 1000 : null
+  );
+
+  console.log(progress, "progress");
+
+  useInterval(
+    () => {
+      if (status == true) {
+        setProgress((secondsRemaining / totalLoading) * -100 + 100);
+      } else {
+        setProgress(0);
+      }
+    },
+    status == true ? 3000 : null
   );
 
   let answerClicked = null;
@@ -749,7 +760,7 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "proximasoft-regular",
+                                                        "ProximaSoft-regular",
                                                     }}
                                                   >
                                                     {Conocimientos.name}
@@ -759,7 +770,7 @@ function Examenes1() {
                                                   <button
                                                     style={{
                                                       fontFamily:
-                                                        "proximasoft-bold",
+                                                        "ProximaSoft-bold",
                                                     }}
                                                     onClick={(e) => {
                                                       return reviewExam(
@@ -781,7 +792,7 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "proximasoft-bold",
+                                                        "ProximaSoft-bold",
                                                     }}
                                                   >
                                                     {Conocimientos.name}
@@ -805,7 +816,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "proximasoft-regular",
+                                                      "ProximaSoft-regular",
                                                   }}
                                                 >
                                                   {Inglés.name}
@@ -815,7 +826,7 @@ function Examenes1() {
                                                 <button
                                                   style={{
                                                     fontFamily:
-                                                      "proximasoft-bold",
+                                                      "ProximaSoft-bold",
                                                   }}
                                                   onClick={(e) => {
                                                     return reviewExam(
@@ -834,7 +845,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "proximasoft-regular",
+                                                      "ProximaSoft-regular",
                                                   }}
                                                 >
                                                   {Inglés.name}
@@ -861,7 +872,7 @@ function Examenes1() {
                                                     id={Psicotécnicos.id}
                                                     style={{
                                                       fontFamily:
-                                                        "proximasoft-regular",
+                                                        "ProximaSoft-regular",
                                                     }}
                                                   >
                                                     {Psicotécnicos.name}
@@ -871,7 +882,7 @@ function Examenes1() {
                                                   <button
                                                     style={{
                                                       fontFamily:
-                                                        "proximasoft-bold",
+                                                        "ProximaSoft-bold",
                                                     }}
                                                     onClick={(e) => {
                                                       return reviewExam(
@@ -893,7 +904,7 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "proximasoft-regular",
+                                                        "ProximaSoft-bold",
                                                     }}
                                                   >
                                                     {Psicotécnicos.name}
@@ -917,7 +928,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "proximasoft-regular",
+                                                      "ProximaSoft-regular",
                                                   }}
                                                 >
                                                   {Ortografía.name}
@@ -927,7 +938,7 @@ function Examenes1() {
                                                 <button
                                                   style={{
                                                     fontFamily:
-                                                      "proximasoft-bold",
+                                                      "ProximaSoft-bold",
                                                   }}
                                                   onClick={(e) => {
                                                     return reviewExam(
@@ -946,7 +957,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "proximasoft-regular",
+                                                      "ProximaSoft-bold",
                                                   }}
                                                 >
                                                   {Ortografía.name}
@@ -1466,7 +1477,7 @@ function Examenes1() {
                       variant="determinate"
                       value={progress}
                       style={{
-                        transition: "transform .04s linear",
+                        transition: "transform .04s ease",
                       }}
                     />
                   </div>
