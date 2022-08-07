@@ -177,7 +177,6 @@ function Examenes1() {
           ]);
         }
         setExamData(response.data.data);
-        console.log(response.data.data, "exam Data");
         setLoading(false);
         setStatus(true);
         setCurrentQuestion(0);
@@ -439,7 +438,8 @@ function Examenes1() {
                                               startExams(e, Conocimientos)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-light",
+                                              fontFamily:
+                                                "ProximaSoft-regularlt",
                                             }}
                                           >
                                             {Conocimientos.name}
@@ -488,7 +488,8 @@ function Examenes1() {
                                               startExams(e, Inglés)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-light",
+                                              fontFamily:
+                                                "ProximaSoft-regularlt",
                                             }}
                                           >
                                             {Inglés.name}
@@ -534,7 +535,8 @@ function Examenes1() {
                                             }
                                             id={Psicotécnicos.id}
                                             style={{
-                                              fontFamily: "ProximaSoft-light",
+                                              fontFamily:
+                                                "ProximaSoft-regularlt",
                                             }}
                                           >
                                             {Psicotécnicos.name}
@@ -583,7 +585,8 @@ function Examenes1() {
                                               startExams(e, Ortografía)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-light",
+                                              fontFamily:
+                                                "ProximaSoft-regularlt",
                                             }}
                                           >
                                             {Ortografía.name}
@@ -685,7 +688,7 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "ProximaSoft-light",
+                                                        "ProximaSoft-regularlt",
                                                     }}
                                                   >
                                                     {Conocimientos.name}
@@ -741,7 +744,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "ProximaSoft-light",
+                                                      "ProximaSoft-regularlt",
                                                   }}
                                                 >
                                                   {Inglés.name}
@@ -797,7 +800,7 @@ function Examenes1() {
                                                     id={Psicotécnicos.id}
                                                     style={{
                                                       fontFamily:
-                                                        "ProximaSoft-light",
+                                                        "ProximaSoft-regularlt",
                                                     }}
                                                   >
                                                     {Psicotécnicos.name}
@@ -853,7 +856,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "ProximaSoft-light",
+                                                      "ProximaSoft-regularlt",
                                                   }}
                                                 >
                                                   {Ortografía.name}
@@ -916,6 +919,17 @@ function Examenes1() {
                   <div style={{ fontFamily: "ProximaSoft-bold" }}>
                     <Markup
                       content={examReviewData[currentQuestion].question}
+                    />
+                  </div>
+                  <div>
+                    <img
+                      src={
+                        currentQuestion == ansCheck
+                          ? examReviewData[currentQuestion].image
+                          : ""
+                      }
+                      alt=""
+                      width="50%"
                     />
                   </div>
                   <div className={Styles.Options}>
@@ -1069,7 +1083,7 @@ function Examenes1() {
                     return (
                       <div
                         style={{
-                          margin: "10px",
+                          margin: "3px",
                         }}
                       >
                         <button
@@ -1190,7 +1204,7 @@ function Examenes1() {
                 return (
                   <div
                     style={{
-                      margin: "5px",
+                      margin: "3px",
                     }}
                   >
                     <button
@@ -1256,7 +1270,7 @@ function Examenes1() {
                         src={
                           currentQuestion == ansCheck
                             ? examData[currentQuestion].image
-                            : setLoading(true)
+                            : ""
                         }
                         alt=""
                         width="50%"
@@ -1390,7 +1404,7 @@ function Examenes1() {
                       return (
                         <div
                           style={{
-                            margin: "10px",
+                            margin: "3px",
                           }}
                         >
                           <button
