@@ -283,8 +283,8 @@ function Examenes1() {
         setShowExam(false);
         setShowScore(false);
         setShowResult(false);
-        startExams();
         setShowScreen(true);
+        window.location.reload(false);
         setLoading(false);
       })
       .catch((error) => {
@@ -1466,7 +1466,7 @@ function Examenes1() {
         </>
       ) : (
         <>
-          <h2>Connection Error - Please Reload The Page !</h2>
+          <h2>Internet Connection Error - Please Reload The Page !</h2>
         </>
       )}
     </>
