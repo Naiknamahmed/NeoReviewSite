@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import Folders from './Folders/Folders';
 import Files from './Files/Files';
-import { getLocalUserdata } from '../../../services/auth/localStorageData';
 
 const VideoFolders = (props) => {
-    const data=getLocalUserdata();
     const [view, setView]=useState('folders');
     const [folderId, setFolderId]= useState(0);
     
