@@ -263,33 +263,14 @@ function Examenes1() {
 
   // SALIR BTN
 
-  const SalirBtn = (e, Conocimientos, Inglés, Ortografía, Psicotécnicos) => {
-    setLoading(true);
-    const reviewData = {
-      studentExamRecordId: Conocimientos
-        ? Conocimientos.studentExamRecordId
-        : Inglés
-        ? Inglés.studentExamRecordId
-        : Ortografía
-        ? Ortografía.studentExamRecordId
-        : Psicotécnicos
-        ? Psicotécnicos.studentExamRecordId
-        : examData[currentQuestion].studentExamRecordId,
-    };
-    axios
-      .post(`https://neoestudio.net/api/reviewExam`, reviewData)
-      .then((response) => {
-        setExamReviewData(response.data.data);
-        setShowExam(false);
-        setShowScore(false);
-        setShowResult(false);
-        setShowScreen(true);
-        window.location.reload(false);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error, "Not Loading Review Exam Data !");
-      });
+  const SalirBtn = () => {
+    if (showScreen === false) {
+      setShowScore(false);
+      setCurrentQuestion(0);
+      return setShowScreen(true);
+    } else {
+      return setShowScreen(false);
+    }
   };
 
   // END QUIZ Icon
