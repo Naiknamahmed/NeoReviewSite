@@ -52,7 +52,6 @@ function Examenes1() {
   const [listLoading, setListLoading] = useState(true);
   const [secondsRemaining, setSecondsRemaining] = useState(0);
   const [studentAnswer, setStudentAnswered] = useState(null);
-  const [ansCircles, setAnsCircles] = useState([]);
   const [ansCheck, setAnsCheck] = useState(0);
   const [progress, setProgress] = useState(0);
   const [ansArry, setAnsArry] = useState([]);
@@ -74,7 +73,6 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
       .then((response) => {
         setFolderData(response.data.data);
-        console.log(response.data.data, "exam data 1");
         setShowScreen(true);
         setLoading(false);
       })
@@ -155,10 +153,10 @@ function Examenes1() {
     };
     setSecondsRemaining(
       Conocimientos
-        ? Conocimientos.timeFrom
-        : Inglés.timeFrom
-        ? Ortografía.timeFrom
-        : Psicotécnicos.timeFrom
+        ? Conocimientos.examDuration
+        : Inglés.examDuration
+        ? Ortografía.examDuration
+        : Psicotécnicos.examDuration
     );
     setTotalLoading(
       Conocimientos
@@ -170,28 +168,18 @@ function Examenes1() {
     axios
       .post(`https://neoestudio.net/api/startExam`, startData)
       .then((response) => {
-        setAnsCircles([]);
-        setAnsArry([]);
-        setExamData(response.data.data);
-        setLoading(false);
-        setStatus(true);
-        setCurrentQuestion(0);
-        for (let i = 0; i < response.data.data.length; i++) {
-          setAnsCircles((prevState) => [
-            ...prevState,
-            {
-              img: noSelect,
-            },
-          ]);
-        }
         for (let i = 0; i < response.data.data.length; i++) {
           setAnsArry((prevState) => [
             ...prevState,
             {
-              answer: null,
+              answer: response.data.data[i].studentAnswered,
             },
           ]);
         }
+        setExamData(response.data.data);
+        setLoading(false);
+        setStatus(true);
+        setCurrentQuestion(0);
         setShowScreen(false);
         setShowExam(true);
       })
@@ -212,7 +200,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/endExam`, endData)
       .then((response) => {
         setEndExam(response.data);
-        console.log(response.data, "END EXAM DATA");
+        console.log(response.data, "end eXAM");
         setShowScore(true);
       })
       .catch((error) => {
@@ -230,12 +218,11 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/pauseAnswer`, pauseData)
       .then((response) => {
         setPauseExam(response.data);
-        console.log(response.data, "Pause Data");
-        if (response.data.data.canPause == "no") {
-          alert("You Cannot Pause This Exam");
-        } else {
+        if (response.data.data.canPause == "yes") {
           setStatus(false);
           setShowScreen(true);
+        } else {
+          alert("You Cannot Pause This Exam");
         }
       })
       .catch((error) => {
@@ -296,11 +283,9 @@ function Examenes1() {
   // TIMER
   function useInterval(callback, delay) {
     const savedCallback = useRef();
-
     useEffect(() => {
       savedCallback.current = callback;
     }, [callback]);
-
     useEffect(() => {
       function tick() {
         savedCallback.current();
@@ -313,9 +298,7 @@ function Examenes1() {
   }
 
   const twoDigits = (num) => String(num).padStart(2, "0");
-
   const [status, setStatus] = useState(false);
-
   const secondsToDisplay = secondsRemaining % 60;
   const minutesRemaining = (secondsRemaining - secondsToDisplay) / 60;
   const minutesToDisplay = minutesRemaining % 60;
@@ -325,20 +308,14 @@ function Examenes1() {
   };
   useInterval(
     () => {
-      if (status == true) {
+      if (status == true && secondsRemaining > 0) {
         setSecondsRemaining(secondsRemaining - 1);
-      } else if (secondsRemaining <= 0) {
-        setStatus(false);
-        setShowResult(true);
-        return endQuiz();
       } else {
         endQuiz();
       }
     },
     status == true ? 1000 : null
   );
-
-  console.log(progress, "progress");
 
   useInterval(
     () => {
@@ -348,20 +325,14 @@ function Examenes1() {
         setProgress(0);
       }
     },
-    status == true ? 3000 : null
+    status == true ? 1000 : null
   );
 
-  let answerClicked = null;
+  let answerClicked;
 
   const handelUnSelect = (id) => {
     setAnsCheck(currentQuestion);
     answerClicked = null;
-    ansCircles.splice(ansCheck, 1, {
-      img:
-        answerClicked != null && ansCheck == currentQuestion
-          ? answerImg1
-          : noSelect,
-    });
     ansArry.splice(ansCheck, 1, {
       answer: answerClicked,
     });
@@ -389,6 +360,7 @@ function Examenes1() {
         } else {
           setAnsCheck(currentQuestion);
           setCurrentQuestion(currentQuestion);
+          console.log(response.data.data, "handle Unselect Answer");
           setLoading(false);
         }
       })
@@ -400,14 +372,9 @@ function Examenes1() {
   // NEXT QUESTION BUTTON
 
   const handleSetAnswer = (id) => {
+    console.log("id", id, examData[currentQuestion].id);
     setAnsCheck(currentQuestion);
     answerClicked = id;
-    ansCircles.splice(ansCheck, 1, {
-      img:
-        answerClicked != null && ansCheck == currentQuestion
-          ? answerImg1
-          : noSelect,
-    });
     ansArry.splice(ansCheck, 1, {
       answer: answerClicked,
     });
@@ -431,8 +398,7 @@ function Examenes1() {
         if (currentQuestion + 1 >= examData.length) {
           endQuiz();
         } else {
-          // setAnsCheck(currentQuestion + 1);
-          // setCurrentQuestion(currentQuestion + 1);
+          console.log(response.data.data, "exam select answer");
           setLoading(false);
         }
       })
@@ -514,7 +480,7 @@ function Examenes1() {
                                               startExams(e, Conocimientos)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-regular",
+                                              fontFamily: "ProximaSoft-light",
                                             }}
                                           >
                                             {Conocimientos.name}
@@ -541,7 +507,7 @@ function Examenes1() {
                                               startExams(e, Conocimientos)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-bold",
+                                              fontFamily: "ProximaSoft-regular",
                                             }}
                                           >
                                             {Conocimientos.name}
@@ -563,7 +529,7 @@ function Examenes1() {
                                               startExams(e, Inglés)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-regular",
+                                              fontFamily: "ProximaSoft-light",
                                             }}
                                           >
                                             {Inglés.name}
@@ -587,7 +553,7 @@ function Examenes1() {
                                               startExams(e, Inglés)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-bold",
+                                              fontFamily: "ProximaSoft-regular",
                                             }}
                                           >
                                             {Inglés.name}
@@ -609,7 +575,7 @@ function Examenes1() {
                                             }
                                             id={Psicotécnicos.id}
                                             style={{
-                                              fontFamily: "ProximaSoft-regular",
+                                              fontFamily: "ProximaSoft-light",
                                             }}
                                           >
                                             {Psicotécnicos.name}
@@ -636,7 +602,7 @@ function Examenes1() {
                                               startExams(e, Psicotécnicos)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-bold",
+                                              fontFamily: "ProximaSoft-regular",
                                             }}
                                           >
                                             {Psicotécnicos.name}
@@ -658,7 +624,7 @@ function Examenes1() {
                                               startExams(e, Ortografía)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-regular",
+                                              fontFamily: "ProximaSoft-light",
                                             }}
                                           >
                                             {Ortografía.name}
@@ -682,7 +648,7 @@ function Examenes1() {
                                               startExams(e, Ortografía)
                                             }
                                             style={{
-                                              fontFamily: "ProximaSoft-bold",
+                                              fontFamily: "ProximaSoft-regular",
                                             }}
                                           >
                                             {Ortografía.name}
@@ -760,7 +726,7 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "ProximaSoft-regular",
+                                                        "ProximaSoft-light",
                                                     }}
                                                   >
                                                     {Conocimientos.name}
@@ -792,7 +758,7 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "ProximaSoft-bold",
+                                                        "ProximaSoft-regular",
                                                     }}
                                                   >
                                                     {Conocimientos.name}
@@ -816,7 +782,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "ProximaSoft-regular",
+                                                      "ProximaSoft-light",
                                                   }}
                                                 >
                                                   {Inglés.name}
@@ -872,7 +838,7 @@ function Examenes1() {
                                                     id={Psicotécnicos.id}
                                                     style={{
                                                       fontFamily:
-                                                        "ProximaSoft-regular",
+                                                        "ProximaSoft-light",
                                                     }}
                                                   >
                                                     {Psicotécnicos.name}
@@ -904,7 +870,7 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "ProximaSoft-bold",
+                                                        "ProximaSoft-regular",
                                                     }}
                                                   >
                                                     {Psicotécnicos.name}
@@ -928,7 +894,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "ProximaSoft-regular",
+                                                      "ProximaSoft-light",
                                                   }}
                                                 >
                                                   {Ortografía.name}
@@ -957,7 +923,7 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "ProximaSoft-bold",
+                                                      "ProximaSoft-regular",
                                                   }}
                                                 >
                                                   {Ortografía.name}
@@ -1085,7 +1051,6 @@ function Examenes1() {
                         />
                       </div>
                     </button>
-
                     <button className={Styles.answerLinks}>
                       <div className={Styles.answerLinksInner3}>
                         {examReviewData[currentQuestion].status == "correct" &&
@@ -1159,8 +1124,7 @@ function Examenes1() {
                                 ? `url(${golden})`
                                 : data.status == "notAttempted"
                                 ? `url(${nullImg})`
-                                : data.status == "wrong" &&
-                                  data.correct != data.studentAnswered
+                                : data.status == "wrong"
                                 ? `url(${wrongImg})`
                                 : `url(${correctImg})`,
                           }}
@@ -1328,12 +1292,13 @@ function Examenes1() {
                       <button
                         onClick={(e) => {
                           setLoading(true);
-                          if (studentAnswer == "a") {
-                            setStudentAnswered(null);
-                            handelUnSelect("a");
-                          } else {
-                            setStudentAnswered("a");
+                          if (
+                            currentQuestion == ansCheck &&
+                            ansArry[currentQuestion].answer != "a"
+                          ) {
                             handleSetAnswer("a");
+                          } else {
+                            handleSetAnswer("null");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1356,12 +1321,13 @@ function Examenes1() {
                       <button
                         onClick={(e) => {
                           setLoading(true);
-                          if (studentAnswer == "b") {
-                            setStudentAnswered(null);
-                            handelUnSelect("b");
-                          } else {
-                            setStudentAnswered("b");
+                          if (
+                            ansArry[currentQuestion].answer != "b" &&
+                            currentQuestion == ansCheck
+                          ) {
                             handleSetAnswer("b");
+                          } else {
+                            handleSetAnswer("null");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1381,12 +1347,13 @@ function Examenes1() {
                       <button
                         onClick={(e) => {
                           setLoading(true);
-                          if (studentAnswer == "c") {
-                            setStudentAnswered(null);
-                            handelUnSelect("c");
-                          } else {
-                            setStudentAnswered("c");
+                          if (
+                            ansArry[currentQuestion].answer != "c" &&
+                            currentQuestion == ansCheck
+                          ) {
                             handleSetAnswer("c");
+                          } else {
+                            handleSetAnswer("null");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1406,12 +1373,13 @@ function Examenes1() {
                       <button
                         onClick={(e) => {
                           setLoading(true);
-                          if (studentAnswer == "d") {
-                            setStudentAnswered(null);
-                            handelUnSelect("d");
-                          } else {
-                            setStudentAnswered("d");
+                          if (
+                            ansArry[currentQuestion].answer != "d" &&
+                            currentQuestion == ansCheck
+                          ) {
                             handleSetAnswer("d");
+                          } else {
+                            handleSetAnswer("null");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1443,9 +1411,8 @@ function Examenes1() {
                   ) : (
                     ""
                   )}
-
                   <div className={Styles.resultBtnWrapper}>
-                    {ansCircles.map((data, index) => {
+                    {ansArry.map((data, index) => {
                       return (
                         <div
                           style={{
@@ -1463,7 +1430,9 @@ function Examenes1() {
                               backgroundImage:
                                 currentQuestion == index
                                   ? `url(${golden})`
-                                  : `url(${data.img})`,
+                                  : data.answer == null || data.answer == "null"
+                                  ? `url(${noSelect})`
+                                  : `url(${answerImg1})`,
                             }}
                           >
                             {index + 1}
@@ -1487,7 +1456,9 @@ function Examenes1() {
           </div>
         </>
       ) : (
-        ""
+        <>
+          <h2>Internet Error - Please Reload The Page !</h2>
+        </>
       )}
     </>
   );
