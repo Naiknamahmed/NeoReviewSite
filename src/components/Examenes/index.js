@@ -248,6 +248,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/reviewExam`, reviewData)
       .then((response) => {
         setExamReviewData(response.data.data);
+        console.log(response.data.data);
         setShowScreen(false);
         setShowExam(false);
         setShowScore(false);
@@ -438,8 +439,8 @@ function Examenes1() {
                                               startExams(e, Conocimientos)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaSoft-regularlt",
+                                              fontFamily: "ProximaSoft-regular",
+                                              color: "#0A52CB",
                                             }}
                                           >
                                             {Conocimientos.name}
@@ -488,8 +489,8 @@ function Examenes1() {
                                               startExams(e, Inglés)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaSoft-regularlt",
+                                              fontFamily: "ProximaSoft-regular",
+                                              color: "#0A52CB",
                                             }}
                                           >
                                             {Inglés.name}
@@ -535,8 +536,8 @@ function Examenes1() {
                                             }
                                             id={Psicotécnicos.id}
                                             style={{
-                                              fontFamily:
-                                                "ProximaSoft-regularlt",
+                                              fontFamily: "ProximaSoft-regular",
+                                              color: "#0A52CB",
                                             }}
                                           >
                                             {Psicotécnicos.name}
@@ -585,8 +586,8 @@ function Examenes1() {
                                               startExams(e, Ortografía)
                                             }
                                             style={{
-                                              fontFamily:
-                                                "ProximaSoft-regularlt",
+                                              fontFamily: "ProximaSoft-regular",
+                                              color: "#0A52CB",
                                             }}
                                           >
                                             {Ortografía.name}
@@ -688,7 +689,8 @@ function Examenes1() {
                                                     }
                                                     style={{
                                                       fontFamily:
-                                                        "ProximaSoft-regularlt",
+                                                        "ProximaSoft-regular",
+                                                      color: "#0A52CB",
                                                     }}
                                                   >
                                                     {Conocimientos.name}
@@ -744,7 +746,8 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "ProximaSoft-regularlt",
+                                                      "ProximaSoft-regular",
+                                                    color: "#0A52CB",
                                                   }}
                                                 >
                                                   {Inglés.name}
@@ -800,7 +803,8 @@ function Examenes1() {
                                                     id={Psicotécnicos.id}
                                                     style={{
                                                       fontFamily:
-                                                        "ProximaSoft-regularlt",
+                                                        "ProximaSoft-regular",
+                                                      color: "#0A52CB",
                                                     }}
                                                   >
                                                     {Psicotécnicos.name}
@@ -856,7 +860,8 @@ function Examenes1() {
                                                   }
                                                   style={{
                                                     fontFamily:
-                                                      "ProximaSoft-regularlt",
+                                                      "ProximaSoft-regular",
+                                                    color: "#0A52CB",
                                                   }}
                                                 >
                                                   {Ortografía.name}
@@ -923,11 +928,7 @@ function Examenes1() {
                   </div>
                   <div>
                     <img
-                      src={
-                        currentQuestion == ansCheck
-                          ? examReviewData[currentQuestion].image
-                          : ""
-                      }
+                      src={examReviewData[currentQuestion].image}
                       alt=""
                       width="50%"
                     />

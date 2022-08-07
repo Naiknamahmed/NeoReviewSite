@@ -81,7 +81,6 @@ export default makeStyles(() => ({
     },
   },
   quizWrapperInner: {
-    padding: "20px",
     margin: "0px auto",
     minWidth: "800px",
     fontFamily: "ProximaSoft-regular",
@@ -92,12 +91,12 @@ export default makeStyles(() => ({
     },
   },
   quizEndWrapperInner: {
-    padding: "50px 20px 20px 20px",
+    paddingTop: "50px",
     margin: "0px auto",
     minWidth: "800px",
     overflow: "hidden",
     "@media (max-width: 720px)": {
-      padding: "0px",
+      paddingTop: "0px",
       minWidth: "100%",
     },
   },
@@ -277,7 +276,7 @@ export default makeStyles(() => ({
   resultBtnWrapper: {
     margin: "10px auto",
     display: "flex",
-    justifyContent: "start",
+    justifyContent: "space-evenly",
     alignItems: "center",
     width: "100%",
     overflowX: "auto",
