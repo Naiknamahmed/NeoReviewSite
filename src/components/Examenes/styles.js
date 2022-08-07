@@ -221,7 +221,7 @@ export default makeStyles(() => ({
   ResultWrappers: {
     margin: "10px auto",
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     alignItems: "center",
     fontFamily: "ProximaSoft-regular",
   },
@@ -296,22 +296,30 @@ export default makeStyles(() => ({
     },
   },
   resultBtn: {
-    fontSize: "13px",
+    fontSize: "16px",
     fontWeight: "800",
     borderRadius: "50%",
     padding: "10px",
     color: "white",
     height: "auto",
-    width: "40px",
+    width: "45px",
     backgroundSize: "cover",
+    "@media (max-width: 1315px)": {
+      width: "40px",
+      fontSize: "13px",
+    },
   },
   resultBtn1: {
-    fontSize: "13px",
+    fontSize: "16px",
     fontWeight: "800",
     borderRadius: "50%",
     padding: "10px",
     color: "white",
     height: "auto",
-    width: "40px",
+    width: "45px",
+    "@media (min-width: 1315px)": {
+      width: "40px",
+      fontSize: "13px",
+    },
   },
 }));
