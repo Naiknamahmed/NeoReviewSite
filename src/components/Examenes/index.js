@@ -177,6 +177,7 @@ function Examenes1() {
           ]);
         }
         setExamData(response.data.data);
+        console.log(response.data.data, "exam Data");
         setLoading(false);
         setStatus(true);
         setCurrentQuestion(0);
@@ -200,7 +201,6 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/endExam`, endData)
       .then((response) => {
         setEndExam(response.data);
-        console.log(response.data, "end eXAM");
         setShowScore(true);
       })
       .catch((error) => {
@@ -330,49 +330,9 @@ function Examenes1() {
 
   let answerClicked;
 
-  const handelUnSelect = (id) => {
-    setAnsCheck(currentQuestion);
-    answerClicked = null;
-    ansArry.splice(ansCheck, 1, {
-      answer: answerClicked,
-    });
-    const startData = {
-      studentId: data.id,
-      studentType: student_type,
-      studentAnswered: answerClicked, // exams get
-      studentAttemptId: examData[currentQuestion].id, // exams get
-      tab: null,
-      Restart: "no",
-      studentType: student_type,
-      examId: localStorage.getItem("examID"), // folderData
-      studentExamRecordId: parseInt(
-        examData[currentQuestion].studentExamRecordId
-      ), // not done
-    };
-    setSecondsRemaining(secondsRemaining);
-
-    axios
-      .post(`https://neoestudio.net/api/startExam`, startData)
-      .then((response) => {
-        if (currentQuestion + 1 >= examData.length) {
-          setAnsArry([]);
-          endQuiz();
-        } else {
-          setAnsCheck(currentQuestion);
-          setCurrentQuestion(currentQuestion);
-          console.log(response.data.data, "handle Unselect Answer");
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error, "Error Loading, Please Try Again !");
-      });
-  };
-
   // NEXT QUESTION BUTTON
 
   const handleSetAnswer = (id) => {
-    console.log("id", id, examData[currentQuestion].id);
     setAnsCheck(currentQuestion);
     answerClicked = id;
     ansArry.splice(ansCheck, 1, {
@@ -398,7 +358,6 @@ function Examenes1() {
         if (currentQuestion + 1 >= examData.length) {
           endQuiz();
         } else {
-          console.log(response.data.data, "exam select answer");
           setLoading(false);
         }
       })
@@ -1231,7 +1190,7 @@ function Examenes1() {
                 return (
                   <div
                     style={{
-                      margin: "10px",
+                      margin: "5px",
                     }}
                   >
                     <button
@@ -1275,11 +1234,15 @@ function Examenes1() {
                         />
                       </div>
                       <div className="flex text-xl">
-                        Tiempo :
-                        <h2 className={Styles.timerHeading}>
+                        Tiempo:
+                        <h2
+                          className={Styles.timerHeading}
+                          style={{ fontFamily: "ProximaSoft-bold" }}
+                        >
                           {twoDigits(minutesToDisplay)}:
                           {twoDigits(secondsToDisplay)}
                         </h2>
+                        min
                       </div>
                     </div>
                     {/* Timer Ends Here                      */}
@@ -1287,6 +1250,17 @@ function Examenes1() {
                   <div>
                     <div style={{ fontFamily: "ProximaSoft-bold" }}>
                       <Markup content={examData[currentQuestion].question} />
+                    </div>
+                    <div>
+                      <img
+                        src={
+                          currentQuestion == ansCheck
+                            ? examData[currentQuestion].image
+                            : setLoading(true)
+                        }
+                        alt=""
+                        width="50%"
+                      />
                     </div>
                     <div className={Styles.Options}>
                       <button
