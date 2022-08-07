@@ -1,4 +1,4 @@
-import { makeStyles, alpha } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
     sidebaritems : { 
@@ -7,9 +7,10 @@ export default makeStyles((theme) => ({
         marginLeft:'5px',
         backgroundColor:'#c2c7cd', 
         overflowX: 'hidden',
-        paddingTop:'15px',
+        paddingTop:'5px',
+        fontFamily:'Montserrat-regular',
         '&:hover' : {
-            fontFamily: 'ProximaNovaSoft-bold',
+            fontFamily: 'Montserrat-bold',
         } 
     },
     container : {

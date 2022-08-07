@@ -14,15 +14,24 @@
     }
 }
 
+@media screen and (max-width: 900px) {
+    .fSize{
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 790px) {
+    .fSize{
+        font-size: 10px;
+    }
+}
+
 @media screen and (max-width: 550px) {
     .sidebaritems {
         display:block;
     }
     .menuItem{
         width:50%;
-    }
-    .fSize{
-        font-size: 14px;
     }
 
 }
