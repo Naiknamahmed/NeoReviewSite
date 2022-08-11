@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 import axios from "axios";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -56,6 +56,7 @@ function Examenes1() {
   const [progress, setProgress] = useState(0);
   const [ansArry, setAnsArry] = useState([]);
   const [totalLoading, setTotalLoading] = useState(0);
+  const [stateRend, setStateRend] = useState(0);
 
   const data = getLocalUserdata();
   const student_type = data.type;
@@ -81,7 +82,7 @@ function Examenes1() {
         setLoading(false);
         alert("Exams List Not Available, Please Refresh The Page");
       });
-  }, []);
+  }, [stateRend]);
 
   // GET ALL EXAMS API
 
@@ -94,9 +95,8 @@ function Examenes1() {
       })
       .catch((error) => {
         console.log(error);
-        console.log("Exams List Not Available, Please Refresh The Page");
       });
-  }, []);
+  }, [stateRend]);
 
   // GET ALL EXAM FILES API
   const handleExamId = (id) => {
@@ -202,7 +202,6 @@ function Examenes1() {
       .then((response) => {
         setEndExam(response.data);
         setShowScore(true);
-        setAnsArry([]);
       })
       .catch((error) => {
         console.log(error, "Error Loading, Please Try Again !");
@@ -250,6 +249,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/reviewExam`, reviewData)
       .then((response) => {
         setExamReviewData(response.data.data);
+
         setShowScreen(false);
         setShowExam(false);
         setShowScore(false);
@@ -264,13 +264,12 @@ function Examenes1() {
   // SALIR BTN
 
   const SalirBtn = () => {
-    if (showScreen === false) {
-      setShowScore(false);
-      setCurrentQuestion(0);
-      return setShowScreen(true);
-    } else {
-      return setShowScreen(false);
-    }
+    setShowScore(false);
+    setCurrentQuestion(0);
+    setExpanded(false);
+    setStateRend((prev) => prev + 1);
+    setShowScreen(true);
+    return SalirBtn;
   };
 
   // END QUIZ Icon
@@ -1280,13 +1279,15 @@ function Examenes1() {
                     </div>
                     <div className={Styles.Options}>
                       <button
+                        id="a"
+                        value="a"
                         onClick={(e) => {
                           setLoading(true);
                           if (
                             currentQuestion == ansCheck &&
-                            ansArry[currentQuestion].answer != "a"
+                            ansArry[currentQuestion].answer != "answer1"
                           ) {
-                            handleSetAnswer("a");
+                            handleSetAnswer("answer1");
                           } else {
                             handleSetAnswer("null");
                           }
@@ -1294,7 +1295,7 @@ function Examenes1() {
                         className={Styles.answerLinks}
                       >
                         <div className={Styles.answerLinksInner1}>
-                          {ansArry[currentQuestion].answer == "a" &&
+                          {ansArry[currentQuestion].answer == "answer1" &&
                           currentQuestion == ansCheck ? (
                             <img src={ansSelectImg} width={"80%"} />
                           ) : (
@@ -1312,10 +1313,10 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "b" &&
+                            ansArry[currentQuestion].answer != "answer2" &&
                             currentQuestion == ansCheck
                           ) {
-                            handleSetAnswer("b");
+                            handleSetAnswer("answer2");
                           } else {
                             handleSetAnswer("null");
                           }
@@ -1323,7 +1324,7 @@ function Examenes1() {
                         className={Styles.answerLinks}
                       >
                         <div className={Styles.answerLinksInner1}>
-                          {ansArry[currentQuestion].answer == "b" &&
+                          {ansArry[currentQuestion].answer == "answer2" &&
                           currentQuestion == ansCheck ? (
                             <img src={ansSelectImg} width={"80%"} />
                           ) : (
@@ -1338,10 +1339,10 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "c" &&
+                            ansArry[currentQuestion].answer != "answer3" &&
                             currentQuestion == ansCheck
                           ) {
-                            handleSetAnswer("c");
+                            handleSetAnswer("answer3");
                           } else {
                             handleSetAnswer("null");
                           }
@@ -1349,7 +1350,7 @@ function Examenes1() {
                         className={Styles.answerLinks}
                       >
                         <div className={Styles.answerLinksInner1}>
-                          {ansArry[currentQuestion].answer == "c" &&
+                          {ansArry[currentQuestion].answer == "answer3" &&
                           currentQuestion == ansCheck ? (
                             <img src={ansSelectImg} width={"80%"} />
                           ) : (
@@ -1364,10 +1365,10 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "d" &&
+                            ansArry[currentQuestion].answer != "answer4" &&
                             currentQuestion == ansCheck
                           ) {
-                            handleSetAnswer("d");
+                            handleSetAnswer("answer4");
                           } else {
                             handleSetAnswer("null");
                           }
@@ -1375,7 +1376,7 @@ function Examenes1() {
                         className={Styles.answerLinks}
                       >
                         <div className={Styles.answerLinksInner1}>
-                          {ansArry[currentQuestion].answer == "d" &&
+                          {ansArry[currentQuestion].answer == "answer4" &&
                           currentQuestion == ansCheck ? (
                             <img src={ansSelectImg} width={"80%"} />
                           ) : (
