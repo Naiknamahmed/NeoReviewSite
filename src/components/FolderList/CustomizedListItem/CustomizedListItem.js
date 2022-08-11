@@ -7,7 +7,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import folder from "../../../assets/img/images/directory.png";
+import folder from "../../../assets/img/images/directory.webp";
 import List from "@mui/material/List";
 import { makeStyles } from '@material-ui/core/styles';
 

@@ -2,9 +2,8 @@ import React from 'react'
 import {AppBar, Toolbar, Typography} from '@material-ui/core';
 import useStyles from './styles.js'
 import icon from '../../assets/img/images/icons-menu-white.svg'
-import logo from '../../assets/img/images/logo.png'
+import logo from '../../assets/img/images/logo.webp'
 import { withStyles } from "@material-ui/core/styles";
-import './styles.css';
 
 const WhiteTextTypography = withStyles({
     root: {

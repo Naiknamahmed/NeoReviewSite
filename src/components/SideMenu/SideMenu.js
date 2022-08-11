@@ -56,7 +56,7 @@ const SideMenu = (props) => {
                 <img
                     alt='...'
                     className='w-1/5 menuItem'
-                    src={require(`assets/img/images/${fileNames[i]}.png`).default}
+                    src={require(`assets/img/images/${fileNames[i]}.webp`).default}
                 />
                 <div className='fSize' style={{fontFamily:active===x ? 'Montserrat-bold': 'Montserrat-regular', opacity:notActive.includes(x)?'40%':'1'}}>
                     {x}

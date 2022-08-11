@@ -54,7 +54,7 @@ function LoginTypeTrue() {
         <div className='relative w-full mb-2'>
           <div className='relative flex w-full flex-wrap items-stretch mb-3'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-            <img alt='studentcode_icon' src={require('assets/img/user.png').default} className='w-full h-full py-2'/>
+            <img alt='studentcode_icon' src={require('assets/img/user.webp').default} className='w-full h-full py-2'/>
             </span>
             <input
               type='text'
@@ -107,7 +107,7 @@ function LoginTypeTrue() {
                     </label> */}
           <div className='relative flex w-full flex-wrap items-stretch mb-3'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-            <img alt='password_icon' src={require('assets/img/password.png').default} className='w-full h-full py-1.5 px-0.5'/>
+            <img alt='password_icon' src={require('assets/img/password.webp').default} className='w-full h-full py-1.5 px-0.5'/>
             </span>
             <input
               type='password'
@@ -136,7 +136,7 @@ function LoginTypeTrue() {
             <img
               alt='...'
               className='w-full h-full mr-1'
-              src={require('assets/img/btn2.png').default}
+              src={require('assets/img/btn2.webp').default}
             />
             {toNext ? <Navigate to="/home" /> : null}
           </button>

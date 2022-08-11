@@ -14,7 +14,6 @@ import { Navigate } from "react-router";
 import Descargas from "components/Descargas/Descargas";
 import Video from "components/Video/Video";
 import AudioLibro from "components/AudioLibro/AudioLibro";
-
 const Directo = React.lazy(() => import("../../components/Directo/Directo.js"));
 
 function Home() {
@@ -24,7 +23,6 @@ function Home() {
   const [currentPage, setCurrentPage] = useState("Mi escritorio");
   const [folderToggle, setFolderToggle] = useState("0%");
   const data = getLocalUserdata();
-  console.log(data);
 
   const toggleSideMenu = () => {
     if (toggleMenu === true) {
