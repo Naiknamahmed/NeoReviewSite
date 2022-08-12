@@ -178,6 +178,7 @@ function Examenes1() {
           ]);
         }
         setExamData(response.data.data);
+        console.log(response.data.data);
         setLoading(false);
         setStatus(true);
         setCurrentQuestion(0);
@@ -201,7 +202,6 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/endExam`, endData)
       .then((response) => {
         setEndExam(response.data);
-        console.log(response.data, "end exam data");
         setShowScore(true);
       })
       .catch((error) => {
@@ -1285,12 +1285,14 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            currentQuestion == ansCheck &&
-                            ansArry[currentQuestion].answer != "answer1"
+                            (currentQuestion == ansCheck &&
+                              ansArry[currentQuestion].answer == "answer1") ||
+                            examData[currentQuestion].studentAnswered ==
+                              "answer1"
                           ) {
-                            handleSetAnswer("answer1");
-                          } else {
                             handleSetAnswer("null");
+                          } else {
+                            handleSetAnswer("answer1");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1314,12 +1316,14 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "answer2" &&
-                            currentQuestion == ansCheck
+                            (ansArry[currentQuestion].answer == "answer2" &&
+                              currentQuestion == ansCheck) ||
+                            examData[currentQuestion].studentAnswered ==
+                              "answer2"
                           ) {
-                            handleSetAnswer("answer2");
-                          } else {
                             handleSetAnswer("null");
+                          } else {
+                            handleSetAnswer("answer2");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1340,12 +1344,14 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "answer3" &&
-                            currentQuestion == ansCheck
+                            (ansArry[currentQuestion].answer == "answer3" &&
+                              currentQuestion == ansCheck) ||
+                            examData[currentQuestion].studentAnswered ==
+                              "answer3"
                           ) {
-                            handleSetAnswer("answer3");
-                          } else {
                             handleSetAnswer("null");
+                          } else {
+                            handleSetAnswer("answer3");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1366,12 +1372,14 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "answer4" &&
-                            currentQuestion == ansCheck
+                            (ansArry[currentQuestion].answer == "answer4" &&
+                              currentQuestion == ansCheck) ||
+                            examData[currentQuestion].studentAnswered ==
+                              "answer4"
                           ) {
-                            handleSetAnswer("answer4");
-                          } else {
                             handleSetAnswer("null");
+                          } else {
+                            handleSetAnswer("answer4");
                           }
                         }}
                         className={Styles.answerLinks}
