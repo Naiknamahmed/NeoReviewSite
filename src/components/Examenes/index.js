@@ -1406,19 +1406,6 @@ function Examenes1() {
                       </button>
                     </div>
                   </div>
-                  {loading ? (
-                    <div className="w-100 text-center">
-                      <CircularProgress
-                        style={{
-                          width: "60px",
-                          height: "60px",
-                          margin: "10px",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
                   <div className={Styles.resultBtnWrapper}>
                     {ansArry.map((data, index) => {
                       return (
@@ -1459,6 +1446,19 @@ function Examenes1() {
                     />
                   </div>
                 </div>
+                {loading ? (
+                  <div className="w-100 text-center">
+                    <CircularProgress
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        margin: "10px",
+                      }}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
               </Container>
             </main>
           </div>
