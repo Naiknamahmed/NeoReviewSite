@@ -201,6 +201,7 @@ function Examenes1() {
       .post(`https://neoestudio.net/api/endExam`, endData)
       .then((response) => {
         setEndExam(response.data);
+        console.log(response.data, "end exam data");
         setShowScore(true);
       })
       .catch((error) => {
