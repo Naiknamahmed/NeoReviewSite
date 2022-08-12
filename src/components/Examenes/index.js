@@ -178,6 +178,7 @@ function Examenes1() {
           ]);
         }
         setExamData(response.data.data);
+        console.log(response.data.data);
         setLoading(false);
         setStatus(true);
         setCurrentQuestion(0);
@@ -334,7 +335,7 @@ function Examenes1() {
 
   const handleSetAnswer = (id) => {
     setAnsCheck(currentQuestion);
-    answerClicked = id;
+    console.log(answerClicked);
     ansArry.splice(ansCheck, 1, {
       answer: answerClicked,
     });
@@ -1284,12 +1285,16 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            currentQuestion == ansCheck &&
-                            ansArry[currentQuestion].answer != "answer1"
+                            (currentQuestion == ansCheck &&
+                              ansArry[currentQuestion].answer == "answer1") ||
+                            examData[currentQuestion].studentAnswered ==
+                              "answer1"
                           ) {
-                            handleSetAnswer("answer1");
-                          } else {
+                            answerClicked = null;
                             handleSetAnswer("null");
+                          } else {
+                            answerClicked = "answer1";
+                            handleSetAnswer("answer1");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1313,12 +1318,16 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "answer2" &&
-                            currentQuestion == ansCheck
+                            (ansArry[currentQuestion].answer == "answer2" &&
+                              currentQuestion == ansCheck) ||
+                            examData[currentQuestion].studentAnswered ==
+                              "answer2"
                           ) {
-                            handleSetAnswer("answer2");
-                          } else {
+                            answerClicked = null;
                             handleSetAnswer("null");
+                          } else {
+                            answerClicked = "answer2";
+                            handleSetAnswer("answer2");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1339,12 +1348,16 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "answer3" &&
-                            currentQuestion == ansCheck
+                            (ansArry[currentQuestion].answer == "answer3" &&
+                              currentQuestion == ansCheck) ||
+                            examData[currentQuestion].studentAnswered ==
+                              "answer3"
                           ) {
-                            handleSetAnswer("answer3");
-                          } else {
+                            answerClicked = null;
                             handleSetAnswer("null");
+                          } else {
+                            answerClicked = "answer3";
+                            handleSetAnswer("answer3");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1365,12 +1378,16 @@ function Examenes1() {
                         onClick={(e) => {
                           setLoading(true);
                           if (
-                            ansArry[currentQuestion].answer != "answer4" &&
-                            currentQuestion == ansCheck
+                            (ansArry[currentQuestion].answer == "answer4" &&
+                              currentQuestion == ansCheck) ||
+                            examData[currentQuestion].studentAnswered ==
+                              "answer4"
                           ) {
-                            handleSetAnswer("answer4");
-                          } else {
+                            answerClicked = null;
                             handleSetAnswer("null");
+                          } else {
+                            answerClicked = "answer4";
+                            handleSetAnswer("answer4");
                           }
                         }}
                         className={Styles.answerLinks}
@@ -1389,19 +1406,6 @@ function Examenes1() {
                       </button>
                     </div>
                   </div>
-                  {loading ? (
-                    <div className="w-100 text-center">
-                      <CircularProgress
-                        style={{
-                          width: "60px",
-                          height: "60px",
-                          margin: "10px",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
                   <div className={Styles.resultBtnWrapper}>
                     {ansArry.map((data, index) => {
                       return (
@@ -1442,6 +1446,19 @@ function Examenes1() {
                     />
                   </div>
                 </div>
+                {loading ? (
+                  <div className="w-100 text-center">
+                    <CircularProgress
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        margin: "10px",
+                      }}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
               </Container>
             </main>
           </div>
