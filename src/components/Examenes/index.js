@@ -335,7 +335,7 @@ function Examenes1() {
 
   const handleSetAnswer = (id) => {
     setAnsCheck(currentQuestion);
-    answerClicked = id;
+    console.log(answerClicked);
     ansArry.splice(ansCheck, 1, {
       answer: answerClicked,
     });
@@ -1290,8 +1290,10 @@ function Examenes1() {
                             examData[currentQuestion].studentAnswered ==
                               "answer1"
                           ) {
+                            answerClicked = null;
                             handleSetAnswer("null");
                           } else {
+                            answerClicked = "answer1";
                             handleSetAnswer("answer1");
                           }
                         }}
@@ -1321,8 +1323,10 @@ function Examenes1() {
                             examData[currentQuestion].studentAnswered ==
                               "answer2"
                           ) {
+                            answerClicked = null;
                             handleSetAnswer("null");
                           } else {
+                            answerClicked = "answer2";
                             handleSetAnswer("answer2");
                           }
                         }}
@@ -1349,8 +1353,10 @@ function Examenes1() {
                             examData[currentQuestion].studentAnswered ==
                               "answer3"
                           ) {
+                            answerClicked = null;
                             handleSetAnswer("null");
                           } else {
+                            answerClicked = "answer3";
                             handleSetAnswer("answer3");
                           }
                         }}
@@ -1377,8 +1383,10 @@ function Examenes1() {
                             examData[currentQuestion].studentAnswered ==
                               "answer4"
                           ) {
+                            answerClicked = null;
                             handleSetAnswer("null");
                           } else {
+                            answerClicked = "answer4";
                             handleSetAnswer("answer4");
                           }
                         }}
