@@ -6,10 +6,12 @@ const RankingGlobal = () => {
   const data=getLocalUserdata();
   
   return (
-    <div className='flex justify-center items-center'>
-      
-            <iframe src={`https://neoestudio.net/googleChartPoint?studentId=${data.id}`} title="Ranking Global" style={{height:'100vh', width:'100vw'}}></iframe>
- 
+    <div className='flex justify-center items-center holder'>
+      <iframe 
+        src={`https://neoestudio.net/googleChartPoint?studentId=${data.id}`} 
+        title="Ranking Global" 
+        style={{height:'100vh', width:'100vw'}}
+        loading='eager'/>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { getLocalUserdata } from '../../../../services/auth/localStorageData';
+import { getLocalUserdata, updatelocalData } from '../../../../services/auth/localStorageData';
 import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
 import List from '@mui/material/List';
@@ -16,6 +16,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 const useStyles = makeStyles((theme) => ({
+    listItem : {
+      "&&": {
+        [theme.breakpoints.down('580')]: {
+        display: 'block',
+      },
+    }
+    },
     root: {
       "&::-webkit-scrollbar": {
         width: 7,
@@ -36,14 +43,13 @@ const Files = (props) => {
   const [loading,setLoading]=useState(true);
 
   useEffect (() => {
-    const data=getLocalUserdata();
-    userServices.commonPostService('/getClassTopicsMaterial',JSON.stringify({"type":data.type,"topicId":props.folderId}))
+    userServices.commonPostService('/getClassTopicsMaterial',JSON.stringify({"type":"video","topicId":props.folderId}))
     .then(response=>{
       if(response.status===200) {
         response.data.forEach((item)=>{
           setFiles(oldArray => [...oldArray, {
-            title:item.title,
-            url:item.url,
+            title:item.name,
+            url:item.material,
           }]);
         })
         setLoading(false);
@@ -58,23 +64,31 @@ const Files = (props) => {
 
   },[])
 
+  const searchStorage = (title) => {
+    const matchFound=getLocalUserdata().openedClasses.filter((entry) => {return entry.title===title});
+    if(matchFound.length===0){
+      return false;
+    }
+    return true;
+  }
+
   return (
     <>
-      <IconButton style={{justifyContent:'start'}} onClick={()=>{props.updateView('folders')}}>
+      <IconButton style={{marginTop:'4%' ,justifyContent:'start', display: props.folderToggle==='0%'?'none':'flex'}} onClick={()=>{props.updateView('folders')}}>
         <ArrowBackIcon/>
         <Typography variant="subtitle2">Volver a las carpetas</Typography>
       </IconButton>
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'40vh' }}
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'85vh'}}
       className={classes.root}>
       {
         files.length>0 ? 
         files.map((item) => {
           return (
-            <ListItemButton onClick={()=>{props.updateUrl(item.url)}}>
+            <ListItemButton className={classes.listItem} onClick={()=>{props.updateUrl(item.url,item.title); updatelocalData('openedClasses',{'title':item.title, 'timeStamp':0})}}>
               <ListItemAvatar>
                 <Avatar alt="videofile" src={icon} variant="square"/>
               </ListItemAvatar>
-              <ListItemText primaryTypographyProps={{fontFamily:'ProximaNovaSoft-regular'}}  primary={item.title} />
+              <ListItemText primaryTypographyProps={{fontFamily:searchStorage(item.title)?'ProximaNovaSoft-bold':'ProximaNovaSoft-regular'}}  primary={item.title} />
             </ListItemButton>
           )
         }) : loading ? <div style={{ display:'flex', justifyContent:'center'}}> <CircularProgress disableShrink/> </div> : <Typography variant="subtitle2">¡No se encontraron archivos!</Typography>

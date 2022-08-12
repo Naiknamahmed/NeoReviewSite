@@ -1,20 +1,40 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
+import { updateLocalStorageTimeStamp, getTimeStamp} from '../../../services/auth/localStorageData';
 import './styles.css';
-import ReactPlayer from 'react-player/lazy';
 
 const VideoPlayer = (props) => {
   const videoRef = useRef();
+  const [duration, setDuration]=useState(0);
 
-  useEffect(() => {    
+  useEffect(() => {
     videoRef.current?.load();
   }, [props.url]);
+
+
+  const onProgress = (data) => {
+    setDuration(videoRef.current.currentTime);
+    updateLocalStorageTimeStamp('openedVideos',props.title,duration);
+  }
 
   return (
     <div className='div1'>
             <div className='div2'>
-                <video width="750" height="500" controls autoPlay muted ref={videoRef}>
-                    <source src={props.url} type="video/mp4"/>
-                    Your browser doesn't support video!
+                <video className='check' 
+                    width="750" 
+                    height="500" 
+                    controls 
+                    autoPlay 
+                    muted 
+                    ref={videoRef} 
+                    controlsList="nodownload" 
+                    onProgress={onProgress}
+                    onLoadStart={() => {
+                      const timeToStart = getTimeStamp('openedVideos',props.title);
+                      videoRef.current.currentTime=timeToStart;
+                      }}
+                    onContextMenu={e => e.preventDefault()}>
+                    <source type="video/mp4" src={props.url}/>
+                    Your browser doesn't support video, Choose a better browser!
                 </video>
             </div>
     </div> 

@@ -11,18 +11,18 @@
     padding-bottom: 67.5%;
     height: 0;
 }
-.div2 video {
+.div2 video:not(:fullscreen) {
     box-sizing: border-box;
     background: url('../../../../src/assets/img/images/mobileframe.png') center center no-repeat;
     background-size: contain;
-    padding-top:6.7%;
-    padding-bottom: 8.75%;
-    padding-left: 13%;
-    padding-right: 12.9%;
+    padding-top:7.7%;
+    padding-bottom: 9.75%;
+    padding-left: 8%;
+    padding-right: 7.9%;
     position: absolute;
-    border-radius: 10%;
+    border-radius: 12%;
     top: 0;
     left: 0;
     width: 100%;
-    height: 85%;
+    height: 95%;
 }
