@@ -46,7 +46,7 @@ const SideMenu = (props) => {
 
     const classes= useStyles();
 
-    const notActive = [ 'Actividades','Entrenamiento','Batalla','Repaso','Entrevista'];
+    const notActive = [ 'Entrenamiento','Batalla','Repaso','Entrevista'];
 
     return (
       <>

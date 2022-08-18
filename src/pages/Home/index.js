@@ -14,6 +14,7 @@ import { Navigate } from "react-router";
 import Descargas from "components/Descargas/Descargas";
 import Video from "components/Video/Video";
 import AudioLibro from "components/AudioLibro/AudioLibro";
+import Actividades from "components/Actividades/Actividades";
 const Directo = React.lazy(() => import("../../components/Directo/Directo.js"));
 
 function Home() {
@@ -55,6 +56,7 @@ function Home() {
     else if (currentPage === "Ranking global") return <RankingGlobal />;
     else if (currentPage === "Descargas") return <Descargas />;
     else if (currentPage === "Audiolibro") return <AudioLibro />;
+    else if (currentPage === "Actividades") return <Actividades />;
     else if (currentPage === "En Directo") {
       if (data.type === "Alumno" || data.type === "Alumno-Free Trial") {
         var stylesheet = document.styleSheets[0];

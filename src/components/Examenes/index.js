@@ -33,7 +33,7 @@ import cross from "../../assets/img/images/cross.webp";
 import useStyles from "./styles";
 import "./style.css";
 
-function Examenes1() {
+function Examenes1(props) {
   const Styles = useStyles();
   const [showScreen, setShowScreen] = useState(true);
   const [showScreen2, setShowScreen2] = useState(false);
@@ -70,7 +70,73 @@ function Examenes1() {
   // GET ALL EXAM FOLDERS API
 
   useEffect(() => {
-    axios
+    if(props.showExam==='true') {
+      if(props.item.type==='english'){
+        const Inglés = {
+          id:props.item.examId,
+          studentExamRecordId:props.item.examRecordId,
+          examDuration:props.item.examDuration,
+          timeFrom:props.item.timeFrom
+        }
+        if(props.item.examStatus==='end') {
+          reviewExam('', Inglés);
+
+        }
+        else {
+          startExams('', Inglés);
+        }
+      }
+      else if (props.item.type==='orto'||props.item.type==='gramatica') {
+        const Ortografía = {
+          id:props.item.examId,
+          studentExamRecordId:props.item.examRecordId,
+          examDuration:props.item.examDuration,
+          timeFrom:props.item.timeFrom
+        }
+        if(props.item.examStatus==='end') {
+          reviewExam('', Ortografía);
+
+        }
+        else {
+          startExams('', Ortografía);
+        }
+      }
+      else if (props.item.type==='psico') {
+        const Psicotécnicos = {
+          id:props.item.examId,
+          studentExamRecordId:props.item.examRecordId,
+          examDuration:props.item.examDuration,
+          timeFrom:props.item.timeFrom
+        }
+        if(props.item.examStatus==='end') {
+          reviewExam('', Psicotécnicos);
+
+        }
+        else {
+          startExams('', Psicotécnicos);
+        }
+      }
+      else if (props.item.type==='conocimiento') {
+        const Conocimientos = {
+          id:props.item.examId,
+          studentExamRecordId:props.item.examRecordId,
+          examDuration:props.item.examDuration,
+          timeFrom:props.item.timeFrom
+        }
+        if(props.item.examStatus==='end') {
+          reviewExam('', Conocimientos);
+
+        }
+        else {
+          startExams('', Conocimientos);
+        }      
+      }
+    }
+  },[])
+
+  useEffect(() => {
+    if(props.showScreen==='true') {
+      axios
       .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
       .then((response) => {
         setFolderData(response.data.data);
@@ -82,12 +148,14 @@ function Examenes1() {
         setLoading(false);
         alert("Exams List Not Available, Please Refresh The Page");
       });
+    }
   }, [stateRend]);
 
   // GET ALL EXAMS API
 
   useEffect(() => {
-    axios
+    if(props.showScreen==='true') {
+      axios
       .post(`https://neoestudio.net/api/getAllExam`, getExamData)
       .then((response) => {
         setFolderData2(response.data.data);
@@ -96,6 +164,7 @@ function Examenes1() {
       .catch((error) => {
         console.log(error);
       });
+    }
   }, [stateRend]);
 
   // GET ALL EXAM FILES API
@@ -220,7 +289,12 @@ function Examenes1() {
         setPauseExam(response.data);
         if (response.data.data.canPause == "yes") {
           setStatus(false);
-          setShowScreen(true);
+          if(props.showScreen==='false') {
+            props.updateView();
+          }
+          else {
+            setShowScreen(true);
+          }
         } else {
           alert("You Cannot Pause This Exam");
         }
@@ -268,7 +342,12 @@ function Examenes1() {
     setCurrentQuestion(0);
     setExpanded(false);
     setStateRend((prev) => prev + 1);
-    setShowScreen(true);
+    if(props.showExam==='true') {
+      props.updateView();
+    }
+    else {
+      setShowScreen(true);
+    }
     return SalirBtn;
   };
 
@@ -915,7 +994,7 @@ function Examenes1() {
             </Container>
           </main>
         </div>
-      ) : showResultScreen == true ? (
+      ) : showResultScreen === true ? (
         <>
           <main className="flex">
             <Container maxWidth="xlg">
@@ -1070,7 +1149,12 @@ function Examenes1() {
                     <Button
                       variant="contained"
                       onClick={() => {
-                        setShowScreen(true);
+                        if(props.showExam==='true') {
+                          props.updateView();
+                        }
+                        else {
+                          setShowScreen(true);
+                        }
                         setShowResult(false);
                         setShowScore(false);
                       }}
@@ -1113,7 +1197,7 @@ function Examenes1() {
             </Container>
           </main>
         </>
-      ) : showScore == true ? (
+      ) : showScore === true ? (
         <main className={Styles.wrapperMain}>
           <Container maxWidth="xlg">
             <h1 className={Styles.examenesHeading3}>{endExam.examName}</h1>
@@ -1227,7 +1311,7 @@ function Examenes1() {
             </div>
           </Container>
         </main>
-      ) : showExam == true ? (
+      ) : showExam === true ? (
         <>
           <div>
             <main className={Styles.wrapperMain1}>

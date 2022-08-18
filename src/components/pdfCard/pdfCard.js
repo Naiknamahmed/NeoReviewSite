@@ -4,14 +4,12 @@ import './styles.css';
 import { getLocalUserdata } from '../../services/auth/localStorageData';
 import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
-import ErrorService from 'services/formatError/ErrorService';
 
 const PdfCard = (props) => {
     const [pageNumber, setPageNumber] = useState(1);
     const [numPages, setNumPages] = useState(null);
-    const [fileName, setFileName] = useState('');
+    const [fileName, setFileName] = useState(props.fileName);
     const inputval=useRef();
-
 
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
@@ -40,28 +38,29 @@ const PdfCard = (props) => {
     }
 
     useEffect (() => {
-        const data=getLocalUserdata();
-        userServices.commonPostService('/getDownloadPdfFiles',JSON.stringify({"folderId":props.pdf.folderId,"studentId":data.id}))
-        .then(resp => {
-            if(resp.data.message==='success') { 
-                resp.data.files.forEach((file)=> {
-                    if(file.id===props.pdf.fileId){
-                        setFileName(file.file);
-                        inputval.current.value='';
-                    }
-                })
-            }
-            else{
+        if(props.fileName!=='' && typeof props.pdf !== "undefined" ) {
+            const data=getLocalUserdata();
+            userServices.commonPostService('/getDownloadPdfFiles',JSON.stringify({"folderId":props.pdf.folderId,"studentId":data.id}))
+            .then(resp => {
+                if(resp.data.message==='success') { 
+                    resp.data.files.forEach((file)=> {
+                        if(file.id===props.pdf.fileId){
+                            setFileName(file.file);
+                            inputval.current.value='';
+                        }
+                    })
+                }
+                else{
+                    toast.error("Error downloading pdf.");
+                }
+            })
+            .catch((err) => {
                 toast.error("Error downloading pdf.");
-            }
-        })
-        .catch((err) => {
-            console.log(ErrorService.uniformError(err));
-            toast.error("Error downloading pdf.");
-        })
+            })
+        }
     },[props.pdf])
 
-    if(fileName!=='') {
+    if(typeof fileName !== "undefined") {
         return (
             <div className='flex flex-col justify-center'>
                 <div style={{display:'flex', justifyContent:'center', overflow:'auto'}}>
