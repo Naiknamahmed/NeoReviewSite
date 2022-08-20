@@ -38,7 +38,7 @@ const Activity = (props) => {
             <Typography variant="subtitle2">Volver a actividades</Typography>
         </IconButton>
         <div style={{height:'100vh', width:'100vw'}} className={`flex justify-center`}>
-            <VideoPlayer url={props.item.video_url} title={props.item.activityName}/>
+            <VideoPlayer url={`https://neoestudio.net/${props.item.video_url}`} title={props.item.activityName}/>
         </div>
     </div> : (props.item.type==='pdf') 
     ? <div className='flex flex-col'>
@@ -63,7 +63,7 @@ const Activity = (props) => {
         <Typography variant="subtitle2">Volver a actividades</Typography>
     </IconButton>
     <div style={{height:'100vh', width:'100vw'}} className={`flex justify-center`}>
-        <AudioPlayer url={props.item.audio_url} title={props.item.activityName}/>
+        <AudioPlayer url={`https://neoestudio.net/${props.item.audio_url}`} title={props.item.activityName}/>
     </div>
 </div> : <>Nothing to see here!</>
   )

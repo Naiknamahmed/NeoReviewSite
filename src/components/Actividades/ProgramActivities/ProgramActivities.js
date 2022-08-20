@@ -34,7 +34,6 @@ const ProgramActivities = (props) => {
             setList([]);
             setLoading(true);
             setPage(1);        
-            console.log("component unmounted");
             // Anything in here is fired on component unmount.
         }
     },[])
@@ -183,7 +182,7 @@ const ProgramActivities = (props) => {
                     >
                         <ListItemButton className={classes.listItem} onClick={()=>{showActivity(item)}}>
                             <ListItemAvatar>
-                                <img alt="videofile" src={item.type==='video'?video_icon:item.type==='pdf'?pdf_icon:item.type==='repaso'?repaso_icon:item.type==='orto'?orto_icon:item.type==='english'?english_icon:item.type==='psico'?psico_icon:item.type==='audio'?audio_icon:item.type==='conocimiento'?coco_icon:item.type==='gramatica'?orto_icon:''} 
+                                <img alt="icon" src={item.type==='video'?video_icon:item.type==='pdf'?pdf_icon:item.type==='repaso'?repaso_icon:item.type==='orto'?orto_icon:item.type==='english'?english_icon:item.type==='psico'?psico_icon:item.type==='audio'?audio_icon:item.type==='conocimiento'?coco_icon:item.type==='gramatica'?orto_icon:''} 
                                 style={{width:'40px'}}
                                 />
                             </ListItemAvatar>
