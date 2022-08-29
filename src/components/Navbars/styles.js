@@ -79,8 +79,20 @@ export default makeStyles((theme) => ({
     '@media (max-width: 775px)': {
       maxWidth: '60%',
     },
-    '@media (max-width: 550px)': {
+    '@media (min-width: 550px)': {
       maxWidth: '75%',
+    },
+    '@media (min-width: 1200px)': {
+      maxWidth: '50%',
+    },
+    '@media (min-width: 1500px)': {
+      maxWidth: '40%',
+    },
+    '@media (min-width: 2000px)': {
+      maxWidth: '30%',
+    },
+    '@media (min-width: 3000px)': {
+      maxWidth: '25%',
     }
   },
   logoHorizontallyCenter: {

@@ -47,12 +47,12 @@ function Menu() {
             <img
               alt='...'
               className='w-8 h-8 mr-3 cursor-pointer'
-              src={require('assets/img/images/refresh.png').default}
+              src={require('assets/img/images/refresh.webp').default}
             />
             <img
               alt='...'
               className='w-10 h-10 cursor-pointer'
-              src={require('assets/img/images/cross.svg').default}
+              src={require('assets/img/images/cross.webp').default}
               onClick={() => {
                 history('/home');
               }}

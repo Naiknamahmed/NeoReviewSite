@@ -2,8 +2,8 @@ import React from "react";
 import useStyles from "./styles";
 import "./styles.css";
 import { getLocalUserdata } from "../../services/auth/localStorageData";
-import profilepic from "../../assets/img/images/layer_25.png";
-import defaultrank from "../../assets/img/images/Empleo_cabo.png";
+import profilepic from "../../assets/img/images/layer_25.webp";
+import defaultrank from "../../assets/img/images/Empleo_cabo.webp";
 
 const Homepage = () => {
   const classes = useStyles();
@@ -45,7 +45,7 @@ const Homepage = () => {
         <div className="mr-1 imgWidth2">
           <img
             alt="Nivel"
-            src={require("assets/img/images/Nivel.png").default}
+            src={require("assets/img/images/Nivel.webp").default}
           />
           <h2 className={`${classes.font} text-center fontSize`}>
             {data.experience != null ? data.experience : 0}
@@ -55,7 +55,7 @@ const Homepage = () => {
         <div className="mr-1 imgWidth">
           <img
             alt="Medellas"
-            src={require("assets/img/images/Medallas.png").default}
+            src={require("assets/img/images/Medallas.webp").default}
           />
           <h2 className={`${classes.font} text-center fontSize`}>
             {data.aptos != null ? data.aptos : 0}
@@ -66,7 +66,7 @@ const Homepage = () => {
           <img
             style={{ paddingBottom: "25%" }}
             alt="Puntos"
-            src={require("assets/img/images/Recurso3Pestaaprueba.png").default}
+            src={require("assets/img/images/Recurso3Pestaaprueba.webp").default}
           />
           <h2 className={`${classes.font} text-center fontSize`}>
             {data.points != null ? data.points : 0}
@@ -77,7 +77,7 @@ const Homepage = () => {
           <img
             style={{ paddingBottom: "25%" }}
             alt="Percentil"
-            src={require("assets/img/images/Porcentaje2.png").default}
+            src={require("assets/img/images/Porcentaje2.webp").default}
           />
           <h2 className={`${classes.font} text-center fontSize`}>
             {data.percentage != null ? data.percentage : 0}

@@ -1,0 +1,17 @@
+.activities_carousel {
+    width: 70%;
+    height:100%;
+    margin-top:2%;
+}
+
+.activity_image {
+    width: 35%;
+    height: 90%;
+}
+
+.actividadesButton {
+    margin-right: 10px;
+    border: none;
+    width: 160px;
+    cursor: pointer;
+  }

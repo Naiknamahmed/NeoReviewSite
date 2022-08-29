@@ -46,7 +46,7 @@ const SideMenu = (props) => {
 
   const classes = useStyles();
 
-  const notActive = ["Actividades", "Entrenamiento", "Batalla", "Entrevista"];
+  const notActive = ["Entrenamiento", "Batalla", "Entrevista"];
 
   return (
     <>
@@ -67,7 +67,7 @@ const SideMenu = (props) => {
             <img
               alt="..."
               className="w-1/5 menuItem"
-              src={require(`assets/img/images/${fileNames[i]}.png`).default}
+              src={require(`assets/img/images/${fileNames[i]}.webp`).default}
             />
             <div
               className="fSize"

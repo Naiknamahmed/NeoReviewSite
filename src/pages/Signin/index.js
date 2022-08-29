@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import LoginTypeTrue from "./Component/LoginTypeTrue";
-import LoginTypeFalse from "./Component/LoginTypeFalse";
-import LoginNavbar from "../../components/Navbars/LoginNavbar";
+import React, { useState } from 'react';
+import LoginTypeTrue from './Component/LoginTypeTrue';
+import LoginTypeFalse from './Component/LoginTypeFalse';
+import LoginNavbar from '../../components/Navbars/LoginNavbar';
 
 export default function Signin() {
   const [isToogleOn, setisToogleOn] = useState(false);
@@ -15,7 +15,7 @@ export default function Signin() {
             className="absolute top-0 w-full h-full bg-white-800 bg-no-repeat bg-full bg-fixed"
             style={{
               backgroundImage:
-                "url(" + require("assets/img/bottom.png").default + ")",
+                "url(" + require("assets/img/bottom.webp").default + ")",
             }}
           ></div>
           <div className="mx-auto px-4 h-full">
@@ -27,7 +27,7 @@ export default function Signin() {
                       <img
                         alt="..."
                         className="w-full h-full mr-1"
-                        src={require("assets/img/Newbg.jpg").default}
+                        src={require("assets/img/Newbg.webp").default}
                       />
                     </div>
                     <hr className="mt-6 border-b-1 border-blueGray-300" />
