@@ -70,100 +70,92 @@ function Examenes1(props) {
   // GET ALL EXAM FOLDERS API
 
   useEffect(() => {
-    if(props.showExam==='true') {
-      if(props.item.type==='english'){
+    if (props.showExam === "true") {
+      if (props.item.type === "english") {
         const Inglés = {
-          id:props.item.examId,
-          studentExamRecordId:props.item.examRecordId,
-          examDuration:props.item.examDuration,
-          timeFrom:props.item.timeFrom
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        if (props.item.examStatus === "end") {
+          reviewExam("", Inglés);
+        } else {
+          startExams("", Inglés);
         }
-        if(props.item.examStatus==='end') {
-          reviewExam('', Inglés);
-
-        }
-        else {
-          startExams('', Inglés);
-        }
-      }
-      else if (props.item.type==='orto'||props.item.type==='gramatica') {
+      } else if (
+        props.item.type === "orto" ||
+        props.item.type === "gramatica"
+      ) {
         const Ortografía = {
-          id:props.item.examId,
-          studentExamRecordId:props.item.examRecordId,
-          examDuration:props.item.examDuration,
-          timeFrom:props.item.timeFrom
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        if (props.item.examStatus === "end") {
+          reviewExam("", Ortografía);
+        } else {
+          startExams("", Ortografía);
         }
-        if(props.item.examStatus==='end') {
-          reviewExam('', Ortografía);
-
-        }
-        else {
-          startExams('', Ortografía);
-        }
-      }
-      else if (props.item.type==='psico') {
+      } else if (props.item.type === "psico") {
         const Psicotécnicos = {
-          id:props.item.examId,
-          studentExamRecordId:props.item.examRecordId,
-          examDuration:props.item.examDuration,
-          timeFrom:props.item.timeFrom
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        if (props.item.examStatus === "end") {
+          reviewExam("", Psicotécnicos);
+        } else {
+          startExams("", Psicotécnicos);
         }
-        if(props.item.examStatus==='end') {
-          reviewExam('', Psicotécnicos);
-
-        }
-        else {
-          startExams('', Psicotécnicos);
-        }
-      }
-      else if (props.item.type==='conocimiento') {
+      } else if (props.item.type === "conocimiento") {
         const Conocimientos = {
-          id:props.item.examId,
-          studentExamRecordId:props.item.examRecordId,
-          examDuration:props.item.examDuration,
-          timeFrom:props.item.timeFrom
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        if (props.item.examStatus === "end") {
+          reviewExam("", Conocimientos);
+        } else {
+          startExams("", Conocimientos);
         }
-        if(props.item.examStatus==='end') {
-          reviewExam('', Conocimientos);
-
-        }
-        else {
-          startExams('', Conocimientos);
-        }      
       }
     }
-  },[])
+  }, []);
 
   useEffect(() => {
-    if(props.showScreen==='true') {
+    if (props.showScreen === "true") {
       axios
-      .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
-      .then((response) => {
-        setFolderData(response.data.data);
-        setShowScreen(true);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-        alert("Exams List Not Available, Please Refresh The Page");
-      });
+        .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
+        .then((response) => {
+          setFolderData(response.data.data);
+          setShowScreen(true);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+          alert("Exams List Not Available, Please Refresh The Page");
+        });
     }
   }, [stateRend]);
 
   // GET ALL EXAMS API
 
   useEffect(() => {
-    if(props.showScreen==='true') {
+    if (props.showScreen === "true") {
       axios
-      .post(`https://neoestudio.net/api/getAllExam`, getExamData)
-      .then((response) => {
-        setFolderData2(response.data.data);
-        setShowScreen2(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .post(`https://neoestudio.net/api/getAllExam`, getExamData)
+        .then((response) => {
+          setFolderData2(response.data.data);
+          setShowScreen2(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [stateRend]);
 
@@ -290,10 +282,9 @@ function Examenes1(props) {
         setPauseExam(response.data);
         if (response.data.data.canPause == "yes") {
           setStatus(false);
-          if(props.showScreen==='false') {
+          if (props.showScreen === "false") {
             props.updateView();
-          }
-          else {
+          } else {
             setShowScreen(true);
           }
         } else {
@@ -343,10 +334,9 @@ function Examenes1(props) {
     setCurrentQuestion(0);
     setExpanded(false);
     setStateRend((prev) => prev + 1);
-    if(props.showExam==='true') {
+    if (props.showExam === "true") {
       props.updateView();
-    }
-    else {
+    } else {
       setShowScreen(true);
     }
     return SalirBtn;
@@ -1150,10 +1140,9 @@ function Examenes1(props) {
                     <Button
                       variant="contained"
                       onClick={() => {
-                        if(props.showExam==='true') {
+                        if (props.showExam === "true") {
                           props.updateView();
-                        }
-                        else {
+                        } else {
                           setShowScreen(true);
                         }
                         setShowResult(false);
