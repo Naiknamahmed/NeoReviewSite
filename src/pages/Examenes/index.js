@@ -6,7 +6,7 @@ function ExamenesPage() {
   return (
     <>
       <LazyLoad>
-        <Examenes />
+        <Examenes showExam='false' showScreen='true'/>
       </LazyLoad>
     </>
   );

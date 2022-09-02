@@ -9,12 +9,13 @@ import Homepage from "components/Homepage/Homepage.js";
 import Temario from "components/Temario/Temario.js";
 import Classes from "components/Classes/Classes.js";
 import ExamenesPage from "pages/Examenes/index";
+import Repaso from "components/Repaso/index.js";
 import RankingGlobal from "components/RankingGlobal/RankingGlobal.js";
 import { Navigate } from "react-router";
 import Descargas from "components/Descargas/Descargas";
 import Video from "components/Video/Video";
 import AudioLibro from "components/AudioLibro/AudioLibro";
-
+import Actividades from "components/Actividades/Actividades";
 const Directo = React.lazy(() => import("../../components/Directo/Directo.js"));
 
 function Home() {
@@ -24,7 +25,6 @@ function Home() {
   const [currentPage, setCurrentPage] = useState("Mi escritorio");
   const [folderToggle, setFolderToggle] = useState("0%");
   const data = getLocalUserdata();
-  console.log(data);
 
   const toggleSideMenu = () => {
     if (toggleMenu === true) {
@@ -47,6 +47,7 @@ function Home() {
     else if (currentPage === "Temario")
       return <Temario folderToggle={folderToggle} />;
     else if (currentPage === "Exámenes") return <ExamenesPage />;
+    else if (currentPage === "Repaso") return <Repaso />;
     else if (currentPage === "Salir") {
       localStorage.clear();
       return <Navigate to="/" />;
@@ -57,6 +58,7 @@ function Home() {
     else if (currentPage === "Ranking global") return <RankingGlobal />;
     else if (currentPage === "Descargas") return <Descargas />;
     else if (currentPage === "Audiolibro") return <AudioLibro />;
+    else if (currentPage === "Actividades") return <Actividades />;
     else if (currentPage === "En Directo") {
       if (data.type === "Alumno" || data.type === "Alumno-Free Trial") {
         var stylesheet = document.styleSheets[0];

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import { getLocalUserdata, updatelocalData } from '../../../../services/auth/localStorageData';
 import userServices from 'services/httpService/userAuth/userServices';
 import { toast } from 'react-toastify';
@@ -7,7 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import icon from '../../../../assets/img/images/video_icon.png';
+import icon from '../../../../assets/img/images/video_icon.webp';
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import IconButton from '@mui/material/IconButton';
@@ -41,11 +41,25 @@ const Files = (props) => {
   const classes = useStyles();
   const [offset,setOffset]=useState(1);
   const [call, setCall] = useState(true);
-  let isEnd=false;
+  const [isEnd, setIsEnd] =useState(false);
   const [loading,setLoading]=useState(false);
   const [files, setFiles] = useState([]);
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
+  useLayoutEffect(() => {
+    if((!isEnd) && !(document.getElementById('list').scrollHeight > document.getElementById('list').clientHeight) && files.length===15 ){
+      if (isInitialRender) {
+        setIsInitialRender(false);
+        setOffset(offset + 1);
+        setLoading(true);
+        setCall(false);
+      }
+    }
+  })
+
 
   useEffect (() => {
+    let count=0;
     const data=getLocalUserdata();
     userServices.commonPostService('/getVideoFiles',JSON.stringify({"id":props.folderId,"studentId":data.id,"offset":offset}))
     .then(response=>{
@@ -55,9 +69,10 @@ const Files = (props) => {
             title:item.title,
             url:item.url,
           }]);
+          count++;
         })
-        if(files.length<15){
-          isEnd=true;
+        if(count<15){
+          setIsEnd(true);
         }
         setCall(true);
         setLoading(false);
@@ -69,7 +84,6 @@ const Files = (props) => {
     .catch((error)=> {
       toast.error("Error fetching files");
     });
-
   },[offset])
 
   const handleScroll = (e) => {
@@ -95,9 +109,10 @@ const Files = (props) => {
         <ArrowBackIcon/>
         <Typography variant="subtitle2">Volver a las carpetas</Typography>
       </IconButton>
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'70vh' }}
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', overflow:'auto', maxHeight:'78vh'}}
       onScroll={handleScroll}
-      className={classes.root}>
+      className={classes.root}
+      id='list'>
       {
         files.length>0 ? 
         files.map((item) => {

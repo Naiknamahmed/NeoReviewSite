@@ -1,0 +1,288 @@
+[33mcommit ce7a7db3761a5dab21046658fa0d7373f3307f17[m[33m ([m[1;36mHEAD -> [m[1;32mexamenes[m[33m)[m
+Merge: e08dcfe 36942c5
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Tue Aug 30 01:58:21 2022 +0500
+
+    Merge branch 'development' of https://github.com/ayyazmughal/Neoestudio_webVersion into examenes
+
+[33mcommit e08dcfebd5dce3ea6516adb3d449fdea40b9015e[m
+Merge: 4b10c73 2f23d0e
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Tue Aug 30 01:34:44 2022 +0500
+
+    pulling latest Code
+
+[33mcommit 4b10c73347003616cdf3b7b0a3327926ca86fcef[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Tue Aug 30 01:27:31 2022 +0500
+
+    Repaso Module
+
+[33mcommit 2f23d0e0d8e50b507230b8071699d814a6530a32[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Sat Aug 20 10:40:35 2022 +0500
+
+    Adding actividades module revisions
+
+[33mcommit e67081d8fd19cc64c9448ba4d5ca33f8f7688d0c[m
+Merge: a6649b0 69b7f0a
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Aug 19 02:03:28 2022 +0500
+
+    Merge branch 'examenes' into menu_page
+
+[33mcommit a6649b02f445b4eff69358f3493bcceda2a4088f[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Aug 19 01:58:07 2022 +0500
+
+    Adding actividades module
+
+[33mcommit 36942c57599aa6503a155139d690de7f1ffbfe2c[m
+Merge: ce1ad42 69b7f0a
+Author: Naiknam Ahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 12 18:53:29 2022 +0500
+
+    Merge pull request #8 from ayyazmughal/examenes
+    
+    loader and answers
+
+[33mcommit 69b7f0a55d4e71465cf820af6ac5e728bb74a9a1[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 12 18:46:44 2022 +0500
+
+    loader position changed
+
+[33mcommit c38d5876b0f718bb3fcdecc0a48211220f950551[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 12 16:37:52 2022 +0500
+
+    changes 2
+
+[33mcommit 2f896d27de241907d4fae7a99d64a2d1ff0c05b1[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 12 15:54:31 2022 +0500
+
+    answer redone
+
+[33mcommit 89ae65249da4f16f710130ed86f06915c369bf3f[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 12 15:26:57 2022 +0500
+
+    checking push
+
+[33mcommit 50a73806651bc25dbd4a80b76643ce668413a31f[m
+Merge: 442b859 1ad66d7
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Aug 12 00:16:13 2022 +0500
+
+    Merge branch 'examenes' into menu_page
+
+[33mcommit 442b859ff88c94583e30cd63e94926f8db6a88bf[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Aug 12 00:08:16 2022 +0500
+
+    Adding fixes in zoom and videos
+
+[33mcommit ce1ad425968343e144ddfac14437305c3634c7c2[m
+Merge: f991505 1ad66d7
+Author: Naiknam Ahmed <naikmirhunxai@gmail.com>
+Date:   Wed Aug 10 18:19:13 2022 +0500
+
+    Merge pull request #7 from ayyazmughal/examenes
+    
+    Answer Colors Fixed
+
+[33mcommit 1ad66d71a31620e3f10d79496396ed82be36870a[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Wed Aug 10 18:16:02 2022 +0500
+
+    Answer Colors Fixed
+
+[33mcommit f991505f4ba743ef9bd6845ca89323ec14a16c0d[m
+Merge: e4730f3 30b13ef
+Author: Naiknam Ahmed <naikmirhunxai@gmail.com>
+Date:   Mon Aug 8 02:56:28 2022 +0500
+
+    Merge pull request #6 from ayyazmughal/examenes
+    
+    minor change
+
+[33mcommit 30b13eff62fc6d6851f0c71c79d2671064bec0e2[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Mon Aug 8 02:50:37 2022 +0500
+
+    minor change
+
+[33mcommit e4730f30080fa2b967583bb039cfe1cc81081a56[m
+Merge: 098dcf3 8ac5756
+Author: Naiknam Ahmed <naikmirhunxai@gmail.com>
+Date:   Mon Aug 8 02:41:13 2022 +0500
+
+    Merge pull request #5 from ayyazmughal/examenes
+    
+    Examenes end design
+
+[33mcommit 8ac5756cf35dd907069cf1bafc90fd94311ca165[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Mon Aug 8 02:02:07 2022 +0500
+
+    Examenes Module end design
+
+[33mcommit adc3c61266b085cef869cf8652f5f0bf91d5b1ca[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Sun Aug 7 16:20:22 2022 +0500
+
+    handleStop
+
+[33mcommit 8c08da861d5df8c0b79b29ebaf1ae7c2c1b4566f[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Sun Aug 7 15:49:02 2022 +0500
+
+    ball size change
+
+[33mcommit 77e3a3107e9e215ddaf7775d98c304ad82e357e8[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Sun Aug 7 14:29:26 2022 +0500
+
+    Images and Exam Titles changed
+
+[33mcommit bb70e078a1abd0a8543c16fffcfd3ed7f55b98ed[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Sun Aug 7 13:19:08 2022 +0500
+
+    ball size smaller
+
+[33mcommit ea4ceaa7f8804bcdb611345ed25528d3aa28e84a[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Sun Aug 7 08:43:52 2022 +0500
+
+    images add
+
+[33mcommit f1d72141e9f65bfaf44e063a3f096866b647e446[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Sun Aug 7 06:24:04 2022 +0500
+
+    pause and save data
+
+[33mcommit 68f953e6ee299c3dc7399b44bceef9f638227936[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 5 23:07:56 2022 +0500
+
+    Timeline Loading
+
+[33mcommit 1db19c945f11730a21b9c8f2744a6a38f20f952e[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 5 23:05:30 2022 +0500
+
+    TimeLine Loading Fix
+
+[33mcommit 9e8639665fa7199b9b47e7bf9032f6093d68c2f2[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 5 04:30:51 2022 +0500
+
+    Fonts Bold
+
+[33mcommit 6266414e370cbf73b6dd2e49e8aa7e110dc42c5a[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 5 04:19:29 2022 +0500
+
+    TimeLine Fixing
+
+[33mcommit 584fca346e84c94592624ecfaa2a3a8e8a0456b3[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Aug 5 03:59:12 2022 +0500
+
+    timeline fixed
+
+[33mcommit e4ab6a1d8180ae518b6e008f9395adc78d88d24e[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Thu Aug 4 01:41:33 2022 +0500
+
+    Fixes
+
+[33mcommit fa46a3715794fc97e324b212dfeb42fb95c5eb56[m
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Wed Aug 3 02:11:05 2022 +0500
+
+    updates
+
+[33mcommit 44f3c77b1d13f86fedcf9f65ffd0d8a298dbc802[m
+Merge: 5809dab ac5fdd3
+Author: naiknamahmed <naikmirhunxai@gmail.com>
+Date:   Fri Jul 29 03:39:16 2022 +0500
+
+    pulling latest code
+
+[33mcommit ac5fdd3817b075c6291f23ce4f6a4208e21f2bd8[m[33m ([m[1;32mmenu_page[m[33m)[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Jul 22 00:30:06 2022 +0500
+
+    Adding directo module revisions
+
+[33mcommit 9d6905b739462eb74ae57aead3b1343d4bcb6061[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Sat Jul 16 19:01:15 2022 +0500
+
+    adding directo module
+
+[33mcommit 4c0f49219e342ed965d47daed2230078f8c56f64[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Sat Jul 16 17:10:54 2022 +0500
+
+    adding directo module
+
+[33mcommit e885dbf470358f246d7e22284c412dffbcf19a7c[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Jul 15 18:18:42 2022 +0500
+
+    adding directo module
+
+[33mcommit da741707f382bf74f6ec90dde6dffc2e8138d515[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Jul 15 16:33:59 2022 +0500
+
+    adding directo module
+
+[33mcommit 8acf96511f9241976179640964e39a9fdb35b7c8[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Jul 1 19:17:19 2022 +0500
+
+    made login responsive
+
+[33mcommit b325c38fd287fc2831f57e86ee9b0ac7a069575c[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Jul 1 19:09:28 2022 +0500
+
+    made login responsive
+
+[33mcommit 2d6b44b809bb46f60c739320c397881462f4f429[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Fri Jul 1 17:47:38 2022 +0500
+
+    made login responsive
+
+[33mcommit e2e751e22810d3cf197ab22a483920d9ec990050[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Wed Jun 29 22:55:24 2022 +0500
+
+    added revisions and modified login
+
+[33mcommit 2ce1fa3e98c1887beafed97d03b0ba82584b9c67[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Sat Jun 4 17:05:05 2022 +0500
+
+    added revisions
+
+[33mcommit d02bc54dbd265e019b40106a64a471a0f4293490[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Thu Jun 2 22:13:53 2022 +0500
+
+    added revisions
+
+[33mcommit 12902686bf17383aa25035a2796a3e379b0ef6a6[m
+Author: KhadeejaSaeed <khadijasaeed17@yahoo.com>
+Date:   Thu Jun 2 16:29:49 2022 +0500
+
+    added revisions
+
+

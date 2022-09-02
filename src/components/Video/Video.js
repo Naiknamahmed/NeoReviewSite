@@ -5,7 +5,7 @@ import VideoPlayer from './VideoPlayer/VideoPlayer';
 const Video = (props) => {
   const [url,setUrl]=useState('');
   const [title,setTitle]=useState('');
-
+  
   const updateUrl = (val,title) => {
     setUrl(val);
     setTitle(title);

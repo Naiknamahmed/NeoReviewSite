@@ -28,6 +28,11 @@ const VideoPlayer = (props) => {
                     ref={videoRef} 
                     controlsList="nodownload" 
                     onProgress={onProgress}
+                    onPlay={() => {
+                      if(videoRef.current?.videoWidth + videoRef.current?.videoHeight === 0) {
+                        alert('El video no es compatible con su navegador, intente usar Safari o IE.');
+                      }
+                    }}
                     onLoadStart={() => {
                       const timeToStart = getTimeStamp('openedVideos',props.title);
                       videoRef.current.currentTime=timeToStart;

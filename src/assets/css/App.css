@@ -15,7 +15,7 @@
 }
 
 .bg-input {
-  background:url('../img/inpur_bg.png'); 
+  background:url('../img/inpur_bg.webp'); 
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -50,7 +50,7 @@
   right: 0;
   bottom: 0;
   -webkit-transition: 0.2s;
-  background:url('../img/switch_off.png'); 
+  background:url('../img/switch_off.webp'); 
   background-repeat: no-repeat;
   background-size: 100%;
   transition: 0.2s;
@@ -68,7 +68,7 @@
 }
 
 input:checked + .slider {
-  background:url('../img/switch_on.png'); 
+  background:url('../img/switch_on.webp'); 
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -138,7 +138,7 @@ input:checked + .slider .off {
   }
 
   .MuiSlider-root {
-    background-image: url('../img/images/border1.png');
+    background-image: url('../img/images/border1.webp');
     background-repeat: round;
     height: 50px !important;
     padding: 10px 0px !important;
@@ -165,7 +165,7 @@ input:checked + .slider .off {
     background: linear-gradient(90deg, #006176, #00a7cb);
   }
   .MuiSlider-thumb {
-    background-image: url('../img/images/slider.png') !important;
+    background-image: url('../img/images/slider.webp') !important;
     height: 63px !important;
     width: 63px !important;
     background-repeat: round;
@@ -175,7 +175,7 @@ input:checked + .slider .off {
 }
 
 .bg-image12 {
-  background-image: url('../img/images/Fondo_1.png');
+  background-image: url('../img/images/slider.webp');
   width: 100%;
   height: calc(100vh - 0.5em);
   background-repeat: round;
@@ -216,7 +216,7 @@ input:checked + .slider .off {
     width: 15%;
   }
   .MuiSlider-root {
-    background-image: url('../img/images/border1.png');
+    background-image: url('../img/images/border1.webp');
     background-repeat: round;
     height: 70px !important;
   }
@@ -243,7 +243,7 @@ input:checked + .slider .off {
     background: linear-gradient(90deg, #006176, #00a7cb);
   }
   .MuiSlider-thumb {
-    background-image: url('../img/images/slider.png') !important;
+    background-image: url('../img/images/slider.webp') !important;
     height: 80px !important;
     width: 80px !important;
     background-repeat: round;

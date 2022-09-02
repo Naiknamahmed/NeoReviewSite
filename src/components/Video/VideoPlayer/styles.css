@@ -13,7 +13,7 @@
 }
 .div2 video:not(:fullscreen) {
     box-sizing: border-box;
-    background: url('../../../../src/assets/img/images/mobileframe.png') center center no-repeat;
+    background: url('../../../../src/assets/img/images/mobileframe.webp') center center no-repeat;
     background-size: contain;
     padding-top:7.7%;
     padding-bottom: 9.75%;

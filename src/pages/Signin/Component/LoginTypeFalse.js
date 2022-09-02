@@ -69,7 +69,7 @@ function LoginTypeFalse() {
         <div className='relative w-full '>
           <div className='relative flex w-full flex-wrap items-stretch mb-3'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <img alt='email_icon' src={require('assets/img/email.png').default} className='w-full h-full py-1'/>
+              <img alt='email_icon' src={require('assets/img/email.webp').default} className='w-full h-full py-1'/>
             </span>
             <input
               type='text'
@@ -97,7 +97,7 @@ function LoginTypeFalse() {
                     </label> */}
           <div className='relative flex w-full flex-wrap items-stretch'>
             <span className='z-10 h-full leading-snug font-normal absolute text-center text-black absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
-              <img alt='telephone_icon' src={require('assets/img/telephone.png').default} className='w-full h-full py-1'/>
+              <img alt='telephone_icon' src={require('assets/img/telephone.webp').default} className='w-full h-full py-1'/>
             </span>
             <input
               type='text'
@@ -131,7 +131,7 @@ function LoginTypeFalse() {
             <img
               alt='...'
               className='w-full h-full mr-1'
-              src={require('assets/img/Entrar.png').default}
+              src={require('assets/img/Entrar.webp').default}
             />
           </button>
         </div>

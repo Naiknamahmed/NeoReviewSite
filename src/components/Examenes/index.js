@@ -9,31 +9,31 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CircularProgress from "@mui/material/CircularProgress";
-import ansSelectImg from "../../assets/img/images/Flecha.png";
-import Revisar from "../../assets/img/images/revisar.png";
-import Salir from "../../assets/img/images/salirExamenes.png";
+import ansSelectImg from "../../assets/img/images/Flecha.webp";
+import Revisar from "../../assets/img/images/revisar.webp";
+import Salir from "../../assets/img/images/salirExamenes.webp";
 import Progressbar from "../ExamenesHelpers/Progressbar";
-import Conocimientos from "../../assets/img/images/conocimientos.png";
-import inglesImg from "../../assets/img/images/ingles.png";
-import psicoImg from "../../assets/img/images/psicotecnicos.png";
-import ortoImg from "../../assets/img/images/ortografia.png";
-import correctImg from "../../assets/img/images/green.png";
-import wrongImg from "../../assets/img/images/red.png";
-import nullImg from "../../assets/img/images/grey.png";
-import answerImg1 from "../../assets/img/images/blue.png";
-import noSelect from "../../assets/img/images/transparent.png";
-import golden from "../../assets/img/images/golden.png";
-import pauseImg from "../../assets/img/images/pause.png";
-import stopImg from "../../assets/img/images/stop.png";
-import directoryImg from "../../assets/img/images/directory.png";
+import Conocimientos from "../../assets/img/images/conocimientos.webp";
+import inglesImg from "../../assets/img/images/ingles.webp";
+import psicoImg from "../../assets/img/images/psicotecnicos.webp";
+import ortoImg from "../../assets/img/images/ortografia.webp";
+import correctImg from "../../assets/img/images/green.webp";
+import wrongImg from "../../assets/img/images/red.webp";
+import nullImg from "../../assets/img/images/grey.webp";
+import answerImg1 from "../../assets/img/images/blue.webp";
+import noSelect from "../../assets/img/images/transparent.webp";
+import golden from "../../assets/img/images/golden.webp";
+import pauseImg from "../../assets/img/images/pause.webp";
+import stopImg from "../../assets/img/images/stop.webp";
+import directoryImg from "../../assets/img/images/directory.webp";
 import { getLocalUserdata } from "../../services/auth/localStorageData";
 import { Markup } from "interweave";
-import tick from "../../assets/img/images/tick.png";
-import cross from "../../assets/img/images/cross.png";
+import tick from "../../assets/img/images/tick.webp";
+import cross from "../../assets/img/images/cross.webp";
 import useStyles from "./styles";
 import "./style.css";
 
-function Examenes1() {
+function Examenes1(props) {
   const Styles = useStyles();
   const [showScreen, setShowScreen] = useState(true);
   const [showScreen2, setShowScreen2] = useState(false);
@@ -70,32 +70,93 @@ function Examenes1() {
   // GET ALL EXAM FOLDERS API
 
   useEffect(() => {
-    axios
-      .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
-      .then((response) => {
-        setFolderData(response.data.data);
-        setShowScreen(true);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-        alert("Exams List Not Available, Please Refresh The Page");
-      });
+    if (props.showExam === "true") {
+      if (props.item.type === "english") {
+        const Inglés = {
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        if (props.item.examStatus === "end") {
+          reviewExam("", Inglés);
+        } else {
+          startExams("", Inglés);
+        }
+      } else if (
+        props.item.type === "orto" ||
+        props.item.type === "gramatica"
+      ) {
+        const Ortografía = {
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        if (props.item.examStatus === "end") {
+          reviewExam("", Ortografía);
+        } else {
+          startExams("", Ortografía);
+        }
+      } else if (props.item.type === "psico") {
+        const Psicotécnicos = {
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        if (props.item.examStatus === "end") {
+          reviewExam("", Psicotécnicos);
+        } else {
+          startExams("", Psicotécnicos);
+        }
+      } else if (props.item.type === "conocimiento") {
+        const Conocimientos = {
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        if (props.item.examStatus === "end") {
+          reviewExam("", Conocimientos);
+        } else {
+          startExams("", Conocimientos);
+        }
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (props.showScreen === "true") {
+      axios
+        .post(`https://neoestudio.net/api/getAllExamFolders`, getExamData)
+        .then((response) => {
+          setFolderData(response.data.data);
+          setShowScreen(true);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+          alert("Exams List Not Available, Please Refresh The Page");
+        });
+    }
   }, [stateRend]);
 
   // GET ALL EXAMS API
 
   useEffect(() => {
-    axios
-      .post(`https://neoestudio.net/api/getAllExam`, getExamData)
-      .then((response) => {
-        setFolderData2(response.data.data);
-        setShowScreen2(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (props.showScreen === "true") {
+      axios
+        .post(`https://neoestudio.net/api/getAllExam`, getExamData)
+        .then((response) => {
+          setFolderData2(response.data.data);
+          setShowScreen2(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, [stateRend]);
 
   // GET ALL EXAM FILES API
@@ -221,7 +282,11 @@ function Examenes1() {
         setPauseExam(response.data);
         if (response.data.data.canPause == "yes") {
           setStatus(false);
-          setShowScreen(true);
+          if (props.showScreen === "false") {
+            props.updateView();
+          } else {
+            setShowScreen(true);
+          }
         } else {
           alert("You Cannot Pause This Exam");
         }
@@ -269,7 +334,11 @@ function Examenes1() {
     setCurrentQuestion(0);
     setExpanded(false);
     setStateRend((prev) => prev + 1);
-    setShowScreen(true);
+    if (props.showExam === "true") {
+      props.updateView();
+    } else {
+      setShowScreen(true);
+    }
     return SalirBtn;
   };
 
@@ -916,7 +985,7 @@ function Examenes1() {
             </Container>
           </main>
         </div>
-      ) : showResultScreen == true ? (
+      ) : showResultScreen === true ? (
         <>
           <main className="flex">
             <Container maxWidth="xlg">
@@ -1071,7 +1140,11 @@ function Examenes1() {
                     <Button
                       variant="contained"
                       onClick={() => {
-                        setShowScreen(true);
+                        if (props.showExam === "true") {
+                          props.updateView();
+                        } else {
+                          setShowScreen(true);
+                        }
                         setShowResult(false);
                         setShowScore(false);
                       }}
@@ -1114,7 +1187,7 @@ function Examenes1() {
             </Container>
           </main>
         </>
-      ) : showScore == true ? (
+      ) : showScore === true ? (
         <main className={Styles.wrapperMain}>
           <Container maxWidth="xlg">
             <h1 className={Styles.examenesHeading3}>{endExam.examName}</h1>
@@ -1170,21 +1243,21 @@ function Examenes1() {
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to bottom, rgba(17,148,47,1), rgba(106,170,101,1))`}
-                    progress={endExam.correctPercentage.toFixed(2)}
+                    progress={endExam.correctPercentage.toFixed(1)}
                   />
                   <img src={tick} style={{ width: "40px" }} />
                 </div>
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to bottom, rgba(206,8,17,1), rgba(222,110,81,1))`}
-                    progress={endExam.wrongPercentage.toFixed(2)}
+                    progress={endExam.wrongPercentage.toFixed(1)}
                   />
                   <img src={cross} style={{ width: "40px" }} />
                 </div>
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to top, rgba(47,49,47,1), rgba(119,118,119,1))`}
-                    progress={endExam.nullPercentage.toFixed(2)}
+                    progress={endExam.nullPercentage.toFixed(1)}
                   />
                   <h3 style={{ fontSize: "25px" }}>Nulos</h3>
                 </div>
@@ -1228,7 +1301,7 @@ function Examenes1() {
             </div>
           </Container>
         </main>
-      ) : showExam == true ? (
+      ) : showExam === true ? (
         <>
           <div>
             <main className={Styles.wrapperMain1}>
