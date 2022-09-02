@@ -763,21 +763,21 @@ function Repaso() {
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to bottom, rgba(17,148,47,1), rgba(106,170,101,1))`}
-                    progress={endExam.correctPercentage.toFixed(2)}
+                    progress={endExam.correctPercentage.toFixed(1)}
                   />
                   <img src={tick} style={{ width: "40px" }} />
                 </div>
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to bottom, rgba(206,8,17,1), rgba(222,110,81,1))`}
-                    progress={endExam.wrongPercentage.toFixed(2)}
+                    progress={endExam.wrongPercentage.toFixed(1)}
                   />
                   <img src={cross} style={{ width: "40px" }} />
                 </div>
                 <div className={Styles.progressBarWrapper}>
                   <Progressbar
                     bgcolor={`linear-gradient(to top, rgba(47,49,47,1), rgba(119,118,119,1))`}
-                    progress={endExam.nullPercentage.toFixed(2)}
+                    progress={endExam.nullPercentage.toFixed(1)}
                   />
                   <h3 style={{ fontSize: "25px" }}>Nulos</h3>
                 </div>
