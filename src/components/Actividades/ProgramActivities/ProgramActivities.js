@@ -41,13 +41,13 @@ const ProgramActivities = (props) => {
     useEffect (() => {
         let temp=0;
         const data=getLocalUserdata();
-        userServices.commonPostService(`/getProgramActivities?page=${page}`,JSON.stringify({"programId":props.programId,'studentId':data.id}))
+        userServices.commonPostService(`/getProgramActivities?page=${page}`,{"programId":props.programId,'studentId':data.id})
         .then(response => {
             if(response.data.status==='Successfull') {
                 response.data.data.forEach((item)=>{
                     if(item.type==='exam') {
                         setList(oldArray => [...oldArray, {
-                            type:item.activityName.toLowerCase().includes('repaso')?'repaso':item.activityName.toLowerCase().includes('inglés')?'english':item.activityName.toLowerCase().includes('psicotécnicos')?'psico':item.activityName.toLowerCase().includes('ortografía')?'orto':item.activityName.toLowerCase().includes('conocimientos')?'conocimiento':item.activityName.toLowerCase().includes('gramática')?'gramatica':'',
+                            type:item.activityName.toLowerCase().includes('inglés')?'english':item.activityName.toLowerCase().includes('psicotécnicos')?'psico':item.activityName.toLowerCase().includes('ortografía')?'orto':item.activityName.toLowerCase().includes('conocimientos')?'conocimiento':item.activityName.toLowerCase().includes('gramática')?'gramatica':'',
                             id:item.activityId,
                             activityName: item.activityName,
                             isCompleted: item.isCompleted,
@@ -83,6 +83,19 @@ const ProgramActivities = (props) => {
                             activityName: item.activityName,
                             isCompleted: item.isCompleted,
                             audio_url:item.material
+                        }]);
+                    }
+                    else if(item.type==='review') {
+                        setList(oldArray => [...oldArray, {
+                            type:'repaso',
+                            id:item.activityId,
+                            activityName: item.activityName,
+                            isCompleted: item.isCompleted,
+                            examId:item.id,
+                            timeFrom:item.timeFrom,
+                            examDuration:item.examDuration,
+                            examRecordId:item.studentExamRecordId,
+                            examStatus:item.studentExamStatus
                         }]);
                     }
                     temp++;
@@ -127,7 +140,7 @@ const ProgramActivities = (props) => {
     }
 
     const decideFont = (item) => {
-        if(item.type==='english'||item.type==='orto'||item.type==='psico'||item.type==='conocimiento'||item.type==='gramatica')
+        if(item.type==='english'||item.type==='orto'||item.type==='psico'||item.type==='conocimiento'||item.type==='gramatica'||item.type==='repaso')
         {
             if (item.examStatus==='end') {
                 return 'ProximaNovaSoft-bold'

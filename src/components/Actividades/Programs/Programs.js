@@ -15,7 +15,7 @@ const Programs = (props) => {
     useEffect(() => {
         setActivities([]);
         const data=getLocalUserdata();
-        userServices.commonPostService('/getAllPrograms',JSON.stringify({"studentType":data.type}))
+        userServices.commonPostService('/getAllPrograms',{"studentType":data.type})
         .then(response => {
             if(response.data.status==='Successfull') {
                 response.data.data.forEach((item)=>{

@@ -35,7 +35,7 @@ import cross from "../../assets/img/images/cross.webp";
 import useStyles from "./styles";
 import "./style.css";
 
-function Repaso() {
+function Repaso(props) {
   const Styles = useStyles();
   const [showScreen, setShowScreen] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -66,6 +66,27 @@ function Repaso() {
     studentId: student_id,
     studentType: student_type,
   };
+
+  useEffect(() => {
+    if (props.showExam === "true") {
+      if (props.item.type === "repaso") {
+        const data = {
+          id: props.item.examId,
+          studentExamRecordId: props.item.examRecordId,
+          examDuration: props.item.examDuration,
+          timeFrom: props.item.timeFrom,
+        };
+        const e = {
+          id:data.id,
+        }
+        if (props.item.examStatus === "end") {
+          reviewExam('', data);
+        } else {
+          startExams(e, data);
+        }
+      } 
+    }
+  }, []);
 
   // GET ALL EXAM FOLDERS API
 
@@ -113,7 +134,9 @@ function Repaso() {
   // START EXAM API CALL
 
   const startExams = (e, Conocimientos, Inglés, Ortografía, Psicotécnicos) => {
-    const ExamNO = e.target.id;
+    console.log(e?.target?.id);
+    console.log(Conocimientos);
+    const ExamNO = e?.target?.id?e.target.id:e.id;
     localStorage.setItem("examID", ExamNO);
     setLoading(true);
     const startData = {
@@ -203,7 +226,11 @@ function Repaso() {
         setPauseExam(response.data);
         if (response.data.data.canPause == "yes") {
           setStatus(false);
-          setShowScreen(true);
+          if (props.showScreen === "false") {
+            props.updateView();
+          } else {
+            setShowScreen(true);
+          }
         } else {
           alert("You Cannot Pause This Exam");
         }
@@ -232,7 +259,6 @@ function Repaso() {
       .post(`https://neoestudio.net/api/reviewExam`, reviewData)
       .then((response) => {
         setExamReviewData(response.data.data);
-
         setShowScreen(false);
         setShowExam(false);
         setShowScore(false);
@@ -251,7 +277,11 @@ function Repaso() {
     setCurrentQuestion(0);
     setExpanded(false);
     setStateRend((prev) => prev + 1);
-    setShowScreen(true);
+    if (props.showExam === "true") {
+      props.updateView();
+    } else {
+      setShowScreen(true);
+    }
     return SalirBtn;
   };
 
@@ -664,7 +694,11 @@ function Repaso() {
                     <Button
                       variant="contained"
                       onClick={() => {
-                        setShowScreen(true);
+                        if (props.showExam === "true") {
+                          props.updateView();
+                        } else {
+                          setShowScreen(true);
+                        }
                         setShowResult(false);
                         setShowScore(false);
                       }}

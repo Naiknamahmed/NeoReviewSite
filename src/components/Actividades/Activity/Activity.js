@@ -1,13 +1,14 @@
 import React , {useEffect} from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
 import { updatelocalData } from '../../../services/auth/localStorageData';
 import VideoPlayer from 'components/Video/VideoPlayer/VideoPlayer';
 import PdfCard from 'components/pdfCard/pdfCard';
 import Examenes1 from 'components/Examenes/index';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import AudioPlayer from 'components/AudioLibro/AudioPlayer/AudioPlayer';
+import Repaso from 'components/Repaso/index'
 
 const Activity = (props) => {
 
@@ -46,16 +47,13 @@ const Activity = (props) => {
             <ArrowBackIcon/>
             <Typography variant="subtitle2">Volver a actividades</Typography>
         </IconButton>
-        <div style={{height:'100%', width:'100%',}} className={`flex justify-center`}>
+        <div style={{height:'100%', width:'100%', marginLeft:'5%'}}>
             <PdfCard fileName={props.item.fileName} load={true}/>
         </div>
     </div> 
-    : (props.item.type==='repaso') ? <div className='flex flex-col'>
-    <IconButton style={{marginTop:'2%'}} onClick={()=>{props.updateView('ProgramActivities',props.programId)}}>
-        <ArrowBackIcon/>
-        <Typography variant="subtitle2">Volver a actividades</Typography>
-    </IconButton>
-    </div> : (props.item.type==='english'||props.item.type==='orto'||props.item.type==='psico'||props.item.type==='conocimiento'||props.item.type==='gramatica') 
+    : (props.item.type==='repaso') ? 
+    <div style={{marginLeft:'5%'}}><Repaso item={props.item} showExam='true' showScreen='false' updateView={updateView}/></div>
+    : (props.item.type==='english'||props.item.type==='orto'||props.item.type==='psico'||props.item.type==='conocimiento'||props.item.type==='gramatica') 
     ? <><Examenes1 item={props.item} showExam='true' showScreen='false' updateView={updateView}/></> 
     : (props.item.type==='audio') ?  <div className='flex flex-col'>
     <IconButton style={{marginTop:'1%'}} onClick={()=>{props.updateView('ProgramActivities',props.programId)}}>
