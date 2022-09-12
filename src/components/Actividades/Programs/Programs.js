@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { toast } from 'react-toastify';
 import Carousel from 'react-material-ui-carousel';
 import CircularProgress from '@mui/material/CircularProgress';
-
 import { getLocalUserdata } from '../../../services/auth/localStorageData';
 import userServices from 'services/httpService/userAuth/userServices';
 import useStyles from '../../MUIScrollbar/MUIScrollbar.js';

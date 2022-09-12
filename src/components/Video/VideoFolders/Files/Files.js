@@ -8,34 +8,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import icon from '../../../../assets/img/images/video_icon.webp';
-import { makeStyles } from "@material-ui/core/styles";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-
-
-const useStyles = makeStyles((theme) => ({
-    listItem : {
-      "&&": {
-        [theme.breakpoints.down('580')]: {
-        display: 'block',
-      },
-    }
-    },
-    root: {
-      "&::-webkit-scrollbar": {
-        width: 7,
-      },
-      "&::-webkit-scrollbar-track": {
-        boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
-      },
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "darkgrey",
-        outline: `1px solid slategrey`,
-      },
-    },
-  }));
+import useStyles from '../../../MUIScrollbar/MUIScrollbar';
 
 const Files = (props) => {
   const classes = useStyles();
@@ -61,7 +38,7 @@ const Files = (props) => {
   useEffect (() => {
     let count=0;
     const data=getLocalUserdata();
-    userServices.commonPostService('/getVideoFiles',JSON.stringify({"id":props.folderId,"studentId":data.id,"offset":offset}))
+    userServices.commonPostService('/getVideoFiles',{"id":props.folderId,"studentId":data.id,"offset":offset})
     .then(response=>{
       if(response.data.status==='Successfull') {
         response.data.data.forEach((item)=>{

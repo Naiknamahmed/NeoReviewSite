@@ -18,7 +18,7 @@ const AudioFolder = (props) => {
         <div style={{marginTop:'2%', marginLeft:'2%', marginBottom:'2%', width:"35%"}}>
             {                
             (view==='folders') 
-            ? <Folders updateView={updateView} updateId={updateId}/> 
+            ? <Folders updateView={updateView} updateId={updateId} folders={props.folders} loading={props.loading}/> 
             : <Files updateView={updateView} updateUrl={props.updateUrl} folderId={folderId}/>
             } 
         </div>

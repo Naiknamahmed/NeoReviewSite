@@ -247,7 +247,6 @@ function Examenes1(props) {
           ]);
         }
         setExamData(response.data.data);
-        console.log(response.data.data);
         setLoading(false);
         setStatus(true);
         setCurrentQuestion(0);
@@ -324,7 +323,6 @@ function Examenes1(props) {
       .post(`https://neoestudio.net/api/reviewExam`, reviewData)
       .then((response) => {
         setExamReviewData(response.data.data);
-
         setShowScreen(false);
         setShowExam(false);
         setShowScore(false);

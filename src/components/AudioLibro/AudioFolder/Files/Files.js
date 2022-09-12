@@ -8,33 +8,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import icon from '../../../../assets/img/images/90100015.webp';
-import { makeStyles } from "@material-ui/core/styles";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-
-const useStyles = makeStyles((theme) => ({
-    listItem : {
-      "&&": {
-        [theme.breakpoints.down('580')]: {
-        display: 'block',
-      },
-    }
-    },
-    root: {
-      "&::-webkit-scrollbar": {
-        width: 7,
-      },
-      "&::-webkit-scrollbar-track": {
-        boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
-      },
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "darkgrey",
-        outline: `1px solid slategrey`,
-      },
-    },
-  }));
+import useStyles from '../../../MUIScrollbar/MUIScrollbar';
 
 const Files = (props) => {
     const classes = useStyles();
@@ -42,27 +20,21 @@ const Files = (props) => {
     const [loading,setLoading]=useState(true);
   
     useEffect (() => {
-      const data=getLocalUserdata();
-      userServices.commonPostService('/getAudioFiles',JSON.stringify({"id":props.folderId,"studentId":data.id}))
+      setFiles([]);
+      const data = getLocalUserdata();
+      userServices.commonPostService(`/getAudioFiles`, {"id":props.folderId,"studentId":data.id})
       .then(response=>{
-        console.log(response);
-        if(response.data.status==="Successfull") {
-          response.data.data.forEach((item)=>{
-            setFiles(oldArray => [...oldArray, {
-              title:item.title,
-              url:item.url,
-            }]);
-          })
+        if(response.data.status==='Successfull') {  
+          setFiles(response.data.data);
           setLoading(false);
         }
-        else{
-          toast.error("Error fetching files.");
+        else {
+          toast.error("Error in response.");
         }
       })
       .catch((error)=> {
         toast.error("Error fetching files");
       });
-  
     },[])
   
     const searchStorage = (title) => {
@@ -98,5 +70,4 @@ const Files = (props) => {
       </>    
     )
 }
-
 export default Files

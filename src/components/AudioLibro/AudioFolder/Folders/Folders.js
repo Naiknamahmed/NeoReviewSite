@@ -8,32 +8,9 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import directory from '../../../../assets/img/images/directory.webp';
-import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-
-
-const useStyles = makeStyles((theme) => ({
-    listItem : {
-      "&&": {
-        [theme.breakpoints.down('580')]: {
-        display: 'block',
-      },
-    }
-    },
-    root: {
-      "&::-webkit-scrollbar": {
-        width: 7,
-      },
-      "&::-webkit-scrollbar-track": {
-        boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
-      },
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "darkgrey",
-        outline: `1px solid slategrey`,
-      },
-    },
-  }));
+import useStyles from '../../../MUIScrollbar/MUIScrollbar'
 
 const Folders = (props) => {
     const classes = useStyles();
@@ -43,19 +20,14 @@ const Folders = (props) => {
     useEffect (() => {
       setFolders([]);
       const data=getLocalUserdata();
-      userServices.commonPostService('/getTopics',JSON.stringify({"studentType":data.type,"studentId":data.id,"type":"audio"}))
-      .then(response=>{
-        if(response.data.status==="Successfull") {
-          response.data.data.forEach((item)=>{
-            setFolders(oldArray => [...oldArray, {
-              id:item.id,
-              name:item.name===null? '-': item.name,
-            }]);
-          })
+      userServices.commonPostService('/getTopics',{"studentType":data.type,"studentId":data.id,"type":"audio"})
+      .then(response=>{  
+        if(response.data.status==='Successfull') {  
+          setFolders(response.data.data);
           setLoading(false);
         }
-        else{
-          toast.error("Error fetching folders.");
+        else {
+          toast.error("Error in response.");
         }
       })
       .catch((error)=> {
@@ -86,8 +58,7 @@ const Folders = (props) => {
             );
           }) }
       </List>
-      : (!loading&&folders.length===0) ? <Typography variant="subtitle2">¡No se encontraron archivos!</Typography> : <div style={{ display:'flex', justifyContent:'center'}}><CircularProgress disableShrink /></div>
-    
+      : (!loading&&folders.length===0) ? <Typography variant="subtitle2">¡No se encontraron archivos!</Typography> : <div style={{ display:'flex', justifyContent:'center'}}><CircularProgress disableShrink /></div>   
     )
 }
 

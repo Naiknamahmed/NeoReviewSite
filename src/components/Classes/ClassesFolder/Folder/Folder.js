@@ -8,33 +8,9 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import directory from '../../../../assets/img/images/directory.webp';
-import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-
-
-const useStyles = makeStyles((theme) => ({
-    listItem : {
-      "&&": {
-        [theme.breakpoints.down('580')]: {
-        display: 'block',
-      },
-    }
-    },
-    root: {
-      "&::-webkit-scrollbar": {
-        width: 7,
-      },
-      "&::-webkit-scrollbar-track": {
-        boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
-      },
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "darkgrey",
-        outline: `1px solid slategrey`,
-      },
-    },
-  }));
-
+import useStyles from '../../../MUIScrollbar/MUIScrollbar'
 
 const Folder = (props) => {
   const classes = useStyles();
@@ -44,15 +20,10 @@ const Folder = (props) => {
   useEffect (() => {
     setFolders([]);
     const data=getLocalUserdata();
-    userServices.commonPostService('/getClassTopics',JSON.stringify({"studentType":data.type,"studentId":data.id}))
+    userServices.commonPostService('/getClassTopics',{"studentType":data.type,"studentId":data.id})
     .then(response=>{
       if(response.status===200) {
-        response.data.forEach((item)=>{
-          setFolders(oldArray => [...oldArray, {
-            id:item.id,
-            name:item.name===null? '-': item.name,
-          }]);
-        })
+        setFolders(response.data);
         setLoading(false);
       }
       else{
@@ -83,7 +54,7 @@ const Folder = (props) => {
               <ListItemAvatar>
                 <Avatar alt="folder" src={directory} />
               </ListItemAvatar>
-              <ListItemText primaryTypographyProps={{ fontFamily: 'RoundedElegance-regular' }} primary={item.name} />
+              <ListItemText primaryTypographyProps={{ fontFamily: 'RoundedElegance-regular' }} primary={item.name===null? '-': item.name} />
             </ListItemButton>
           );
         }) }
