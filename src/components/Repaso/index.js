@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@mui/material/Button";
 import Accordion from "@mui/material/Accordion";
 import LinearProgress from "@mui/material/LinearProgress";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -30,6 +32,7 @@ import RepasoNotDone from "../../assets/img/images/Iconorepaso.webp";
 import RepasoDone from "../../assets/img/images/repasouncompleted.webp";
 import { getLocalUserdata } from "../../services/auth/localStorageData";
 import { Markup } from "interweave";
+import Modal from "@mui/material/Modal";
 import tick from "../../assets/img/images/tick.webp";
 import cross from "../../assets/img/images/cross.webp";
 import useStyles from "./styles";
@@ -57,6 +60,12 @@ function Repaso(props) {
   const [ansArry, setAnsArry] = useState([]);
   const [totalLoading, setTotalLoading] = useState(0);
   const [stateRend, setStateRend] = useState(0);
+  const [studentExamRecId, setStudentExamRecId] = useState(0);
+  const [folderId, setFolderId] = useState(0);
+  const [resetExam, setResetExam] = useState(false);
+
+  const handleModalClose = () => setResetExam(false);
+  let triggerTime;
 
   const data = getLocalUserdata();
   const student_type = data.type;
@@ -77,14 +86,14 @@ function Repaso(props) {
           timeFrom: props.item.timeFrom,
         };
         const e = {
-          id:data.id,
-        }
+          id: data.id,
+        };
         if (props.item.examStatus === "end") {
-          reviewExam('', data);
+          reviewExam("", data);
         } else {
           startExams(e, data);
         }
-      } 
+      }
     }
   }, []);
 
@@ -126,6 +135,30 @@ function Repaso(props) {
       });
   };
 
+  const resetRepasoExam = () => {
+    setListLoading(true);
+    const resetExamData = {
+      studentId: student_id,
+      studentType: student_type,
+      folderId: folderId,
+      examId: studentExamRecId,
+      isRestart: true,
+    };
+    axios
+      .post(`https://neoestudio.net/api/getReviewFolderExams`, resetExamData)
+      .then((response) => {
+        setFilesData(response.data.data);
+        console.log(response.data.data);
+        setStateRend((prev) => prev + 1);
+        setListLoading(false);
+        setResetExam(false);
+      })
+      .catch((error) => {
+        setListLoading(false);
+        console.log(error, "Error Loading Reset APi, Please Try Again !");
+      });
+  };
+
   const [expanded, setExpanded] = useState();
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -136,7 +169,7 @@ function Repaso(props) {
   const startExams = (e, Conocimientos, Inglés, Ortografía, Psicotécnicos) => {
     console.log(e?.target?.id);
     console.log(Conocimientos);
-    const ExamNO = e?.target?.id?e.target.id:e.id;
+    const ExamNO = e?.target?.id ? e.target.id : e.id;
     localStorage.setItem("examID", ExamNO);
     setLoading(true);
     const startData = {
@@ -402,6 +435,45 @@ function Repaso(props) {
                   <div className={Styles.headingText}>Ortografia</div>
                 </Grid>
               </Grid>
+              <Modal
+                open={resetExam}
+                onClose={handleModalClose}
+                aria-labelledby="reset-exam-modal"
+                aria-describedby="reset-modal-description"
+              >
+                <Box className={Styles.modalStyle}>
+                  <Typography
+                    id="reset-exam-modal"
+                    variant="h6"
+                    component="h2"
+                    sx={{ textAlign: "center" }}
+                  >
+                    Quieres resetear este examen?
+                  </Typography>
+                  <div className="flex justify-between w-full">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="medium"
+                      sx={{ padding: "0px 20px" }}
+                      onClick={() => {
+                        resetRepasoExam();
+                      }}
+                    >
+                      Yes
+                    </Button>
+                    <Button
+                      variant="contained"
+                      sx={{ backgroundColor: "gray" }}
+                      onClick={() => {
+                        setResetExam(false);
+                      }}
+                    >
+                      No
+                    </Button>
+                  </div>
+                </Box>
+              </Modal>
               {loading ? (
                 <div className="w-100 text-center">
                   <CircularProgress
@@ -493,7 +565,25 @@ function Repaso(props) {
                                                     "ProximaSoft-bold",
                                                 }}
                                                 onClick={(e) => {
-                                                  return reviewExam(e, data);
+                                                  if (triggerTime > 1000) {
+                                                    setStudentExamRecId(
+                                                      data.studentExamRecordId
+                                                    );
+                                                    setFolderId(data.folderId);
+                                                    setResetExam(true);
+                                                  } else {
+                                                    reviewExam(e, data);
+                                                  }
+                                                }}
+                                                onMouseDown={() => {
+                                                  triggerTime =
+                                                    new Date().getTime();
+                                                }}
+                                                onMouseUp={() => {
+                                                  let thisMoment =
+                                                    new Date().getTime();
+                                                  triggerTime =
+                                                    thisMoment - triggerTime;
                                                 }}
                                               >
                                                 {data.name}
