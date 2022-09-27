@@ -569,7 +569,7 @@ function Repaso(props) {
                                                     "ProximaSoft-bold",
                                                 }}
                                                 onClick={(e) => {
-                                                  if (triggerTime > 1000) {
+                                                  if (triggerTime > 500) {
                                                     setStudentExamRecId(
                                                       data.studentExamRecordId
                                                     );

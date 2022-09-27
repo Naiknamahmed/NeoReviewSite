@@ -603,7 +603,7 @@ function Examenes1(props) {
                                               fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
-                                              if (triggerTime > 1000) {
+                                              if (triggerTime > 500) {
                                                 setStudentExamRecId(
                                                   Conocimientos.studentExamRecordId
                                                 );
@@ -673,7 +673,7 @@ function Examenes1(props) {
                                               fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
-                                              if (triggerTime > 1000) {
+                                              if (triggerTime > 500) {
                                                 setStudentExamRecId(
                                                   Inglés.studentExamRecordId
                                                 );
@@ -738,7 +738,7 @@ function Examenes1(props) {
                                               fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
-                                              if (triggerTime > 1000) {
+                                              if (triggerTime > 500) {
                                                 setStudentExamRecId(
                                                   Psicotécnicos.studentExamRecordId
                                                 );
@@ -808,7 +808,7 @@ function Examenes1(props) {
                                               fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
-                                              if (triggerTime > 1000) {
+                                              if (triggerTime > 500) {
                                                 setStudentExamRecId(
                                                   Ortografía.studentExamRecordId
                                                 );
@@ -938,7 +938,7 @@ function Examenes1(props) {
                                                       Conocimientos.studentExamRecordId
                                                     }
                                                     onClick={(e) => {
-                                                      if (triggerTime > 1000) {
+                                                      if (triggerTime > 500) {
                                                         setStudentExamRecId(
                                                           Conocimientos.studentExamRecordId
                                                         );
@@ -1016,7 +1016,7 @@ function Examenes1(props) {
                                                       "ProximaSoft-bold",
                                                   }}
                                                   onClick={(e) => {
-                                                    if (triggerTime > 1000) {
+                                                    if (triggerTime > 500) {
                                                       setStudentExamRecId(
                                                         Inglés.studentExamRecordId
                                                       );
@@ -1093,7 +1093,7 @@ function Examenes1(props) {
                                                         "ProximaSoft-bold",
                                                     }}
                                                     onClick={(e) => {
-                                                      if (triggerTime > 1000) {
+                                                      if (triggerTime > 500) {
                                                         setStudentExamRecId(
                                                           Psicotécnicos.studentExamRecordId
                                                         );
@@ -1171,7 +1171,7 @@ function Examenes1(props) {
                                                       "ProximaSoft-bold",
                                                   }}
                                                   onClick={(e) => {
-                                                    if (triggerTime > 1000) {
+                                                    if (triggerTime > 500) {
                                                       setStudentExamRecId(
                                                         Ortografía.studentExamRecordId
                                                       );
