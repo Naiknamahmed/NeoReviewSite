@@ -47,6 +47,7 @@ function Examenes1(props) {
   const [resetExam, setResetExam] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
+  const [examStatusCheck, setExamStatusCheck] = useState(false);
   const [showExam, setShowExam] = useState(false);
   const [folderData, setFolderData] = useState([]);
   const [folderData2, setFolderData2] = useState([]);
@@ -204,11 +205,11 @@ function Examenes1(props) {
     axios
       .post(`https://neoestudio.net/api/getAllExamsOfFolder`, resetExamData)
       .then((response) => {
-        setExpanded(false);
         setFilesData(response.data.data);
         setStateRend((prev) => prev + 1);
+        setExamStatusCheck(true);
+        setExpanded(false);
         setListLoading(false);
-        setShowScreen(true);
         setResetExam(false);
       })
       .catch((error) => {
@@ -238,10 +239,9 @@ function Examenes1(props) {
       studentId: data.id,
       studentType: student_type,
       studentAnswered: null,
-      studentAttemptId: null,
+      studentAttemptId: resetExam ? studentExamRecId : null,
       tab: null,
-      isRestart: "no",
-      studentType: student_type,
+      isRestart: examStatusCheck ? "yes" : "no",
       examId: localStorage.getItem("examID"),
       studentExamRecordId: Conocimientos
         ? Conocimientos.studentExamRecordId
@@ -251,13 +251,23 @@ function Examenes1(props) {
         ? Ortografía.studentExamRecordId
         : Psicotécnicos.studentExamRecordId,
     };
-    setSecondsRemaining(
-      Conocimientos
-        ? Conocimientos.examDuration
-        : Inglés.examDuration
-        ? Ortografía.examDuration
-        : Psicotécnicos.examDuration
-    );
+    if (examStatusCheck === true) {
+      setSecondsRemaining(
+        Conocimientos
+          ? Conocimientos.timeFrom
+          : Inglés.timeFrom
+          ? Ortografía.timeFrom
+          : Psicotécnicos.timeFrom
+      );
+    } else {
+      setSecondsRemaining(
+        Conocimientos
+          ? Conocimientos.examDuration
+          : Inglés.examDuration
+          ? Ortografía.examDuration
+          : Psicotécnicos.examDuration
+      );
+    }
     setTotalLoading(
       Conocimientos
         ? Number(Conocimientos.timeFrom)
@@ -314,6 +324,7 @@ function Examenes1(props) {
       studentExamRecordId: examData[currentQuestion].studentExamRecordId,
       time: secondsRemaining,
     };
+    setExamStatusCheck(false);
     axios
       .post(`https://neoestudio.net/api/pauseAnswer`, pauseData)
       .then((response) => {
@@ -370,6 +381,7 @@ function Examenes1(props) {
     setShowScore(false);
     setCurrentQuestion(0);
     setExpanded(false);
+    setExamStatusCheck(false);
     setStateRend((prev) => prev + 1);
     if (props.showExam === "true") {
       props.updateView();
@@ -451,14 +463,12 @@ function Examenes1(props) {
       studentAttemptId: examData[currentQuestion].id,
       tab: null,
       Restart: "no",
-      studentType: student_type,
       examId: localStorage.getItem("examID"),
       studentExamRecordId: parseInt(
         examData[currentQuestion].studentExamRecordId
       ),
     };
     setSecondsRemaining(secondsRemaining);
-    console.log(answerClicked);
     axios
       .post(`https://neoestudio.net/api/startExam`, startData)
       .then((response) => {
@@ -1382,6 +1392,7 @@ function Examenes1(props) {
                           props.updateView();
                         } else {
                           setShowScreen(true);
+                          setExamStatusCheck(false);
                         }
                         setShowResult(false);
                         setShowScore(false);

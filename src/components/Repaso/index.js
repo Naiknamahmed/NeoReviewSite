@@ -11,6 +11,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CircularProgress from "@mui/material/CircularProgress";
+import noBtnImg from "../../assets/img/images/noBtn.webp";
+import siBtnImg from "../../assets/img/images/SiBtn.webp";
 import ansSelectImg from "../../assets/img/images/Flecha.webp";
 import Revisar from "../../assets/img/images/revisar.webp";
 import Salir from "../../assets/img/images/salirExamenes.webp";
@@ -56,6 +58,7 @@ function Repaso(props) {
   const [secondsRemaining, setSecondsRemaining] = useState(0);
   const [studentAnswer, setStudentAnswered] = useState(null);
   const [ansCheck, setAnsCheck] = useState(0);
+  const [examStatusCheck, setExamStatusCheck] = useState(false);
   const [progress, setProgress] = useState(0);
   const [ansArry, setAnsArry] = useState([]);
   const [totalLoading, setTotalLoading] = useState(0);
@@ -127,7 +130,6 @@ function Repaso(props) {
       .post(`https://neoestudio.net/api/getReviewFolderExams`, getExamFiles)
       .then((response) => {
         setFilesData(response.data.data);
-        console.log(response.data.data);
         setListLoading(false);
       })
       .catch((error) => {
@@ -148,14 +150,14 @@ function Repaso(props) {
       .post(`https://neoestudio.net/api/getReviewFolderExams`, resetExamData)
       .then((response) => {
         setFilesData(response.data.data);
-        console.log(response.data.data);
         setStateRend((prev) => prev + 1);
+        setExamStatusCheck(true);
         setListLoading(false);
         setResetExam(false);
       })
       .catch((error) => {
         setListLoading(false);
-        console.log(error, "Error Loading Reset APi, Please Try Again !");
+        console.log(error, "Error Loading Reset Api, Please Try Again !");
       });
   };
 
@@ -167,8 +169,6 @@ function Repaso(props) {
   // START EXAM API CALL
 
   const startExams = (e, Conocimientos, Inglés, Ortografía, Psicotécnicos) => {
-    console.log(e?.target?.id);
-    console.log(Conocimientos);
     const ExamNO = e?.target?.id ? e.target.id : e.id;
     localStorage.setItem("examID", ExamNO);
     setLoading(true);
@@ -178,8 +178,7 @@ function Repaso(props) {
       studentAnswered: null,
       studentAttemptId: null,
       tab: null,
-      isRestart: "no",
-      studentType: student_type,
+      isRestart: examStatusCheck ? "yes" : "no",
       examId: localStorage.getItem("examID"),
       studentExamRecordId: Conocimientos
         ? Conocimientos.studentExamRecordId
@@ -189,13 +188,23 @@ function Repaso(props) {
         ? Ortografía.studentExamRecordId
         : Psicotécnicos.studentExamRecordId,
     };
-    setSecondsRemaining(
-      Conocimientos
-        ? Conocimientos.examDuration
-        : Inglés.examDuration
-        ? Ortografía.examDuration
-        : Psicotécnicos.examDuration
-    );
+    if (examStatusCheck === true) {
+      setSecondsRemaining(
+        Conocimientos
+          ? Conocimientos.timeFrom
+          : Inglés.timeFrom
+          ? Ortografía.timeFrom
+          : Psicotécnicos.timeFrom
+      );
+    } else {
+      setSecondsRemaining(
+        Conocimientos
+          ? Conocimientos.examDuration
+          : Inglés.examDuration
+          ? Ortografía.examDuration
+          : Psicotécnicos.examDuration
+      );
+    }
     setTotalLoading(
       Conocimientos
         ? Number(Conocimientos.timeFrom)
@@ -216,7 +225,6 @@ function Repaso(props) {
           ]);
         }
         setExamData(response.data.data);
-        console.log(response.data.data);
         setLoading(false);
         setStatus(true);
         setCurrentQuestion(0);
@@ -225,7 +233,6 @@ function Repaso(props) {
       })
       .catch((error) => {
         setLoading(false);
-        alert("Please Try Again");
         console.log(error, "Error Loading, Please Try Again !");
       });
   };
@@ -258,6 +265,7 @@ function Repaso(props) {
       .then((response) => {
         setPauseExam(response.data);
         if (response.data.data.canPause == "yes") {
+          setExamStatusCheck(false);
           setStatus(false);
           if (props.showScreen === "false") {
             props.updateView();
@@ -309,6 +317,7 @@ function Repaso(props) {
     setShowScore(false);
     setCurrentQuestion(0);
     setExpanded(false);
+    setExamStatusCheck(false);
     setStateRend((prev) => prev + 1);
     if (props.showExam === "true") {
       props.updateView();
@@ -380,7 +389,6 @@ function Repaso(props) {
 
   const handleSetAnswer = (id) => {
     setAnsCheck(currentQuestion);
-    console.log(answerClicked);
     ansArry.splice(ansCheck, 1, {
       answer: answerClicked,
     });
@@ -452,24 +460,20 @@ function Repaso(props) {
                   </Typography>
                   <div className="flex justify-between w-full">
                     <Button
-                      variant="contained"
-                      color="primary"
                       size="medium"
-                      sx={{ padding: "0px 20px" }}
                       onClick={() => {
                         resetRepasoExam();
                       }}
                     >
-                      Yes
+                      <img src={siBtnImg} alt="" height={50} />
                     </Button>
                     <Button
-                      variant="contained"
-                      sx={{ backgroundColor: "gray" }}
+                      size="medium"
                       onClick={() => {
                         setResetExam(false);
                       }}
                     >
-                      No
+                      <img src={noBtnImg} alt="" height={50} />
                     </Button>
                   </div>
                 </Box>
@@ -791,6 +795,7 @@ function Repaso(props) {
                         }
                         setShowResult(false);
                         setShowScore(false);
+                        setExamStatusCheck(false);
                       }}
                     >
                       Volver a Exámenes
