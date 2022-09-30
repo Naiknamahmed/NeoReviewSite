@@ -981,24 +981,31 @@ function Repaso(props) {
                           src={correctAnswerImg}
                           className={Styles.timerIcons}
                           onClick={() => {
-                            ansArry.splice(ansCheck, 1, {
-                              answer:
-                                examData[currentQuestion].correct === "a"
-                                  ? "answer1"
-                                  : examData[currentQuestion].correct === "b"
-                                  ? "answer2"
-                                  : examData[currentQuestion].correct === "c"
-                                  ? "answer3"
-                                  : examData[currentQuestion].correct === "d"
-                                  ? "answer4"
-                                  : "",
-                              showDescript: true,
-                            });
-                            setCurrentQuestion(currentQuestion + 1);
-                            setAnsCheck(currentQuestion + 1);
-                            return handleSetAnswer(
-                              examData[currentQuestion].correct
-                            );
+                            if (
+                              currentQuestion + 1 >= 
+                              examData[currentQuestion].length
+                            ) {
+                              ansArry.splice(ansCheck, 1, {
+                                answer:
+                                  examData[currentQuestion].correct === "a"
+                                    ? "answer1"
+                                    : examData[currentQuestion].correct === "b"
+                                    ? "answer2"
+                                    : examData[currentQuestion].correct === "c"
+                                    ? "answer3"
+                                    : examData[currentQuestion].correct === "d"
+                                    ? "answer4"
+                                    : "",
+                                showDescript: true,
+                              });
+                              setCurrentQuestion(currentQuestion + 1);
+                              setAnsCheck(currentQuestion + 1);
+                              return handleSetAnswer(
+                                examData[currentQuestion].correct
+                              );
+                            } else {
+                              endQuiz();
+                            }
                           }}
                         />
                       </div>
