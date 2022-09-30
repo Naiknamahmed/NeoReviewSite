@@ -202,6 +202,7 @@ function Examenes1(props) {
       examId: studentExamRecId,
       isRestart: true,
     };
+    setAnsCheck(0);
     setCurrentQuestion(0);
     axios
       .post(`https://neoestudio.net/api/getAllExamsOfFolder`, resetExamData)
@@ -1578,10 +1579,12 @@ function Examenes1(props) {
                           src={correctAnswerImg}
                           className={Styles.timerIcons}
                           onClick={() => {
-                            if (
-                              currentQuestion + 1 >=
-                              examData[currentQuestion].length
-                            ) {
+                            if (currentQuestion + 1 >= examData.length) {
+                              handleSetAnswer(
+                                examData[currentQuestion].correct
+                              );
+                              endQuiz();
+                            } else {
                               ansArry.splice(ansCheck, 1, {
                                 answer:
                                   examData[currentQuestion].correct === "a"
@@ -1600,8 +1603,6 @@ function Examenes1(props) {
                               return handleSetAnswer(
                                 examData[currentQuestion].correct
                               );
-                            } else {
-                              endQuiz();
                             }
                           }}
                         />

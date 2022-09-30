@@ -148,6 +148,7 @@ function Repaso(props) {
       isRestart: true,
     };
     setCurrentQuestion(0);
+    setAnsCheck(0);
     axios
       .post(`https://neoestudio.net/api/getReviewFolderExams`, resetExamData)
       .then((response) => {
@@ -981,10 +982,12 @@ function Repaso(props) {
                           src={correctAnswerImg}
                           className={Styles.timerIcons}
                           onClick={() => {
-                            if (
-                              currentQuestion + 1 >= 
-                              examData[currentQuestion].length
-                            ) {
+                            if (currentQuestion + 1 >= examData.length) {
+                              handleSetAnswer(
+                                examData[currentQuestion].correct
+                              );
+                              endQuiz();
+                            } else {
                               ansArry.splice(ansCheck, 1, {
                                 answer:
                                   examData[currentQuestion].correct === "a"
@@ -1003,8 +1006,6 @@ function Repaso(props) {
                               return handleSetAnswer(
                                 examData[currentQuestion].correct
                               );
-                            } else {
-                              endQuiz();
                             }
                           }}
                         />
