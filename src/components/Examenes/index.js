@@ -28,6 +28,7 @@ import answerImg1 from "../../assets/img/images/blue.webp";
 import noSelect from "../../assets/img/images/transparent.webp";
 import golden from "../../assets/img/images/golden.webp";
 import pauseImg from "../../assets/img/images/pause.webp";
+import correctAnswerImg from "../../assets/img/images/correctAnswer.webp";
 import stopImg from "../../assets/img/images/stop.webp";
 import Modal from "@mui/material/Modal";
 import directoryImg from "../../assets/img/images/directory.webp";
@@ -60,7 +61,6 @@ function Examenes1(props) {
   const [loading, setLoading] = useState(true);
   const [listLoading, setListLoading] = useState(true);
   const [secondsRemaining, setSecondsRemaining] = useState(0);
-  const [studentAnswer, setStudentAnswered] = useState(null);
   const [ansCheck, setAnsCheck] = useState(0);
   const [studentExamRecId, setStudentExamRecId] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -179,7 +179,7 @@ function Examenes1(props) {
       studentId: student_id,
       studentType: student_type,
       folderId: id,
-      studentExamRecordId: 2862,
+      examId: studentExamRecId,
       isRestart: false,
     };
     axios
@@ -202,6 +202,7 @@ function Examenes1(props) {
       examId: studentExamRecId,
       isRestart: true,
     };
+    setCurrentQuestion(0);
     axios
       .post(`https://neoestudio.net/api/getAllExamsOfFolder`, resetExamData)
       .then((response) => {
@@ -275,6 +276,7 @@ function Examenes1(props) {
         ? Number(Ortografía.timeFrom)
         : Number(Psicotécnicos.timeFrom)
     );
+    setCurrentQuestion(0);
     axios
       .post(`https://neoestudio.net/api/startExam`, startData)
       .then((response) => {
@@ -290,7 +292,6 @@ function Examenes1(props) {
         setExamData(response.data.data);
         setLoading(false);
         setStatus(true);
-        setCurrentQuestion(0);
         setShowScreen(false);
         setShowExam(true);
       })
@@ -452,10 +453,15 @@ function Examenes1(props) {
   // NEXT QUESTION BUTTON
 
   const handleSetAnswer = (id) => {
-    setAnsCheck(currentQuestion);
-    ansArry.splice(ansCheck, 1, {
-      answer: answerClicked,
-    });
+    if (id === "a") {
+      answerClicked = "answer1";
+    } else if (id === "b") {
+      answerClicked = "answer2";
+    } else if (id === "c") {
+      answerClicked = "answer3";
+    } else if (id === "d") {
+      answerClicked = "answer4";
+    }
     const startData = {
       studentId: data.id,
       studentType: student_type,
@@ -464,10 +470,8 @@ function Examenes1(props) {
       tab: null,
       Restart: "no",
       examId: localStorage.getItem("examID"),
-      studentExamRecordId: parseInt(
-        examData[currentQuestion].studentExamRecordId
-      ),
     };
+    console.log(ansArry, "answerRRy");
     setSecondsRemaining(secondsRemaining);
     axios
       .post(`https://neoestudio.net/api/startExam`, startData)
@@ -519,7 +523,7 @@ function Examenes1(props) {
                     component="h2"
                     sx={{ textAlign: "center" }}
                   >
-                    Quieres resetear este examen?
+                    ¿Quieres resetear este examen?
                   </Typography>
                   <div className="flex justify-between w-full">
                     <Button
@@ -603,7 +607,7 @@ function Examenes1(props) {
                                               fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
-                                              if (triggerTime > 500) {
+                                              if (triggerTime > 300) {
                                                 setStudentExamRecId(
                                                   Conocimientos.studentExamRecordId
                                                 );
@@ -673,7 +677,7 @@ function Examenes1(props) {
                                               fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
-                                              if (triggerTime > 500) {
+                                              if (triggerTime >= 300) {
                                                 setStudentExamRecId(
                                                   Inglés.studentExamRecordId
                                                 );
@@ -738,7 +742,7 @@ function Examenes1(props) {
                                               fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
-                                              if (triggerTime > 500) {
+                                              if (triggerTime >= 300) {
                                                 setStudentExamRecId(
                                                   Psicotécnicos.studentExamRecordId
                                                 );
@@ -808,7 +812,7 @@ function Examenes1(props) {
                                               fontFamily: "ProximaSoft-bold",
                                             }}
                                             onClick={(e) => {
-                                              if (triggerTime > 500) {
+                                              if (triggerTime >= 300) {
                                                 setStudentExamRecId(
                                                   Ortografía.studentExamRecordId
                                                 );
@@ -938,7 +942,7 @@ function Examenes1(props) {
                                                       Conocimientos.studentExamRecordId
                                                     }
                                                     onClick={(e) => {
-                                                      if (triggerTime > 500) {
+                                                      if (triggerTime >= 300) {
                                                         setStudentExamRecId(
                                                           Conocimientos.studentExamRecordId
                                                         );
@@ -1016,7 +1020,7 @@ function Examenes1(props) {
                                                       "ProximaSoft-bold",
                                                   }}
                                                   onClick={(e) => {
-                                                    if (triggerTime > 500) {
+                                                    if (triggerTime >= 300) {
                                                       setStudentExamRecId(
                                                         Inglés.studentExamRecordId
                                                       );
@@ -1093,7 +1097,7 @@ function Examenes1(props) {
                                                         "ProximaSoft-bold",
                                                     }}
                                                     onClick={(e) => {
-                                                      if (triggerTime > 500) {
+                                                      if (triggerTime >= 300) {
                                                         setStudentExamRecId(
                                                           Psicotécnicos.studentExamRecordId
                                                         );
@@ -1171,7 +1175,7 @@ function Examenes1(props) {
                                                       "ProximaSoft-bold",
                                                   }}
                                                   onClick={(e) => {
-                                                    if (triggerTime > 500) {
+                                                    if (triggerTime >= 300) {
                                                       setStudentExamRecId(
                                                         Ortografía.studentExamRecordId
                                                       );
@@ -1570,6 +1574,30 @@ function Examenes1(props) {
                           className={Styles.timerIcons}
                           onClick={endQuiz}
                         />
+                        <img
+                          src={correctAnswerImg}
+                          className={Styles.timerIcons}
+                          onClick={() => {
+                            ansArry.splice(ansCheck, 1, {
+                              answer:
+                                examData[currentQuestion].correct === "a"
+                                  ? "answer1"
+                                  : examData[currentQuestion].correct === "b"
+                                  ? "answer2"
+                                  : examData[currentQuestion].correct === "c"
+                                  ? "answer3"
+                                  : examData[currentQuestion].correct === "d"
+                                  ? "answer4"
+                                  : "",
+                              showDescript: true,
+                            });
+                            setCurrentQuestion(currentQuestion + 1);
+                            setAnsCheck(currentQuestion + 1);
+                            return handleSetAnswer(
+                              examData[currentQuestion].correct
+                            );
+                          }}
+                        />
                       </div>
                       <div className="flex text-xl">
                         Tiempo:
@@ -1618,6 +1646,10 @@ function Examenes1(props) {
                             answerClicked = "answer1";
                             handleSetAnswer("answer1");
                           }
+                          ansArry.splice(ansCheck, 1, {
+                            answer: answerClicked,
+                            showDescript: false,
+                          });
                         }}
                         className={Styles.answerLinks}
                       >
@@ -1651,6 +1683,10 @@ function Examenes1(props) {
                             answerClicked = "answer2";
                             handleSetAnswer("answer2");
                           }
+                          ansArry.splice(ansCheck, 1, {
+                            answer: answerClicked,
+                            showDescript: false,
+                          });
                         }}
                         className={Styles.answerLinks}
                       >
@@ -1681,6 +1717,10 @@ function Examenes1(props) {
                             answerClicked = "answer3";
                             handleSetAnswer("answer3");
                           }
+                          ansArry.splice(ansCheck, 1, {
+                            answer: answerClicked,
+                            showDescript: false,
+                          });
                         }}
                         className={Styles.answerLinks}
                       >
@@ -1711,6 +1751,10 @@ function Examenes1(props) {
                             answerClicked = "answer4";
                             handleSetAnswer("answer4");
                           }
+                          ansArry.splice(ansCheck, 1, {
+                            answer: answerClicked,
+                            showDescript: false,
+                          });
                         }}
                         className={Styles.answerLinks}
                       >
@@ -1728,6 +1772,18 @@ function Examenes1(props) {
                       </button>
                     </div>
                   </div>
+                  {ansArry[currentQuestion].showDescript === true ? (
+                    <div
+                      className="m-8"
+                      style={{
+                        fontFamily: "ProximaSoft-regular",
+                      }}
+                    >
+                      <Markup content={examData[currentQuestion].description} />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <div className={Styles.resultBtnWrapper}>
                     {ansArry.map((data, index) => {
                       return (
@@ -1740,7 +1796,6 @@ function Examenes1(props) {
                             onClick={() => {
                               setCurrentQuestion(index);
                               setAnsCheck(index);
-                              setStudentAnswered(null);
                             }}
                             className={`${Styles.resultBtn} noAnswer`}
                             style={{
