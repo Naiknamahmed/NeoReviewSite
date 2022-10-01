@@ -992,10 +992,10 @@ function Repaso(props) {
                                   ? "answer3"
                                   : examData[currentQuestion].correct === "d"
                                   ? "answer4"
-                                  : "",
+                                  : answerClicked,
                               showDescript: true,
                             });
-                            return handleSetAnswer();
+                            return handleSetAnswer(answerClicked);
                           }}
                         />
                       </div>
