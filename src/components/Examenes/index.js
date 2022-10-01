@@ -1579,31 +1579,20 @@ function Examenes1(props) {
                           src={correctAnswerImg}
                           className={Styles.timerIcons}
                           onClick={() => {
-                            if (currentQuestion + 1 >= examData.length) {
-                              handleSetAnswer(
-                                examData[currentQuestion].correct
-                              );
-                              endQuiz();
-                            } else {
-                              ansArry.splice(ansCheck, 1, {
-                                answer:
-                                  examData[currentQuestion].correct === "a"
-                                    ? "answer1"
-                                    : examData[currentQuestion].correct === "b"
-                                    ? "answer2"
-                                    : examData[currentQuestion].correct === "c"
-                                    ? "answer3"
-                                    : examData[currentQuestion].correct === "d"
-                                    ? "answer4"
-                                    : "",
-                                showDescript: true,
-                              });
-                              setCurrentQuestion(currentQuestion + 1);
-                              setAnsCheck(currentQuestion + 1);
-                              return handleSetAnswer(
-                                examData[currentQuestion].correct
-                              );
-                            }
+                            ansArry.splice(ansCheck, 1, {
+                              answer:
+                                examData[currentQuestion].correct === "a"
+                                  ? "answer1"
+                                  : examData[currentQuestion].correct === "b"
+                                  ? "answer2"
+                                  : examData[currentQuestion].correct === "c"
+                                  ? "answer3"
+                                  : examData[currentQuestion].correct === "d"
+                                  ? "answer4"
+                                  : "",
+                              showDescript: true,
+                            });
+                            return handleSetAnswer();
                           }}
                         />
                       </div>
@@ -1663,8 +1652,17 @@ function Examenes1(props) {
                       >
                         <div className={Styles.answerLinksInner1}>
                           {ansArry[currentQuestion].answer == "answer1" &&
-                          currentQuestion == ansCheck ? (
+                          currentQuestion == ansCheck &&
+                          ansArry[currentQuestion].showDescript != true ? (
                             <img src={ansSelectImg} width={"80%"} />
+                          ) : ansArry[currentQuestion].showDescript === true &&
+                            examData[currentQuestion].correct == "a" ? (
+                            <img src={tick} alt="" style={{ width: "40px" }} />
+                          ) : ansArry[currentQuestion].showDescript === true &&
+                            examData[currentQuestion].studentAnswered ==
+                              "answer1" &&
+                            examData[currentQuestion].correct != "a" ? (
+                            <img src={cross} alt="" style={{ width: "40px" }} />
                           ) : (
                             ""
                           )}
@@ -1700,8 +1698,17 @@ function Examenes1(props) {
                       >
                         <div className={Styles.answerLinksInner1}>
                           {ansArry[currentQuestion].answer == "answer2" &&
-                          currentQuestion == ansCheck ? (
+                          currentQuestion == ansCheck &&
+                          ansArry[currentQuestion].showDescript != true ? (
                             <img src={ansSelectImg} width={"80%"} />
+                          ) : ansArry[currentQuestion].showDescript === true &&
+                            examData[currentQuestion].correct == "b" ? (
+                            <img src={tick} alt="" style={{ width: "40px" }} />
+                          ) : ansArry[currentQuestion].showDescript === true &&
+                            examData[currentQuestion].studentAnswered ==
+                              "answer2" &&
+                            examData[currentQuestion].correct != "b" ? (
+                            <img src={cross} alt="" style={{ width: "40px" }} />
                           ) : (
                             ""
                           )}
@@ -1734,8 +1741,17 @@ function Examenes1(props) {
                       >
                         <div className={Styles.answerLinksInner1}>
                           {ansArry[currentQuestion].answer == "answer3" &&
-                          currentQuestion == ansCheck ? (
+                          currentQuestion == ansCheck &&
+                          ansArry[currentQuestion].showDescript != true ? (
                             <img src={ansSelectImg} width={"80%"} />
+                          ) : ansArry[currentQuestion].showDescript === true &&
+                            examData[currentQuestion].correct == "c" ? (
+                            <img src={tick} alt="" style={{ width: "40px" }} />
+                          ) : ansArry[currentQuestion].showDescript === true &&
+                            examData[currentQuestion].studentAnswered ==
+                              "answer3" &&
+                            examData[currentQuestion].correct != "c" ? (
+                            <img src={cross} alt="" style={{ width: "40px" }} />
                           ) : (
                             ""
                           )}
@@ -1768,8 +1784,17 @@ function Examenes1(props) {
                       >
                         <div className={Styles.answerLinksInner1}>
                           {ansArry[currentQuestion].answer == "answer4" &&
-                          currentQuestion == ansCheck ? (
+                          currentQuestion == ansCheck &&
+                          ansArry[currentQuestion].showDescript != true ? (
                             <img src={ansSelectImg} width={"80%"} />
+                          ) : ansArry[currentQuestion].showDescript === true &&
+                            examData[currentQuestion].correct == "d" ? (
+                            <img src={tick} alt="" style={{ width: "40px" }} />
+                          ) : ansArry[currentQuestion].showDescript === true &&
+                            examData[currentQuestion].studentAnswered ==
+                              "answer4" &&
+                            examData[currentQuestion].correct != "d" ? (
+                            <img src={cross} alt="" style={{ width: "40px" }} />
                           ) : (
                             ""
                           )}
