@@ -391,15 +391,6 @@ function Repaso(props) {
   // NEXT QUESTION BUTTON
 
   const handleSetAnswer = (id) => {
-    if (id === "a") {
-      answerClicked = "answer1";
-    } else if (id === "b") {
-      answerClicked = "answer2";
-    } else if (id === "c") {
-      answerClicked = "answer3";
-    } else if (id === "d") {
-      answerClicked = "answer4";
-    }
     const startData = {
       studentId: data.id,
       studentType: student_type,
@@ -420,6 +411,7 @@ function Repaso(props) {
         if (currentQuestion + 1 >= examData.length) {
           endQuiz();
         } else {
+          setExamData(response.data.data);
           setLoading(false);
         }
       })
@@ -995,7 +987,7 @@ function Repaso(props) {
                                   : answerClicked,
                               showDescript: true,
                             });
-                            return handleSetAnswer(answerClicked);
+                            return handleSetAnswer();
                           }}
                         />
                       </div>

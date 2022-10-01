@@ -454,15 +454,6 @@ function Examenes1(props) {
   // NEXT QUESTION BUTTON
 
   const handleSetAnswer = (id) => {
-    if (id === "a") {
-      answerClicked = "answer1";
-    } else if (id === "b") {
-      answerClicked = "answer2";
-    } else if (id === "c") {
-      answerClicked = "answer3";
-    } else if (id === "d") {
-      answerClicked = "answer4";
-    }
     const startData = {
       studentId: data.id,
       studentType: student_type,
@@ -480,6 +471,7 @@ function Examenes1(props) {
         if (currentQuestion + 1 >= examData.length) {
           endQuiz();
         } else {
+          setExamData(response.data.data);
           setLoading(false);
         }
       })
@@ -1592,7 +1584,7 @@ function Examenes1(props) {
                                   : answerClicked,
                               showDescript: true,
                             });
-                            return handleSetAnswer(answerClicked);
+                            return handleSetAnswer();
                           }}
                         />
                       </div>
@@ -1658,8 +1650,7 @@ function Examenes1(props) {
                           ) : ansArry[currentQuestion].showDescript === true &&
                             examData[currentQuestion].correct == "a" ? (
                             <img src={tick} alt="" style={{ width: "40px" }} />
-                          ) : ansArry[currentQuestion].showDescript === true &&
-                            examData[currentQuestion].studentAnswered ==
+                          ) : examData[currentQuestion].studentAnswered ==
                               "answer1" &&
                             examData[currentQuestion].correct != "a" ? (
                             <img src={cross} alt="" style={{ width: "40px" }} />
@@ -1704,8 +1695,7 @@ function Examenes1(props) {
                           ) : ansArry[currentQuestion].showDescript === true &&
                             examData[currentQuestion].correct == "b" ? (
                             <img src={tick} alt="" style={{ width: "40px" }} />
-                          ) : ansArry[currentQuestion].showDescript === true &&
-                            examData[currentQuestion].studentAnswered ==
+                          ) : examData[currentQuestion].studentAnswered ==
                               "answer2" &&
                             examData[currentQuestion].correct != "b" ? (
                             <img src={cross} alt="" style={{ width: "40px" }} />
@@ -1747,8 +1737,7 @@ function Examenes1(props) {
                           ) : ansArry[currentQuestion].showDescript === true &&
                             examData[currentQuestion].correct == "c" ? (
                             <img src={tick} alt="" style={{ width: "40px" }} />
-                          ) : ansArry[currentQuestion].showDescript === true &&
-                            examData[currentQuestion].studentAnswered ==
+                          ) : examData[currentQuestion].studentAnswered ==
                               "answer3" &&
                             examData[currentQuestion].correct != "c" ? (
                             <img src={cross} alt="" style={{ width: "40px" }} />
@@ -1790,8 +1779,7 @@ function Examenes1(props) {
                           ) : ansArry[currentQuestion].showDescript === true &&
                             examData[currentQuestion].correct == "d" ? (
                             <img src={tick} alt="" style={{ width: "40px" }} />
-                          ) : ansArry[currentQuestion].showDescript === true &&
-                            examData[currentQuestion].studentAnswered ==
+                          ) : examData[currentQuestion].studentAnswered ==
                               "answer4" &&
                             examData[currentQuestion].correct != "d" ? (
                             <img src={cross} alt="" style={{ width: "40px" }} />
